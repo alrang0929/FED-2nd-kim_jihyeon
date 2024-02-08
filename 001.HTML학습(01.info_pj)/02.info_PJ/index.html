@@ -93,15 +93,30 @@
             }
             /* 상단영역 */
             #top-area {
+                /* 배경색: bgc */
                 background-color: #86ffae;
-                font-family: 'Black Han Sans', sans-serif;
             }
 
             /* 하단영역 */
 
             #info-area {
-                background-color: hsl(0, 0%, 83%);
+                background-color: hsl(0, 0%, 28%);
                 font-family: 'Noto Sans KR', sans-serif;
+            /*   박스 모서리 라운드 border-radius: 20px; */
+                border-radius: 20px;
+                border: 4px #00581d
+            }
+            .tit{
+                /* 글자체: ff */
+                font-family: 'Black Han Sans', sans-serif;
+                color: #000a035e;
+            }
+            /* 주소요소 */
+            #info-area address{
+                /* 이테릭헤제: fsn */
+                font-style: normal;
+                color: #ffffff;
+        
             }
 
             /* 메뉴링크 */
@@ -113,9 +128,10 @@
                 tab-size: 24px;
             }
 
-            /* 메뉴링크 오버시 */
-            .menu a:hover{
-                text-decoration: overline;
+            /* 메뉴링크 오버시
+            :hover은 가상 클래스(마우스 오버시) */
+            .menu a+a:hover{
+                text-decoration: underline;
                 text-decoration-style: wavy;
                 color: #ff5f5f;
             }
@@ -133,6 +149,8 @@
             4. 자손 선택자: 띄어쓰기 
             5. 직계자식 선택자: 꺽쇠 (>)
             6. 그룹선택자: 콤마(,)
+            7. 형제 선택자: 플러스(+)
+                            ex) a+a -> 앞에 A요소가 있는 a요소선택
 
         */
 
@@ -153,7 +171,10 @@
                     <img src="./img/logo.png" alt="네이버로고" style="width: 50px; vertical-align: middle" />
                     <!-- style속성으로 개별요소에 CSS를 설정할 수 있다! 이런방식을 인라인방식이라고 함 -->
                 </a>
-                <a href="">정치 | </a><a href="">경제 | </a><a href="">사회 | </a><a href="">IT/과학 |</a>
+                <a href="">정치</a> | 
+                <a href="">경제</a> | 
+                <a href="">사회</a> | 
+                <a href="">IT/과학</a> |
                 <a href="">TV/연예</a>
             </div>
         </header>
