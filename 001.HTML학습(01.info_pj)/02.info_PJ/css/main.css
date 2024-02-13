@@ -1,2 +1,4 @@
 /* Info_PJ 메인페이지용 CSS - main.css */
 
+/* 공통외부 css 불러오기 */
+@import url(./common.css);
