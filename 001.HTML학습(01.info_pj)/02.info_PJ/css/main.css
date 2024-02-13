@@ -2,3 +2,10 @@
 
 /* 공통외부 css 불러오기 */
 @import url(./common.css);
+
+/* 메인용 CSS코드 */
+
+/* 메인 이미지 크기 변경하기 */
+main#main-area > img {
+    width: 100%;
+}
