@@ -11,7 +11,7 @@
 /* 서브페이지 타이틀 */
 h2.sub-title {
     /* 글자색: (C) */
-    color: #0fb100;
+    /* color: #0fb100; */
     /*     color: rgb(26 253 45/0.582);
     color: rgba(26, 253, 45, 0.582); */
 
@@ -45,6 +45,7 @@ h2.sub-title {
 
     /* 패딩 - p */
     padding: 20px;
+    
     /* 배경색: bgc */
     background-color: rgb(255, 255, 255);
 
@@ -75,26 +76,32 @@ font-family: "Do Hyeon", sans-serif;
 /* 배경이미지: bgi 개별적으로 줌! */
 /*     background-image: url(../images/titbg4.jpg); */
 /* 정치 */
-.politics {
+.sub-title.politics {
+    color: #ffffff;
     background-image: url(../images/titbg1.jpg);
 }
 
 /* 경제 */
-.economic {
+.sub-title.economic {
+    color: #fff;
     background-image: url(../images/titbg2.jpg);
 }
 
 /* 사회 */
-.society {
+.sub-title.society {
+    color: #fff;
     background-image: url(../images/titbg3.jpg);
 }
 
 /* IT/과학 */
-.it {
+.sub-title.it {
+    color: #fff;
     background-image: url(../images/titbg4.jpg);
 }
 
 /* TV/연예 */
-.tv {
+.sub-title.tv {
+    color: #fff;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
     background-image: url(../images/titbg5.jpg);
 }
