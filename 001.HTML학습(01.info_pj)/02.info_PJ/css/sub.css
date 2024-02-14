@@ -1,5 +1,10 @@
+@charset "UTF-8";
+/* 
+맨 위 UTF-8처리는 필수!!
+외부 css파일은 파일 자체적으로 처리되므로 인코딩형식도 따로 지정해야한다! */
 /* info_PJ 서브페이지용 CSS - sub.css */
 /* 공통외부 css 불러오기 */
+
 @import url(./common.css);
 
 /* 
@@ -8,6 +13,13 @@
     이것의 이점은 웹요청[http request]이 줄어들어
     html의 렌더링 속도가 항상된다!
 */
+
+/* 서브페이지 글씨체 지정 */
+
+#main-area{
+    font-family: "Noto Sans KR", sans-serif;
+}
+
 /* 서브페이지 타이틀 */
 h2.sub-title {
     /* 글자색: (C) */
@@ -45,7 +57,7 @@ h2.sub-title {
 
     /* 패딩 - p */
     padding: 20px;
-    
+
     /* 배경색: bgc */
     background-color: rgb(255, 255, 255);
 
@@ -72,6 +84,7 @@ h2.sub-title {
 font-family: "Do Hyeon", sans-serif;
 */
 }
+
 
 /* 배경이미지: bgi 개별적으로 줌! */
 /*     background-image: url(../images/titbg4.jpg); */
@@ -105,3 +118,55 @@ font-family: "Do Hyeon", sans-serif;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
     background-image: url(../images/titbg5.jpg);
 }
+
+/* 언론사 로고 */
+.press-logo img{
+    height: 32px;
+    /* 이미지는 가로세로중 하나만 주면 비율을 유지하여 변경된다 */
+}
+
+/* 기사 타이틀 */
+.article-tltle img{
+    height: 30px;
+    color: #111;
+}
+
+/* 기사 이미지박스 */
+.article-picture{
+    margin: 20px 0px;
+    padding: 0px 0px 5px;
+}
+
+/* 기사 이미지 */
+.article-picture img{
+    width: 100%;
+    padding-bottom: 15px;
+
+}
+
+/* 기사 이미지 설명 */
+.article-picture figcaption{
+    /* trc - 텍스트 중앙정렬 */
+    font-size: 15px;
+    padding: 0 5px;
+    text-align: center;
+}
+/* 기사 이미지 설명 글자 크기 변경*/
+.article-picture figcaption small{
+    font-size: 15px;
+    /* small의 글자크기가 지정되어 있으므로
+    여기에 글자크기를 변경해야한다 */
+}
+
+/* 기사내용 */
+.contents p{
+    font-size: 17px;
+    /* 장평 */
+    letter-spacing: -0.3px;
+    /* 줄간격: lh (단위가 없을 시: 글자수xn) 
+    line-height는 글자의 중앙에서 위아래 높이값을 말하며 글자는 중앙에 흐른다.
+    단위는 없을 경우 글자크기의 배수로 셋팅됨.*/
+    line-height: 1.56;
+    color: #303038;
+}
+

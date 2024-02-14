@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* info PS 공통 CSS - common.css */
 
 /* 웹폰트 구글CDM(Content Delivery Network) */
@@ -101,7 +102,10 @@ footer.part {
 .tit {
     /* 글자체: ff */
     font-family: "Black Han Sans", sans-serif;
-    color: #000a035e;
+    font-size: 46px;
+    color: darkslateblue;
+    text-shadow: 2px 2px #797979;
+    margin: 28px 0px;
 }
 /* 주소요소 */
 #info-area address {
