@@ -177,7 +177,7 @@ font-family: "Do Hyeon", sans-serif;
     display: block;
     /* 크기요소는 인라인일떄 적용 안됨! */
     width: 80%;
-    
+
 
     /* 크기를 가진 블럭요소 중앙정렬
     -마영오! margin:0 auto */
@@ -201,7 +201,8 @@ font-family: "Do Hyeon", sans-serif;
 .quote-box {
     border-top: 1px dashed #797979;
     border-bottom: 1px dashed #797979;
-    margin: 20px 0;
+    margin: 0;
+    padding: 15px 0;
 }
 
 /* 인용구 제목 */
@@ -209,7 +210,7 @@ font-family: "Do Hyeon", sans-serif;
     /* 기본 display가 block이어서
     글씨만큼 가지려면 inline-block으로 바꿔야한다 */
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #cacaca;
     border-radius: 10px;
     background-color: #ededed;
@@ -229,14 +230,16 @@ font-family: "Do Hyeon", sans-serif;
     width: 300px;
     text-align: center;
     padding: 5px;
-    margin: 30px 0 0;
+
+    /* 기본마진 삭제 */
+    margin: 0;
+
 }
 
 /* 블록인용박스 */
 .quote-box blockquote {
-    margin: 20px 0 30px 0;
-    font-size: 20px;
-    line-height: 2.2em;
+    font-size: 16px;
+    line-height: 1.75em;
 
     /* 양쪽정렬: taj */
     text-align: justify;
@@ -244,8 +247,12 @@ font-family: "Do Hyeon", sans-serif;
     부모박스에서 자식요소를 인식하지 못하는 경우가 발생함!
     이것을 해결하기 위한 한가지 방법으로 넘치는 요소 숨기기
     속성을 셋팅하면 된다!*/
-    overflow: hidden;
-    /* oh */
+    overflow: hidden;/* oh */
+    /* 넘치는 자식요소를 숨기는 설정 떄문에 그림자가 잘리므로 이를 패딩으로 처리함 */
+    /* padding: 5px 5px 5px 0px; */
+    margin: 5px;
+    margin-left: 0;
+
 }
 
 /* 블록인용 이미지 */
@@ -256,10 +263,13 @@ font-family: "Do Hyeon", sans-serif;
     float:right 이미지는 오른쪽/ 글자는 왼쪽
     */
     float: right;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px #99999940;
-
     /* 이미지 옆에 마진주기 */
     margin-left: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #99999940;
+    /* 상단여백으로 이미지 이동 */
+    margin-top: 5px;
+
+
 
 }
