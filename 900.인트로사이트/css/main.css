@@ -7,7 +7,7 @@
             height: 100%;
         }
         body{
-            background-image: url(../images/bg.jpg) no-repeat center/cover;
+            background: url(../images/bg.jpg) no-repeat center/cover;
 
             /*background-image: 
             linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
