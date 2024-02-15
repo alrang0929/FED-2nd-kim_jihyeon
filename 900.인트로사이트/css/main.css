@@ -1,4 +1,4 @@
-@charset "utf-8"
+@charset "utf-8";
 /* 인트로 사이트 메인 css - main.css */
 
         html,body{
@@ -27,4 +27,3 @@
             padding: 20px;
             text-align: center;
         }
-    </style>
