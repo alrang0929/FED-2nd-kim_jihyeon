@@ -1,16 +1,16 @@
 @charset "utf-8"
 /* 인트로 사이트 메인 css - main.css */
 
-<style>
         html,body{
             margin: 0;
             padding: 0;
             height: 100%;
         }
         body{
+            background-image: url(../images/bg.jpg) no-repeat center/cover;
 
-            background-image: 
-            linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255));
+            /*background-image: 
+            linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
             /* 
                 [ 선형 그라데이션 ]
                 background-image: 
