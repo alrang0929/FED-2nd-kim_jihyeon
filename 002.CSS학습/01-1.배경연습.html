@@ -75,7 +75,7 @@
                         3. 수치값: 가로, 세로중 하나만 주면 이미지가 비율을 유지
             */
 
-            background-size: 200px;
+            background-size: 100px;
 
             /* 
             [배경 한꺼번에 쓰기]
@@ -86,17 +86,48 @@
                        셋팅하는 배경속성을 쓰면 상단 개별세팅한 배경 속성이 초기화됨.
             */
         }
-   
     </style>
 </head>
 
 <body>
     <style>
-        .wrap{
+        .wrap {
             height: 100%;
-    }
+            /* 높이값을 body에 채움!
+            배경 한번에 쓰기를 사용하면 여러개의 배경이미지를 넣을 수 있다!
+           
+            background: 
+            색 이 반 고 윙/크,
+            색 이 반 고 윙/크;
 
-
+            (특성)
+            -> 위쪽 셋팅된 배경이미지가 위에 위치함!
+            -> 위치값의 가로는 left, 세로는 center 기본값!
+            -> 위치나 크기의 특정값을 쓰지 않으면 기본값이 적용됨
+            -> 위치값을 0을 쓰면 기본값인 left center가 적용됨!
+            -> 위치값을 %로 쓰면 설정박스의 %위치를 이미지 중심을
+                기준으로 위치하게 된다
+            */
+            background:
+                /* 도꺠비 이름 */
+                url(./imgs/d01.png) no-repeat 50% 62%/150px,
+                /* 도꺠비 */
+                url(./imgs/dc1.png) no-repeat center/400px,
+                /* 지은탁 이름 */
+                url(./imgs/d02.png) no-repeat 97% 7.5%/70px,
+                /* 지은탁 */
+                url(./imgs/dc2.png) no-repeat right top/150px,
+                /* 저승사자이름 */
+                url(./imgs/d03.png) no-repeat 6.5% 100%/100px,
+                /* 저승사자 */
+                url(./imgs/dc3.png) no-repeat left bottom/300px,
+                /* 써니이름 */
+                url(./imgs/d04.png) no-repeat 4.5% 55.5% /70px,
+                /* 써니 */
+                url(./imgs/dc4.png) no-repeat left center /200px,
+                url(./imgs/bg_mainvisual.jpg) no-repeat 0% 50% /900px,
+                url(./imgs/eachBG.jpg) no-repeat center/auto 100%;
+        }
     </style>
     <div class="wrap">
         <h1>01-1.배경넣기 연습</h1>
