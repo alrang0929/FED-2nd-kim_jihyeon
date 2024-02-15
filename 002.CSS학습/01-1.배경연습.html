@@ -1,19 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>01-1.배경연습</title>
     <style>
-        
+        /* 초기화 */
+        html,
+        body,
+        h1 {
+            margin: 0;
+            padding: 0;
+        }
 
+        html,
+        body {
+            height: 100%;
+            /* 
+            보이는 화면만큼 높이값을 줄떄 100%의 의미는?
+            body는 html을 기준함
+            html은 무엇을 기준하는가? 보이는 화면을 기준한다!(window: 보이는 창)
+            보이는 화면만큼 확장된다!
+            */
+        }
+
+        /* 터아툴 */
+        h1 {
+            padding: 50px;
+            text-align: center;
+            /* tac */
+        }
+
+        /* body요소 안에 배경넣기 */
+        body {
+            /* html에 배경을 넣지 말자! 전체배경은 body에만!! */
+            background-color: #e6f3ff;
+
+            /* 2. 배경이미지: bgi-> url 경로,
+            ->기본적으로 반복됨! */
+            background-image: url(./imgs/bg_logo_a_01.png);
+
+            /* 3. 배경 반복여부: bgr
+            repeat-x: x축 반복
+            repeat-y: y축 반복
+            repeat: 모든 축 반복 (기본값)
+            no-repeat: 반복안함
+            */
+            background-repeat: no-repeat;
+
+            /* 4. 화면고정: bga
+            배경고정값은 fixed
+            고정의 의미는 스크롤시
+            보이는 화면 기준으로 배경을 고정함 */
+            background-attachment: fixed;
+
+            /* 5. 배경위치: bgp
+            값: 가로 세로
+                1. 가로방향: letf, center, right
+                2. 세로방향: top, center, bottom
+                - 수치값: px, %, %등 여러단위 사용 가능
+                    ->%는 기준점이 이미지의 중앙이다!(50%는 정중앙)
+                    ->방향별 개별속성은?
+                         background-position-x: ;
+                         background-position-y: ; */
+            /* background-position: 200px 200px; */
+            /* background-position: 50% 60%; */
+            background-position: right bottom;
+
+            /* 6. 배경 이미지 크기: bgz -> 가로 세로
+                    정해진값:
+                        1. contain: 이미지가 화면을 채우고 모두 보임
+                        2. cover: 이미지가 박스를 모두 채움, 잘리는 부분 있을 수있음
+                        3. 수치값: 가로, 세로중 하나만 주면 이미지가 비율을 유지
+            */
+
+            background-size: 200px;
+
+            /* 
+            [배경 한꺼번에 쓰기]
+            background: 배경색 이미지 반복 고정 위치/크기
+            background: 색 이 반 고 윙/크
+            
+            ->주의사항: 위에서 개별 배경세팅을 하고 아래쪽에서 한꺼번에
+                       셋팅하는 배경속성을 쓰면 상단 개별세팅한 배경 속성이 초기화됨.
+            */
+        }
+   
     </style>
 </head>
+
 <body>
+    <style>
+        .wrap{
+            height: 100%;
+    }
+
+
+    </style>
     <div class="wrap">
         <h1>01-1.배경넣기 연습</h1>
-        
-    
     </div>
 </body>
+
 </html>
