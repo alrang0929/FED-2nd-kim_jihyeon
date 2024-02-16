@@ -2,13 +2,15 @@
 /* info PS 공통 CSS - common.css */
 
 /* 웹폰트 구글CDM(Content Delivery Network) */
-@import url("https://fonts.googleapis.com/css2?family=Black+And+White+Picture&Black+Han+Sans&family=Do+Hyeon&family=Noto+Sans+KR:wght@100..900&family=Nanum+Pen+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gugi&Kirang+Haerang&Black+And+White+Picture&Black+Han+Sans&family=Do+Hyeon&family=Noto+Sans+KR:wght@100..900&family=Nanum+Pen+Script&display=swap");
 /*             
 서브타이틀: font-family: "Black Han Sans", sans-serif;
 font-family: "Nanum Pen Script", cursive;
 기사본문: font-family: "Noto Sans KR", sans-serif; 
 font-family: "Do Hyeon", sans-serif;
 font-family: "Black And White Picture", system-ui;
+font-family: "Kirang Haerang", system-ui;
+font-family: "Gugi", sans-serif;
 */
 
 /* CSS코딩구역 */
