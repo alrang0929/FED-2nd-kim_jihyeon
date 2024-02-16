@@ -318,7 +318,7 @@ font-family: "Do Hyeon", sans-serif;
 }
 /* 기사원문 a요소 마우스 오버 효과 */
 .article-link a:hover{
-    border: none;
+    border-color: transparent;
     width: 100px;
     height: 100px;
     /* 부모박스 인라인 정렬도 적용되고 크기 디자인도 적용되는 display는? */
