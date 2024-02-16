@@ -2,58 +2,59 @@
 /* 인트로 사이트 메인 css - main.css */
 
 /* 스크롤 애니메이션 설정 */
-html{
+html {
     scroll-behavior: smooth;
     /* html 즉 root에 부드러운 스크롤 설정을 하면
     이동시 스크롤 애니메이션이 연출된다! */
 }
 /* 마진 초기화 */
-html,body,h1,h2,h3,p{
+html,
+body,
+h1,
+h2,
+h3,
+p {
     margin: 0;
     padding: 0;
 }
-        html,body,.page{
-            /* 보이는 기존페이지 체우기 */
-            height: 100%;
-        }
-        body{
-            background: url(../images/BG_works01.jpg) fixed center/cover;
+html,
+body,
+.page {
+    /* 보이는 기존페이지 체우기 */
+    height: 100%;
+}
+body {
+    background: url(../images/BG_works01.jpg) fixed center/cover;
 
-            /*background-image: 
+    /*background-image: 
             linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
-            /* 
+    /* 
                 [ 선형 그라데이션 ]
                 background-image: 
                 linear-gradient(방향,색1,색2,색3,...)
                 - 방향: 
                 to top, to left, to right, to bottom
             */
-        }
-        /* 메뉴박스 */
-        .menu{
-            display: inline-block;
-            width: 1000px;
-            margin: 0 auto;
-            padding: 15px;
-            background-color: #fff;
-        }
-        .menu > *{
-            display: inline-block;
-        }
-        /* 컨텐츠박스 */
-        .link-box{
-            border: 2px dashed darkblue;
-            border-radius: 20px;
-            width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        .link-box h1{
-            font-family: Arial, Helvetica, sans-serif;
-            color: #fff;
-        }
-
-        .link-box a{
-            text-decoration: none;
-        }
+}
+/* 메뉴박스 */
+.menu {
+    display: inline-block;
+    width: 1000px;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: #fff;
+}
+.menu>*{
+    display: inline-block;
+}
+/* 컨텐츠박스 */
+.link-box {
+    border: 2px dashed darkblue;
+    border-radius: 20px;
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+    background-color: #ffffff90;
+}
