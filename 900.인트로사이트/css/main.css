@@ -1,9 +1,13 @@
 @charset "utf-8";
 /* 인트로 사이트 메인 css - main.css */
 
-        html,body{
-            margin: 0;
-            padding: 0;
+/* 마진 초기화 */
+html,body,h1,h2,h3,p{
+    margin: 0;
+    padding: 0;
+}
+        html,body,.page{
+            /* 보이는 기존페이지 체우기 */
             height: 100%;
         }
         body{
