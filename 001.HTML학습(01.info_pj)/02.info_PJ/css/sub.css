@@ -198,15 +198,16 @@ font-family: "Do Hyeon", sans-serif;
     font-size: 25px;
 }
 
-.quote-box {
+/* 구분박스 구분 */
+.bd-box {
     border-top: 1px dashed #797979;
     border-bottom: 1px dashed #797979;
     margin: 0;
     padding: 15px 0;
 }
 
-/* 인용구 제목 */
-.quote-box h4 {
+/* 구분박스 제목 */
+.bd-box h4 {
     /* 기본 display가 block이어서
     글씨만큼 가지려면 inline-block으로 바꿔야한다 */
     display: inline-block;
@@ -269,7 +270,26 @@ font-family: "Do Hyeon", sans-serif;
     box-shadow: 5px 5px 5px #99999940;
     /* 상단여백으로 이미지 이동 */
     margin-top: 5px;
+}
 
+/* 동영상 박스: 유튜브 iframe */
+.mvbox{
+    /* 비율유지 박스설정
+        aspect-ratio: 가로비/세로비
+        -> 주의: 가로 세로가 유동적이므로 특정값을 셋팅하지 말것!
+    */
+    aspect-ratio: 16/9;
+    
 
-
+    /* height: 550px; */
+    /* 
+    div와 같은 block요소는 
+    width 설정읋 하지않으면
+    width: auto
+    */
+}
+.mvbox iframe{
+    border: none;/* bdn */
+    width: 100%;
+    height: 100%;
 }
