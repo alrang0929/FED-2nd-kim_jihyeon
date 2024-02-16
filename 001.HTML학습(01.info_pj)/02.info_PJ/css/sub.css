@@ -178,7 +178,6 @@ font-family: "Do Hyeon", sans-serif;
     /* 크기요소는 인라인일떄 적용 안됨! */
     width: 80%;
 
-
     /* 크기를 가진 블럭요소 중앙정렬
     -마영오! margin:0 auto */
     margin: 15px auto;
@@ -234,7 +233,6 @@ font-family: "Do Hyeon", sans-serif;
 
     /* 기본마진 삭제 */
     margin: 0;
-
 }
 
 /* 블록인용박스 */
@@ -248,12 +246,12 @@ font-family: "Do Hyeon", sans-serif;
     부모박스에서 자식요소를 인식하지 못하는 경우가 발생함!
     이것을 해결하기 위한 한가지 방법으로 넘치는 요소 숨기기
     속성을 셋팅하면 된다!*/
-    overflow: hidden;/* oh */
+    overflow: hidden;
+    /* oh */
     /* 넘치는 자식요소를 숨기는 설정 떄문에 그림자가 잘리므로 이를 패딩으로 처리함 */
     /* padding: 5px 5px 5px 0px; */
     margin: 5px;
     margin-left: 0;
-
 }
 
 /* 블록인용 이미지 */
@@ -273,13 +271,12 @@ font-family: "Do Hyeon", sans-serif;
 }
 
 /* 동영상 박스: 유튜브 iframe */
-.mvbox{
+.mvbox {
     /* 비율유지 박스설정
         aspect-ratio: 가로비/세로비
         -> 주의: 가로 세로가 유동적이므로 특정값을 셋팅하지 말것!
     */
     aspect-ratio: 16/9;
-    
 
     /* height: 550px; */
     /* 
@@ -288,25 +285,28 @@ font-family: "Do Hyeon", sans-serif;
     width: auto
     */
 }
-.mvbox iframe{
-    border: none;/* bdn */
+
+.mvbox iframe {
+    border: none;
+    /* bdn */
     width: 100%;
     height: 100%;
 }
 
 /* 기사원문 */
-.article-link{
+.article-link {
     text-align: right;
 }
 
 /* 기사원문 a요소 */
-.article-link a{
+.article-link a {
     border: 1px solid rgb(68, 0, 255);
     width: 100px;
     height: 100px;
     /* 부모박스 인라인 정렬도 적용되고 크기 디자인도 적용되는 display는? */
     display: inline-block;
-    border-radius: 50%;/* 정원 */
+    border-radius: 50%;
+    /* 정원 */
     text-align: center;
     /* 줄간격으로 높이값과 같이 주면 세로중앙 */
     line-height: 100px;
@@ -316,14 +316,16 @@ font-family: "Do Hyeon", sans-serif;
     text-decoration: none;
     background-color: #fff;
 }
+
 /* 기사원문 a요소 마우스 오버 효과 */
-.article-link a:hover{
+.article-link a:hover {
     border-color: transparent;
     width: 100px;
     height: 100px;
     /* 부모박스 인라인 정렬도 적용되고 크기 디자인도 적용되는 display는? */
     display: inline-block;
-    border-radius: 50%;/* 정원 */
+    border-radius: 50%;
+    /* 정원 */
     text-align: center;
     /* 줄간격으로 높이값과 같이 주면 세로중앙 */
     line-height: 100px;
@@ -333,4 +335,70 @@ font-family: "Do Hyeon", sans-serif;
     text-decoration: none;
     background-color: rgb(68, 0, 255);
     box-shadow: 5px 5px 10px 5px rgba(68, 0, 255, 0.2);
+}
+
+/* 오늘의 작품 & 느낌 */
+.work {
+    /* 글자 크기, 글자정렬은 자식요소로 상속된다 */
+    text-align: center;
+    /* 그라데이션
+    
+        [선형 그라데이션: linear-gradient(li)]
+        linear-gradient: (방향, 색1, 색2...);
+        linear-gradient: (방향, 색1 몇%, 색2 몇%...);
+        linear-gradient: (각도, 색1 몇%, 색2 몇%...);
+        - 옵션: 
+            1. 방향: to top, to bottom, to left, to right
+            2. 각도: 각도deg
+            3. 콤마로 나열된 색상 뒤에 %수치를 쓰면 비율조정 가능
+    */
+    background-image:
+    /* linear-gradient(45deg, #fff, blue); */
+    linear-gradient(45deg, #e3deff 20%, #efc8ff 50%, #b39eff);
+    
+    padding: 24px;
+    border: 4px dotted red ;
+
+    /* 
+    [배경관련 표시 영역지정: background-clip]
+    값: border-box 보더 영역까지 표시(기본값)
+    값: padding-box 패딩 영역까지 표시
+    값: content-box 콘텐츠 영역까지 표시
+    */
+    background-clip: border-box;
+
+    /* 
+    [배경색관련 시작 영역지정(background-origin)]
+        값: border-box 보더 영역부터 표시
+        값: padding-box 패딩 영역부터 표시(기본값)
+        값: content-box 콘텐츠 영역부터 표시
+    
+    */
+    background-origin: padding-box;
+
+    /* 배경 반복 제거(bgr) */
+    background-repeat: no-repeat;
+
+    /* 
+    부모박스에 패딩이 없는 상태에서
+    첫번째 자식 블록박스의 마진은
+    부모 바깥쪽으로 나가서 셋팅된다!
+    이유는 마진은 바깥쪽으로 셋팅하는 개념이고
+    부모가 이를 세팅하지 않았다면
+    첫번째 블록박스에서 마진을 셋팅할 수있도록
+    설계 되어 있다!
+    -> 패딩을 주는 순간 마진은 패딩의 내부공간을 밀게된다!
+    */
+}
+
+/* 작품 타이틀 */
+.work h4 {
+    font-family: "Black And White Picture", system-ui;
+    font-weight: normal;
+    font-size: 28px;
+    color: #333;
+    margin: 0;
+    /* 부모에 패딩없는 상태에서
+    첫번째 자식 마진은 부모 바깥으로 나간다!
+    참고) 마지막 자식 블록 요소도 블록박스 하단 마진은 바깥으로 나간다*/
 }
