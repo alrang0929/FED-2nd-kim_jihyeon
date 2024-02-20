@@ -1,419 +1,679 @@
-@charset "UTF-8";
-/* 
-맨 위 UTF-8처리는 필수!!
-외부 css파일은 파일 자체적으로 처리되므로 인코딩형식도 따로 지정해야한다! */
-/* info_PJ 서브페이지용 CSS - sub.css */
-/* 공통외부 css 불러오기 */
+@charset "utf-8";
+/* 맨위에 utf-8 인코딩 설정 필수!
+- 외부CSS파일은 파일 자체적으로 처리되므로
+인코딩형식도 따로 지정해야한다! */
 
+/* Info PJ 서브페이지용 CSS - sub.css */
+
+/* 공통 외부CSS 불러오기 */
 @import url(./common.css);
-
 /* 
     @import 방식으로 외부파일 불러와서 합치면
-    html 파일에서 link 방식으로 불러올 필요가 없다!
-    이것의 이점은 웹요청[http request]이 줄어들어
-    html의 렌더링 속도가 항상된다!
+    html 파일에서 link방식으로 불러올 필요가 없다!
+    이것의 잇점은 웹요청(http request)이 줄어들어
+    html의 랜더링 속도가 향상된다!
 */
 
-/* 서브페이지 글씨체 지정 */
-
-#main-area {
-    font-family: "Noto Sans KR", sans-serif;
+/* 서브 페이지 글씨체 지정하기 */
+#main-area{
+    font-family: "Noto Sans KR", sans-serif; 
 }
 
 /* 서브페이지 타이틀 */
-h2.sub-title {
-    /* 글자색: (C) */
-    /* color: #0fb100; */
-    /*     color: rgb(26 253 45/0.582);
-    color: rgba(26, 253, 45, 0.582); */
+h2.sub-title{
+    /* 글자색 : color (c) */
+    /* color: #0c9f27; */
+    /* color: #08b10ba0;
+    color: rgb(8 177 11 / 0.626);
+    color: rgba(8,177,11,0.626); */
 
-    /* 글자크기 (FZ) */
+    /* 글자크기 : font-size (fz) */
     font-size: 38px;
 
-    /* 글자두께: font-weight(fw) */
-    /*font-weight: bold; fwb */
+    /* 글자두께 : font-weight (fw) */
     font-weight: normal;
+    /* font-weight: bold; *//* fwb */
 
-    /* 글자체: font-family
-    -콤마로 구분된 글자체는 대체체임 
-    앞의 글자체가 없의면 뒤의 글자체가 적용됨.
-    만약 모두 없으면 브라우저가 기본체로 적용됨*/
-    font-family: "Black Han Sans", sans-serif;
+    /* 글자체 : font-family
+    - 콤마로 구분된 글자체는 대체체임
+    앞의 글자체가 없으면 뒤의 글자체가 적용됨. 만약 모두 없으면 브라우저 기본체가 적용됨! */
+    /* font-family: '맑은 고딕','궁서','글림','돋음'; */
+    font-family: 'Bagel Fat One', system-ui;
 
-    /* 택스트 정렬: text-align: center (tac:중앙정렬) */
+    /* 텍스트 정렬 - text-align:center (tac:중앙정렬) */
     text-align: center;
 
-    /* 글자 그림자: text-shadow*/
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    /* 글자 그림자 : text-shadow */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.35);
 
-    /* 박스 테두리 - border(bd): 두 종  색
-    -두께: 선두께
-    -종류: 선종류(solid 실선, dotted 점선, deshed 대쉬선)
-    - 색상: 테두리 색상*/
-    border: 1px solid #797979;
+    /* 박스 테두리 - border:두께 종류 색상 (bd) 
+        - 두께 : 선두께
+        - 종류 : 선종류(solid실선,dotted점선,dashed데쉬선 등)
+        - 색상 : 테두리색상
+    */
+    border: 2px solid darkorchid;
 
-    /* 둥근모서리: border redius (brad)*/
+    /* 둥근모서리 - border-radius (brad) */
     border-radius: 20px;
 
     /* 패딩 - p */
     padding: 20px;
 
-    /* 배경색: bgc */
-    background-color: rgb(255, 255, 255);
+    /* 배경색 : background-color (bgc) */
+    background-color: #fff;
 
-    /* 배경반복여부(bgr) */
+    /* 배경이미지 : bgi -> 개별적으로줌! */
+    /* background-image: url(../images/titbg4.jpg); */
+
+    /* 배경반복여부 */
     background-repeat: no-repeat;
 
     /* 배경고정 */
 
-    /* 배경위치 background-position(bgp) */
+    /* 배경위치 
+    background-position(bgp) */
     background-position: center;
 
-    /* 배경크기 background-size(bgz)
-   - cover는 박스를 빈틈없이 비율유지하여 채움! */
+    /* 배경크기 
+    background-size (bgz)
+    - cover 는 박스를 빈틈없이 비율유지하여 채움! */
     background-size: cover;
 
-    /* 외부 css에서 이미지 경로 주의!!
-   HTML파일 위치가 아닌 css파일 위치에서 상대경로를 잡아야 이미지가 나온다!! */
+    /* 외부CSS에서 이미지 경로 주의!!!
+    html파일이 아닌 CSS파일 위치에서 상대경로를
+    잡아야 이미지가 나온다!!! */
 
-    /*             
-서브타이틀: font-family: "Black Han Sans", sans-serif;
-기사본문: font-family: "Noto Sans KR", sans-serif; 
-font-family: "Do Hyeon", sans-serif;
-*/
+
+    
 }
-
-/* 배경이미지: bgi 개별적으로 줌! */
-/*     background-image: url(../images/titbg4.jpg); */
 /* 정치 */
-.sub-title.politics {
-    color: #ffffff;
+.politics{
+    /* 글자색 */
+    color: #fde162;
+    /* 배경이미지 : bgi -> 개별적으로줌! */
     background-image: url(../images/titbg1.jpg);
-}
 
+}
 /* 경제 */
-.sub-title.economic {
-    color: #fff;
+.economics{
+    /* 글자색 */
+    color: #feab48;
+    /* 배경이미지 : bgi -> 개별적으로줌! */
     background-image: url(../images/titbg2.jpg);
-}
 
+}
 /* 사회 */
-.sub-title.society {
-    color: #fff;
+.social{
+    /* 글자색 */
+    color: #fa8cf1;
+    /* 배경이미지 : bgi -> 개별적으로줌! */
     background-image: url(../images/titbg3.jpg);
-}
 
+}
 /* IT/과학 */
-.sub-title.it {
-    color: #fff;
+.it{
+    /* 글자색 */
+    color: #2874ff;
+    /* 배경이미지 : bgi -> 개별적으로줌! */
     background-image: url(../images/titbg4.jpg);
-}
 
+}
 /* TV/연예 */
-.sub-title.tv {
-    color: #fff;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+.tv{
+    /* 글자색 */
+    color: #49ffea;
+    /* 배경이미지 : bgi -> 개별적으로줌! */
     background-image: url(../images/titbg5.jpg);
+
 }
 
 /* 언론사 로고 */
-.press-logo img {
+.press-logo img{
     height: 32px;
-    /* 이미지는 가로세로중 하나만 주면 비율을 유지하여 변경된다 */
+    /* 이미지는 가로/세로중
+    하나만 주면 비율을 유지하여
+    변경된다! */
 }
 
 /* 기사 타이틀 */
-.article-tltle img {
-    height: 30px;
+.article-title{
+    font-size: 30px;
     color: #111;
 }
 
 /* 기사 이미지박스 */
-.article-picture {
-    margin: 20px 0px;
-    padding: 0px 0px 5px;
+.article-picture{
+    margin: 20px 0;
 }
-
 /* 기사 이미지 */
-.article-picture img {
+.article-picture img{
     width: 100%;
     padding-bottom: 15px;
 }
-
 /* 기사 이미지 설명 */
-.article-picture figcaption {
-    /* trc - 텍스트 중앙정렬 */
-    font-size: 15px;
-    padding: 0 5px;
+.article-picture figcaption{
+    /* tac - 글자중앙정렬 */
     text-align: center;
+    padding: 0 5px;
 }
-
-/* 기사 이미지 설명 글자 크기 변경*/
-.article-picture figcaption small {
+/* 기사 이미지 설명 글자크기변경 */
+.article-picture figcaption small{
     font-size: 15px;
-    /* small의 글자크기가 지정되어 있으므로
-    여기에 글자크기를 변경해야한다 */
+    /* small에 글자크기가 지정되어 있으므로
+    여기에서 글자크기를 변경해야 반영된다! */
 }
 
 /* 기사내용 */
-.contents p {
-    font-size: 16px;
-    /* 장평 */
-    letter-spacing: -0.5px;
-    /* 줄간격: lh (단위가 없을 시: 글자수xn) 
-    line-height는 글자의 중앙에서 위아래 높이값을 말하며 글자는 중앙에 흐른다.
-    단위는 없을 경우 글자크기의 배수로 셋팅됨.*/
+.contents p{
+    /* 글자크기 : fz */
+    font-size: 18px;
+    /* 줄간격 : lh 
+        line-height 줄간격은 글자의 중앙에서
+        위아래 높이값을 말하며 글자는 중앙에 흐른다.
+        단위는 없을 경우 글자크기의 배수로 셋팅됨
+    */
     line-height: 1.7;
-    color: #303038;
+    /* 글자색 */
+    color: #333;
 }
 
-/* 인라인 인용구 디자인변경 */
-.contents q {
+/* 인라인 인용구 디자인 변경 */
+.contents q{
     font-weight: bold;
 }
 
-/* mork요소 디자인 변경 */
-.contents mark {
+/* mark요소 디자인 변경 */
+.contents mark{
     display: block;
-    /* 크기요소는 인라인일떄 적용 안됨! */
-    width: 80%;
-
-    /* 크기를 가진 블럭요소 중앙정렬
-    -마영오! margin:0 auto */
+    /* 크기요소는 인라인일때 적용안됨! */
+    width: 65%;
+    /* 크기를 가진 블록요소 중앙정렬
+    - 마영오! margin: 0 auto */
     margin: 15px auto;
-
-    /* 글자 중앙정렬 */
+    /* 글자중앙정렬 : tac */
     text-align: center;
-    padding: 20px 50px;
 
     /* 박스디자인 변경 */
-    border-top: 2px solid #797979;
-    border-bottom: 2px solid #797979;
-    background-color: #ededed;
+    padding: 20px 50px;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
 
-    /* 글자색상/폰트 */
-    font-family: "Nanum Pen Script", cursive;
-    color: #284f61;
-    font-size: 25px;
+    /* 배경색 */
+    background-color: #e9e9e9;
+    /* 글자색 */
+    color: darkorange;
+    /* 글자체 : 웹폰트 */
+    font-family: 'Diphylleia', serif;
+    font-weight: bold;
 }
 
-/* 구분박스 구분 */
-.bd-box {
-    border-top: 1px dashed #797979;
-    border-bottom: 1px dashed #797979;
-    margin: 0;
+/* 구분박스 공통 */
+.bd-box{
+    border-top: 2px dashed #ccc;
+    border-bottom: 2px dashed #ccc;
+    margin: 20px 0;
     padding: 15px 0;
 }
-
 /* 구분박스 제목 */
-.bd-box h4 {
-    /* 기본 display가 block이어서
-    글씨만큼 가지려면 inline-block으로 바꿔야한다 */
+.bd-box h4{
+    /* 기본 display가 block 이어서
+    글씨만큼 크기를 가지려면 inline-block로 바꿔야한다! */
     display: inline-block;
     font-size: 20px;
-    border: 1px solid #cacaca;
-    border-radius: 10px;
-    background-color: #ededed;
-
-    /* 박스 그림자
-    box-shadow: x y blur spread(그림자 크기) 색
-    1. x축 - 가로축 이동
-    2. y축 - 세로축 이동
-    3. blur - 경계선 흐림
-    4. spread (spread는 그림자 기존크기 보다 더한크기) / 필요시 작성
-    5. 색 - 그림자색
-        ->내부 그림자인 경우 inset 키워드를 앞에 쓴다
-         box-shadow: inset x y blur spread
-    */
-    /* box-shadow: 5px 5px 5px 2px #99999940; */
-    box-shadow: inset 0px 0px 20px 2px #99999940;
-    width: 300px;
+    border: 1px solid #454545;
+    border-radius: 30px;
+    /* width: 250px; */
     text-align: center;
-    padding: 5px;
+    padding: 15px;
+    /* 박스 그림자 
+        box-shadow: x축 y축 blur spread 색
+        1.x축 - 가로축 이동
+        2.y축 - 세로축 이동
+        3.blur - 경계선 흐림
+        4.spread - 그림자 기존크기 보다 더한크기
+        5.색 - 그림자 색
+        ->> 내부 그림자일 경우 inset 키워드를 앞에씀
+        box-shadow: inset x축 y축 blur spread 색
+        ->> spread는 필요시에 작성함
+    */
+    /* box-shadow: 4px 4px 5px 10px #888; */
+    box-shadow: inset 0 0 20px #888;
 
-    /* 기본마진 삭제 */
+    /* 기본마진없앰 */
     margin: 0;
 }
-
 /* 블록인용박스 */
-.quote-box blockquote {
-    font-size: 16px;
-    line-height: 1.75em;
-
-    /* 양쪽정렬: taj */
+.quote-box blockquote{
+    /* 기본마진 없애기 */
+    margin: 0;
+    font-size: 15px;
+    line-height: 2.1;
+    /* 양쪽정렬 : taj */
     text-align: justify;
     /* 자식요소인 이미지에 float 속성을 사용할 경우
-    부모박스에서 자식요소를 인식하지 못하는 경우가 발생함!
+    부모박스에서 자식요소를 인식하지 못하는 경우가 발생함
     이것을 해결하기 위한 한가지 방법으로 넘치는 요소 숨기기
-    속성을 셋팅하면 된다!*/
-    overflow: hidden;
-    /* oh */
-    /* 넘치는 자식요소를 숨기는 설정 떄문에 그림자가 잘리므로 이를 패딩으로 처리함 */
-    /* padding: 5px 5px 5px 0px; */
-    margin: 5px;
-    margin-left: 0;
-}
+    속성을 셋팅하면 된다! */
+    overflow: hidden;/* oh */
 
+    /* 넘치는 자식요소 숨기는 설정때문에
+    그림자가 잘리므로 이를 패딩으로 처리함 */
+    padding: 5px;
+    padding-left: 0;
+}
 /* 블록인용 이미지 */
-.quote-box img {
-    /* 기본적으로 이미지는 인라인요소이며 글자가 왼쪽으로 한줄 하단에 나열된다
-    그래서 글자가 옆에 올라와서 흘러가게 하려면 [float]속성을 사용해야한다. \
-    float:left 이미지는 왼쪽/ 글자는 오른쪽
-    float:right 이미지는 오른쪽/ 글자는 왼쪽
+.quote-box img{
+    /* 기본적으로 이미지는 인라인요소이며
+    글자가 왼쪽으로 한줄 하단에 나열됨
+    글자가 옆에 올라와서 흘러가게 하려면
+    float속성을 사용해야한다!
+        float: left 이미지는 왼쪽에 글자는 오른쪽
+        float: right 이미지는 오른쪽에 글자는 왼쪽
     */
     float: right;
-    /* 이미지 옆에 마진주기 */
-    margin-left: 20px;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px #99999940;
+    /* 이미지 옆에 공간주기 */
+    margin-left: 10px;
     /* 상단여백으로 이미지 이동 */
-    margin-top: 5px;
+    margin-top: 11px;
+    /* 둥근모서리 */
+    border-radius: 10px;
+    /* 박스그림자 */
+    box-shadow: 0 0 4px #555;
 }
 
-/* 동영상 박스: 유튜브 iframe */
+/* 동영상 박스 : 유튜브 iframe */
 .mvbox {
-    /* 비율유지 박스설정
-        aspect-ratio: 가로비/세로비
-        -> 주의: 가로 세로가 유동적이므로 특정값을 셋팅하지 말것!
+    /* 비율유지 박스 설정
+        aspect-ratio : 가로비/세로비 
+        -> 주의: 가로 세로가 유동적이므로
+        특정값을 셋팅하지 말것!
     */
     aspect-ratio: 16/9;
-
-    /* height: 550px; */
+    /* height: 250px; */
     /* 
-    div와 같은 block요소는 
-    width 설정읋 하지않으면
-    width: auto
+        div와 같은 block요소는
+        width 설정을 하지 않으면
+        width: auto 로 자동설정됨!        
     */
 }
-
-.mvbox iframe {
-    border: none;
-    /* bdn */
+/* 아이프레임 */
+.mvbox iframe{
+    border: none;/* bdn */
     width: 100%;
     height: 100%;
 }
 
 /* 기사원문 */
-.article-link {
+.article-link{
     text-align: right;
 }
-
 /* 기사원문 a요소 */
 .article-link a {
-    border: 1px solid rgb(68, 0, 255);
+    /* 부모박스 인라인 정렬도 적용되고
+    크기 디자인도 적용되는 display는? inline-block */
+    display: inline-block;
     width: 100px;
     height: 100px;
-    /* 부모박스 인라인 정렬도 적용되고 크기 디자인도 적용되는 display는? */
-    display: inline-block;
-    border-radius: 50%;
-    /* 정원 */
+    border: 1px solid darkcyan;
+    border-radius: 50%;/* 정원 */
+    /* 글자가로 중앙 */
     text-align: center;
-    /* 줄간격으로 높이값과 같이 주면 세로중앙 */
+    /* 줄간격을 높이값과 같이 주면 세로중앙됨! */
     line-height: 100px;
-    font-size: 16px;
-    /* a요소 기본 글자색, 및줄 없앰 */
-    color: rgb(68, 0, 255);
+    font-size: 20px;
+    
+    /* a요소 기본 글자색변경, 밑줄없앰 */
+    color: #222;
     text-decoration: none;
-    background-color: #fff;
+    
+    /* 배경색 */
+    background-color: #ccc;
 }
 
-/* 기사원문 a요소 마우스 오버 효과 */
+/* 기사원문 a요소 마우스 오버시 */
 .article-link a:hover {
-    border-color: transparent;
-    width: 100px;
-    height: 100px;
-    /* 부모박스 인라인 정렬도 적용되고 크기 디자인도 적용되는 display는? */
-    display: inline-block;
-    border-radius: 50%;
-    /* 정원 */
-    text-align: center;
-    /* 줄간격으로 높이값과 같이 주면 세로중앙 */
-    line-height: 100px;
-    font-size: 16px;
-    /* a요소 기본 글자색, 및줄 없앰 */
-    color: #fff;
-    text-decoration: none;
-    background-color: rgb(68, 0, 255);
-    box-shadow: 5px 5px 10px 5px rgba(68, 0, 255, 0.2);
+    color: hotpink;
+    background-color: aquamarine;
+    box-shadow: 0 0 10px 5px darkblue;
+    /* box-shadow: x y blur (spread) color; */
 }
 
 /* 오늘의 작품 & 느낌 */
-.work {
-    /* 글자 크기, 글자정렬은 자식요소로 상속된다 */
+.work{
+    /* 글자크기, 글자정렬은 자식요소로 상속됨 */
     text-align: center;
-    /* 그라데이션
+    /* 그라데이션 
+        [ 선형 그라데이션 : linear-gradient ]
+        linear-gradient(방향,색1,색2,...);
+        linear-gradient(방향,색1 몇%,색2 몇%,...);
+        linear-gradient(각도,색1 몇%,색2 몇%,...);
+        - 옵션 : 
+        1. 방향: to top, to bottom, to left, to right
+        2. 각도: 각도deg
+        3. 콤마로 나열된 색상 뒤에 %수치를 쓰면 비율조정가능
+    */
+    /* background-image: linear-gradient(-45deg,red 5%,blue 20%,blue 80%,yellow); */
+    background-image: 
+    linear-gradient(46deg,#f8abff 10%,#b3ffd7 60%,#8a9cff 80%);
+
+    /* background-color: pink; */
+
+    /* padding */
+    padding: 20px;    
+    border: 13px dotted rgb(206, 206, 206);
+    /* 
+        부모박스에 패딩이 없는 상태에서
+        첫번째 자식 블록박스의 마진은
+        부모 바깥쪽으로 나가서 셋팅된다!
+        이유는 마진은 바깥쪽으로 셋팅하는 개념이고
+        부모가 이를 셋팅하지 않았다면
+        첫번째 블록박스에서 마진을 셋팅할 수 있도록
+        기본 설계 되어 있다!
+        -> 패딩을 주는 순간 자식의 마진은
+        패딩의 내부공간을 밀게된다!
+    */
+    /* 
+        [ 배경관련 표시 영역지정 : background-clip ]
+            값 : border-box 보더 영역까지표시(기본값)
+            값 : padding-box 패딩 영역까지표시
+            값 : content-box 내용 영역까지표시
+    */
+    background-clip: border-box;
+    /* 
+        [ 배경관련 시작 영역지정 : background-origin ]
+            값 : border-box 보더 영역부터시작
+            값 : padding-box 패딩 영역부터시작(기본값)
+            값 : content-box 내용 영역부터시작
     
-        [선형 그라데이션: linear-gradient(li)]
-        linear-gradient: (방향, 색1, 색2...);
-        linear-gradient: (방향, 색1 몇%, 색2 몇%...);
-        linear-gradient: (각도, 색1 몇%, 색2 몇%...);
-        - 옵션: 
-            1. 방향: to top, to bottom, to left, to right
-            2. 각도: 각도deg
-            3. 콤마로 나열된 색상 뒤에 %수치를 쓰면 비율조정 가능
-    */
-    /*     
-    /* linear-gradient(45deg, #fff, blue); */
-    background-image: linear-gradient(45deg, #e3deff 20%, #efc8ff 50%, #b39eff);
-    padding: 24px;
-    border: 4px dotted red;
-
-    /* 
-    [배경관련 표시 영역지정: background-clip]
-    값: border-box 보더 영역까지 표시(기본값)
-    값: padding-box 패딩 영역까지 표시
-    값: content-box 콘텐츠 영역까지 표시
-    */
-
-    /*     background-color: blue; */
-    /* background-clip: border-box; */
-    /* 
-    [배경색관련 시작 영역지정(background-origin)]
-        값: border-box 보더 영역부터 표시
-        값: padding-box 패딩 영역부터 표시(기본값)
-        값: content-box 콘텐츠 영역부터 표시
     */
     background-origin: padding-box;
 
-    /* 배경 반복 제거(bgr) */
+    /* 배경 반복 제거 */
     background-repeat: no-repeat;
-
-    /* 
-    부모박스에 패딩이 없는 상태에서
-    첫번째 자식 블록박스의 마진은
-    부모 바깥쪽으로 나가서 셋팅된다!
-    이유는 마진은 바깥쪽으로 셋팅하는 개념이고
-    부모가 이를 세팅하지 않았다면
-    첫번째 블록박스에서 마진을 셋팅할 수있도록
-    설계 되어 있다!
-    -> 패딩을 주는 순간 마진은 패딩의 내부공간을 밀게된다!
-    */
-    box-shadow: 5px 5px 10px #66666620;
+    /* 박스 내부 그림자 */
+    box-shadow: inset 0 0 10px #333;
 }
-
 /* 작품 타이틀 */
-.work h4 {
+.work h4{
     font-family: "Black And White Picture", system-ui;
     font-weight: normal;
     font-size: 28px;
     color: #333;
+
     margin: 0;
-    /* 부모에 패딩없는 상태에서
-    첫번째 자식 마진은 부모 바깥으로 나간다!
-    참고) 마지막 자식 블록 요소도 블록박스 하단 마진은 바깥으로 나간다*/
-}
-.work img{
-    border: 12px ridge goldenrod;
-    margin: 20px;
+    /* 부모에 패딩없는 상태에서 
+    첫번째 자식마진은 부모바깥으로 나감!
+    참고) 마지막 자식블록요소도
+    부모 박스 하단 마진은 바깥으로 나감! */
+
 }
 
+/* 작품 이미지 */
+.work img{
+    /* 액자틀모양 보더 */
+    border: 12px ridge goldenrod;
+}
+
+/* 작품명 */
 .work figcaption{
     font-family: "Gugi", sans-serif;
     font-size: 20px;
-    color: #000;
+    margin-top: 20px;
+}
+/* 작품명 인용구 */
+.work cite{
+    /* 이탤릭해제 */
+    font-style: normal;
+    /* 글자색 */
+    color: darkmagenta;
 }
 
-.work cite{
-    font-style: normal;
+
+/* 뉴스파트 공통 클래스 */
+.news-box{
+    border-top: 2px dashed #ccc;
+    margin: 20px 0;/* 마진 위아래 양쪽 */
+    padding: 20px 0;/* 패딩 위아래 양쪽 */
+}
+/* 뉴스파트 공통a요소 */
+.news-box a{
+    /* 글자크기 : fz */
+    font-size: 17px;
+    /* 줄간격 : lh */
+    line-height: 2.5;
+    /* 글자색 : c */
+    color: #222;
+    /* 밑줄없앰 : tdn */
+    text-decoration: none;
+}
+/*  공통 a요소 오버시 */
+.news-box a:hover{
+    color: yellowgreen;
+    text-shadow: 1px 1px 1px #000;
+}
+
+/* 뉴스 공통 말줄임표시 넣기 + 분야별뉴스도 추가 */
+.news-box li, .sec-news dd {
+    /* 기본적으로 블록박스는 내용이 넘치면
+    줄바꿈이 되는 랩핑박스가 기본이다!
+    줄바꿈 방지하는 속성은 
+    white-space:nowrap;
+    (기본값은 normal)
+     */
+     /* 1. 줄바꿈방지 */
+     white-space: nowrap;/* whs */
+     /* 2. 넘치는내용 숨기기 */
+     overflow: hidden;/* oh */
+     /* 3. 넘치는 텍스트 말줄임표(입.립스...) */
+     text-overflow: ellipsis;/* tov */
+
+}
+
+/* 뉴스 타이틀 공통 */
+.news-box h3{
+    font-family: "Black And White Picture", system-ui;
+    font-weight: normal;/* fwn */
+    font-size: 30px;/* fz30 */
+    background-image: 
+    linear-gradient(to right,lightblue,transparent);
+    /* 색상명을 transparent 로 쓰면 투명색 */
+    padding: 10px;
+}
+
+/* 주요뉴스 ul 변경하기 */
+.news-box ul,.news-box ol{
+    /* 기본리스트 숨기기 */
+    list-style: none;
+    /* 기본 마진,패딩없애기 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 주요뉴스에 가상요소로 아이콘 넣기 */
+.main-news ul li::before{
+    content: '😀';
+}
+.main-news ul li::after{
+    content: '😻';
+    /* content: url(../images/logo.png); */
+}
+
+/* 
+    [ CSS의 가상요소 : before, after ]
+    - 모든 요소는 맨앞과 맨뒤에 가상요소를 사용할 수 있다!
+    - 가상요소 표기법은 요소명 뒤에 콜론2개를 겹쳐씀(::)
+    - 맨앞은 before, 맨뒤는 after
+    - 필수속성 : content
+    - 이미지는 content 속성값으로 url() 사용!
+*/
+
+/* 주요뉴스 li의 가상클래스를 사용한 선택법
+    [ 같은종류의 자식요소일 경우선택법 ]
+    :first-child -> 첫번째 자식
+    :last-child -> 마지막째 자식
+    :nth-child(n) -> n번째 자식(n은 1부터)
+*/
+.main-news li:first-child a{
+    color: red;
+}
+.main-news li:nth-child(2) a{
     color: blue;
 }
+.main-news li:last-child a{
+    color: green;
+}
+
+/* 분야별 뉴스 dl */
+.sec-news dl{
+    margin: 0;
+}
+/* 분야별 뉴스 dt */
+.sec-news dt{
+    font-family: "Gugi", sans-serif;
+    font-size: 20px;
+    border: 4px dashed darkcyan;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 50%;
+}
+/* 분야별 뉴스 dd 가상요소 아이콘넣기 */
+.sec-news dd::before{
+    content: '🏳‍🌈';
+}
+/* 분야별 뉴스 dt의 가상클래스를 사용한 선택법
+    [ 2가지 이상의 종류의 자식요소가 있을 경우선택법 ]
+    :first-of-type -> 같은 타입(요소) 중 첫번째
+    :last-of-type -> 같은 타입(요소) 중 마지막째
+    :nth-of-type(n) -> 같은 타입(요소) 중 n번째(n은 1부터)
+*/
+
+/* 분야별뉴스 dt별 글자색, 배경색 변경하기 */
+/* 경제 */
+.sec-news dt:first-of-type{
+    color: red;
+    background-color: lightgreen;
+    border-color: yellowgreen;
+}
+/* 사회 */
+.sec-news dt:nth-of-type(2){
+    color: blue;
+    background-color: lightcoral;
+    border-color: darkmagenta;
+}
+/* TV/연예 */
+.sec-news dt:last-of-type{
+    color: green;
+    background-color: lightskyblue;
+    border-color: darkorchid;
+}
+
+/* 첫번째 dt를 제외한 나머지 dt의 마진탑 주기 */
+.sec-news dd+dt{
+    margin-top: 40px;
+}
+
+/* 사진뉴스 박스 */
+ /* 타이틀 변경하기 */
+ .photo-news h3{
+    /* 배경 그라데이션 없애기 */
+    background-image: none;
+    /* 중앙정렬 */
+    text-align: center;
+ }
+ /* 타이틀 앞 가상요소 아이콘넣기 */
+ .photo-news h3::before{
+    content: '📷';
+    font-size: 32px;
+    margin-right: 8px;
+    vertical-align: -2px;
+ }
+ /* 타이틀 뒤 가상요소 아이콘넣기 */
+ .photo-news h3::after{
+    content: '📺';
+    font-size: 33px;
+    margin-left: 8px;
+    vertical-align: 1px;
+ }
+
+ /* 사진 뉴스 테이블
+ - 테이블은 기본적으로 내용만큼 가로크기를
+ 가지며 부모박스의 크기가 작아질 경우 그
+ 크기에 맞춰진다! */
+ .photo-news table{
+    max-width: 500px;
+    /* 최대width 지정시 부모박스가
+    이 크기 보다 작아질때 auto로 전환됨 */
+
+    /* 테이블 중앙 - 마영오!
+    (블록,테이블 모두 공통) */
+    margin: 0 auto;
+
+    /* 테두리 */
+    border: 2px solid #ccc;
+
+    /* 테이블 기본 간격없앰(정확한 수치화를 위해) */
+    border-collapse: collapse;
+    /* separate 기본값(사이간격있음)
+    -> table태그에 border='1' 로 확인가능! */
+
+ }
+
+ /* tr이나 td에 child 선택자 사용가능!
+ 왜? table tr td 정해짐! 같은 종류의 형제요소들만 올 수 있음! */
+
+ /* 첫번째 td - 숫자부분 */
+ .photo-news td:first-child{
+    /* 가로크기 */
+    width: 50px;
+    /* 세로크기 */
+    height: 84px;
+    /* 글자중앙 */
+    text-align: center;
+    /* 배경색 */
+    background-color: #ccc;
+ }
+
+ /* 두번째 td - 기사제목링크 */
+ .photo-news td:nth-child(2){
+    /* 배경색: bgc */
+    background-color: #e4e4e4;
+    /* 패딩양쪽 */
+    padding: 0 20px;
+}
+
+/* 세번째 td */
+.photo-news td:last-child{
+     /* 배경색: bgc */
+     background-color: #e4e4e4;
+ }
+
+ /* 사진뉴스 이미지 */
+ .photo-news img{
+    height: 70px;
+    /* 이미지 높이값만 주면 가로크기는 자동! */
+    vertical-align: middle;
+ }
+
+ /* 사진뉴스 두번째 tr부터 마진탑넣기 */
+ .photo-news tr+tr td{
+    border-top: 2px solid #ccc;
+ }
+
+ /* 사진뉴스 기사링크 2줄 말줄임표시 셋팅하기 */
+ .photo-news td:nth-child(2) a {
+    /* 말줄임 처리(2줄) */
+    /* 1.넘치는 컨텐츠 숨기기 */
+    overflow: hidden;
+    /* 2.넘치는 글 말줄임표시 */
+    text-overflow: ellipsis;
+    /* 3. display 를 -webket-box로 변경 */
+    display: -webkit-box;
+    /* 4. 말줄임표시 라인설정 : 숫자가 줄수임 */
+    -webkit-line-clamp: 2;
+    /* 5. 기준축 진행방향 설정 */
+    -webkit-box-orient: vertical;
+
+
+    /* 줄간격 변경 */
+    line-height: 1.5;
+ }
