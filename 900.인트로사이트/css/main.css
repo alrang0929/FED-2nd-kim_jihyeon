@@ -6,12 +6,16 @@ html{
     scroll-behavior: smooth;
     /* html 즉, Root에 부드러운 스크롤 설정을 하면
     이동시 스크롤 애니메이션이 연출된다! */
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+"Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 /* 마진,패딩 초기화 */
 html,body,h1,h2,h3,p,ul,ol{
     margin: 0;
-    padding: 0;    
+    padding: 0;
+    font-size: none;    
 }
 
 ul,ol{
@@ -107,7 +111,7 @@ margin: 0 100px;
 .menu a{
     color: #222;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
 }
 /* 마우스 호버시?????왜 박스에 먹음..??? */
 .menu a:before, .menu a:after{
@@ -148,20 +152,25 @@ color: #fff;
 /* link-box a요소 초기화 */
 .link-box h2{
     padding: 20px;
+    font-size: 25px;
+
 }
 .link-box a {
     color: #ffffff;
     text-decoration: none;
-    line-height: 2em;
     font-size: 18px;
     text-align: right;
     margin-right: 20px;
+    font-weight: 200;
+    line-height: 2em;
+
 }
 /* 링크 호버효과 .. 워째서 양쪽 다나옴*/
 .link-box a:before, .link-box a:after{
     content: '';
     border-bottom: solid 1px #fff;
     position: absolute;
+    font-weight: 200;
     bottom: 0;
     width: 0;
 }
@@ -171,6 +180,12 @@ color: #fff;
 
 .link-box a:hover:before,.link-box a:hover:after{
     width: 40%;
+    font-weight: 400;
+}
+
+/* 클릭후 볼드 고정 */
+.link-box a:active{
+    font-weight: 400;
 }
 
 .link-box a:before,.link-box a:after{
