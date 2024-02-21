@@ -186,6 +186,62 @@
             */
         }
 
+        /* 앱솔루트끼리는 서로 겹친다 */
+        .absimg {
+            /* 자식요소가 모두 앱솔루트면 스스로 박스크기를 지정해야한다! */
+            width: 92px;
+            height: 115px;
+            border: 10px ridge goldenrod;
+            margin: 100px auto;
+
+            /* 원형 50% */
+            border-radius: 50%;
+
+            /* 사각형 이미지가 바깥으로 나가 보이는 것 숨기기 위해 hidden 효과 주었지만 효과없음
+            왜? 숨기기는 원래 앱솔루트의 부모자격이 있는 요소에서만 가능하다*/
+            overflow: hidden;
+            
+            /* 이미지가 젠틀하지만 hidden 적용을 위해 포지션을 준다 */
+            position: relative;
+        }
+
+        /* 앱솔루트 이미지 */
+        .absimg img{
+            position: absolute;
+        }
+
+        /* 두번쨰 이미지 투명하게 만들기 */
+        .absimg img:last-child{
+            opacity: 0;
+
+            /* filter-opacity:(); -이전 방식 투명도 */
+            /* 
+            [opacity 속성: 투명도]
+            - 실제로 요소가 위치하고 있지만 화면에 투명하게 보이게하는 속성
+            - 값: 0 완전 투명
+                  1 - 불투먕
+                  0,n - 중간 투명도
+            */
+        }
+        
+
+
+        /* 박스에 마우스 오버시 두번쨰 이미지 나타나기 */
+        .absimg:hover img:last-child{
+            opacity: 1;
+
+            /* 
+            트렌지션: 두 상태간 애니메이션 효과속성
+            transition: 속성 시간 이징 지연시간
+            transition: 속시이지;
+            간단하게는 애니메이션 시간만 쓰면 모든 변화가 애니메이션 된다
+            ->시간은 초단위(s)
+            */
+
+            transition: 0.4s;
+            
+        
+        }
     </style>
 </head>
 <body>
@@ -194,7 +250,7 @@
    <div class="bx" id="a1" title="나는 젠틀앱솔루트다!">a1</div>
    <div class="bx" id="r2">r2</div>
    <div class="bx" id="s2">s2</div>
-   <div class="bx" id="a2">a2</div>
+   <div class="bx" id="a2" title="나는 보이는 화면이 기준이다! 부모가 없어서..ㅠ-ㅠ">a2</div>
 
    <!-- 앱솔루트 : 판타롱스타킹! -->
    <div class="a5" title="앱솔루트 판타롱스타킹~!">
@@ -202,7 +258,7 @@
    </div>
 
    <!-- 앱솔루트끼리는 서로 겹친다 -->
-   <div class="sbsig">
+   <div class="absimg">
     <img src="./images/ab3.jpg" alt="토르">
     <img src="./images/ab4.jpg" alt="닥스">
    </div>
