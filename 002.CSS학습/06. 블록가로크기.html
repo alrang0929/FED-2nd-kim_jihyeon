@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06 블록요소 가로크기 설정</title>
+    <style>
+        .bx{
+            border: 5px dashed blue;
+            padding: 15px;
+            margin: 15px;
+
+            /* font-variant: small-caps;
+            영문체 소문자를 작은 대문자로 표시하는 속성셋팅 */
+            
+            /* 글자 한번에 셋팅하기
+            font: 스타일, 두께, 크기/줄간격 글자체
+            없을시 값 입력은 패스
+            font: 스두크/줄체 */
+            font: bold 1em '맑은 고딕','굴림';
+            text-align: center;
+        }
+
+        /* 01 가로크기 600px
+        - 블록요소는 가로크기를 주지 않으면 auto인 상태이므로
+          부모박스를 채운다! 가로크기를 주게되면 그 크기를 유지함
+          (만약 화면이 작아질 떄 셋팅된 크기 이하에서는 가로 스크롤바가 생김!)
+        */
+        .bx1{
+            width: 600px;
+        }
+
+        /* 02 최대 가로크기 1000px
+        -max-width 속성을 셋팅하면 블록박스의 가로크기 최대값 보다 부모박스가 크면
+        유지하다가 작아지면 auto로 전환되어 부모박스를 채우게 된다(가로 스크롤이 안생긴다!)
+        */
+        .bx2{
+            max-width: 1000px; /* maw1000 */
+        }
+
+        /* 03 최소 가로크기 700px
+        - min-width를 설정하게 되면 설정된 크기보다 부모박스가 큰경우 auto로 자동채우기를 하다가
+        작아지면 설정된 크기를 유지하게 된다!
+        (디자인상 최소크기 지정 요구시 셋팅하게됨!)
+        */
+        .bx3{
+            min-width: 700px;/* mw700 */
+        }
+
+        /* 04 최대 1200px, 최소 800px
+            - 최대크기보다는 안커지고 최소 크기보다는 안작아지게 셋팅, 중간 크기일때는
+            auto로 부모박스를 자동 채우기 한다!
+        */
+        .bx4{
+            max-width: 1200px;
+            min-width: 800px;
+        }
+        /* 05 가로크기 800px, 최대 가로크기 80%
+            - 기본 크기 설정을 유지하다가 부모박스크기가 지정된 최대크기 % 이하로 내려오면
+              박스 크기를 해당 %로 유지하며 변경된다.
+         */
+        .bx5{
+            width: 800px;
+            max-width: 80%;/* maw80p */
+        }
+
+        /* 
+                [ 최대가로크기 / 최소가로크기 설정 정리! ]
+
+                1. max-width : 최대가로크기 제한
+                -> 최대크기보다 작아지면 auto전환
+                -> 값을 %로 줄경우 화면크기를 기준하여
+                그 크기보다 작아질 경우 %가 적용된다!
+                이때 보통 width크기가 설정되어 있다(.bx5예)
+
+                2. min-width : 최소가로크기 제한
+                -> 최소크기보다 커지면 auto전환
+                
+            */
+
+    </style>
+    
+</head>
+<body>
+    
+</body>
+</html>
+
+<h1>블록요소 가로크기 설정</h1>
+
+<div class="bx bx1">
+    가로크기 600px <br>
+    (width:600px)
+</div>
+<div class="bx bx2">
+    최대가로크기 1000px <br>
+    (max-width:1000px)
+</div>
+<div class="bx bx3">
+    최소가로크기 700px <br>
+    (min-width:700px)
+</div>
+<div class="bx bx4">
+    최대가로크기 1200px <br>
+    (max-width:1200px) <br>
+    최소가로크기 800px <br>
+    (min-width: 800px)
+</div>
+<div class="bx bx5">
+    가로크기 800px <br>
+    (width:800px) <br>
+    최대가로크기 80% <br>
+    (max-width:80%)
+</div>
