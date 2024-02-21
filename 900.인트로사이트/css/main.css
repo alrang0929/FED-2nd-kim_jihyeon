@@ -14,8 +14,8 @@ html,body,h1,h2,h3,p,ul,ol{
     padding: 0;    
 }
 
-.ul,ol{
-list-style-type: none;
+ul,ol{
+list-style: none;
 
 /* 리스트 스타일 없앰 */
 
@@ -26,7 +26,7 @@ html,body,.page{
 }
 
 #pg1{
-    background: url(../images/worksbg02.jpg) no-repeat fixed center/cover;
+    background: url(../images/BG02.jpg) no-repeat fixed top/cover;
     
     /* background-image: 
     linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
@@ -40,7 +40,7 @@ html,body,.page{
 }
 
 #pg2{
-    background: url(../images/worksbg03.jpg) no-repeat fixed center/cover;
+    background: url(../images/BG3.jpg) no-repeat fixed center/cover;
 }
 .top-area{
 
@@ -49,14 +49,15 @@ html,body,.page{
     width: 100%;
     background-color: #ffffff;
     /* 패딩: 위아래만 */
-    padding: 20px 0;
+    padding: 0;
+    padding-top: 20px;
     /* 상단박스 맨위! */
     z-index: 9999;
 }   
 
 body{
     background: 
-    url(../images/worksbg.jpg) no-repeat fixed center/cover;
+    url(../images/BG02.jpg) no-repeat fixed center/cover;
 
     /* background-image: 
     linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
@@ -72,6 +73,10 @@ body{
 /* 로고박스 */
 .logo{
 text-align: center;
+margin: 0 100px;
+}
+.logo img{
+    height: 60px;
 }
 
 /* 메뉴박스 */
@@ -79,7 +84,7 @@ text-align: center;
     width: 700px;
     margin: 0 auto;
     /* background-color: rgba(135, 206, 250, 0.696); */
-    padding: 15px;
+    padding:30px 0 15px 0;
 }
 
 /* clear 설정 */
@@ -104,23 +109,71 @@ text-align: center;
     text-decoration: none;
     font-size: 20px;
 }
-/* 마우스 호버시 */
-.menu a:hover{
-    color: #ff2d2d;
-    text-decoration: overline;
-    text-decoration-style: wavy;
+/* 마우스 호버시?????왜 박스에 먹음..??? */
+.menu a:before, .menu a:after{
+    content: '';
+    border-bottom: solid 2px rgb(24, 24, 24);
+    position: absolute;
+    bottom: 0;
+    width: 0;
+}
+.menu a:before { left: 0; }
+.menu a:after { right: 0; }
+
+.menu a:hover:before, .menu a:hover:after{
+    width: 50%;   
+}
+.menu a:hover:before, .menu a:hover:after{
+    -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+    
 }
 
 /* 컨텐츠박스 */
 .link-box{
 position: relative;
 top: 40%;
-
-border: 2px dashed darkblue;
+right: -338px;
+border: transparent;
 border-radius: 20px;
-width: 600px;
+width: 30%;
 margin: 0 auto;
 padding: 20px;
-text-align: center;
-background-color: #ffffff6e;
+text-align: right;
+background-color: transparent;
+
+color: #fff;
+}
+
+/* link-box a요소 초기화 */
+.link-box h2{
+    padding: 20px;
+}
+.link-box a {
+    color: #ffffff;
+    text-decoration: none;
+    line-height: 2em;
+    font-size: 18px;
+    text-align: right;
+    margin-right: 20px;
+}
+/* 링크 호버효과 .. 워째서 양쪽 다나옴*/
+.link-box a:before, .link-box a:after{
+    content: '';
+    border-bottom: solid 1px #fff;
+    position: absolute;
+    bottom: 0;
+    width: 0;
+}
+
+.link-box a:before {left: 0;}
+.link-box a:after {right: 0;}
+
+.link-box a:hover:before,.link-box a:hover:after{
+    width: 40%;
+}
+
+.link-box a:before,.link-box a:after{
+    -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
 }
