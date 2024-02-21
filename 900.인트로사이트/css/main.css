@@ -14,10 +14,45 @@ html,body,h1,h2,h3,p,ul,ol{
     padding: 0;    
 }
 
+.ul,ol{
+list-style-type: none;
+
+/* 리스트 스타일 없앰 */
+
+}
 html,body,.page{
     /* 높이값 보이는 화면 기준 채우기 */
     height: 100%;
 }
+
+#pg1{
+    background: url(../images/worksbg02.jpg) no-repeat fixed center/cover;
+    
+    /* background-image: 
+    linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
+    /* 
+        [ 선형 그라데이션 ]
+        background-image: 
+        linear-gradient(방향,색1,색2,색3,...)
+        - 방향: 
+        to top, to left, to right, to bottom
+    */
+}
+
+#pg2{
+    background: url(../images/worksbg03.jpg) no-repeat fixed center/cover;
+}
+.top-area{
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    /* 패딩: 위아래만 */
+    padding: 20px 0;
+    /* 상단박스 맨위! */
+    z-index: 9999;
+}   
 
 body{
     background: 
@@ -34,6 +69,11 @@ body{
     */
 }
 
+/* 로고박스 */
+.logo{
+text-align: center;
+}
+
 /* 메뉴박스 */
 .menu{
     width: 700px;
@@ -42,7 +82,7 @@ body{
     padding: 15px;
 }
 
-/* 클리어 설정 */
+/* clear 설정 */
 .menu ul::after{
     content: '';
     display: block;
@@ -62,7 +102,9 @@ body{
 .menu a{
     color: #222;
     text-decoration: none;
+    font-size: 20px;
 }
+/* 마우스 호버시 */
 .menu a:hover{
     color: #ff2d2d;
     text-decoration: overline;
@@ -71,38 +113,14 @@ body{
 
 /* 컨텐츠박스 */
 .link-box{
-    border: 2px dashed darkblue;
-    border-radius: 20px;
-    width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background-color: #ffffff6e;
-}
+position: relative;
+top: 40%;
 
-
-#pg2{
-    background-image: url(../images/worksbg02.jpg)no-repeat fixed center/cover;
-}
-
-/* 상단영역 */
-.top-area{
-    position: fixed;
-    top: 0;
-    margin: 100%;
-    background-color: #ffffff20;
-    padding: 20px;
-    /* 상단박스 맨위! */
-    z-index: 999;
-}
-
-/* 로고박스 */
-.logo{
-    text-align: center;
-}
-
-/* 컨텐츠박스 */
-.link-box{
-    position: relative;
-    top: 40%;
+border: 2px dashed darkblue;
+border-radius: 20px;
+width: 600px;
+margin: 0 auto;
+padding: 20px;
+text-align: center;
+background-color: #ffffff6e;
 }
