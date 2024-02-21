@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>03. absolute 포지션</title>
+    <title>04. fixed 포지션</title>
     <style>
         .bx{
             width: 300px;
@@ -15,42 +15,20 @@
             line-height: 300px;
         }
 
+        /* 첫번째 fixed 요소 */
+        #f1{
+            position: fixed;/* pof */
+            width: 800px;
+            background-color: yellow;
+            line-height: 200px;
+            text-align: center;
+        }
+
         /* 첫번째 앱솔루트 박스 */
         #a1{
             position: absolute;/* poa */
             /*******************************************
-                [ 3. absolute 포지션 ] 
-                - 절대적인 부모를 기준하여 위치를 잡는 포지션
-                - 부모자격을 따져서 기준을 삼는다!
-                (단, 위치속성값을 쓴 경우에만!!!)
-
-                1. absolute포지션은 위치이동값을 쓰기전과
-                쓴 후로 나눌 수 있다!
-
-                (1) 위치이동값을 쓰지 않은 경우
-
-                - 자기보다 위에 있는 static한 요소를 존중하여
-                그 아래에 위치함!!!
-                ->>>> 젠틀앱솔루트!!!
-
-                + 어떤 요소의 자식요소로 앱솔루트가 셋팅된 경우
-                그 부모박스에 부모자격이 없을 지라도
-                그 위치를 그대로 유지한다!
-                ->>>>> 젠틀앱솔루트!!!
-
-                -> 앱솔루트 요소보다 아랫쪽에 위치하고 있는
-                static한 요소는 앱솔루트를 인식하지 못하여
-                같은 자리에 올라와 자리를 차지한다!
-
-                (2) 위치이동값을 사용한 경우
-
-                - 위치이동값값을 사용한 부분에 대해서만!!!
-                앱솔루트가 위치를 잡을때 기준이 되는
-                부모는? static이 아닌요소가 부모다!
-
-                -> static이 아닌 포지션이란?
-                relative / abslolute / fixed / sticky
-                
+             
                 
             *******************************************/
                 background: url(./images/ab1.jpg) no-repeat center/cover;
@@ -248,6 +226,7 @@
    <div class="bx" id="r1">r1</div>
    <div class="bx" id="s1">s1</div>
    <div class="bx" id="a1" title="나는 젠틀앱솔루트다!">a1</div>
+   <div class="bx f1" id="f1">나는 젠틀 픽스드다!</div>
    <div class="bx" id="r2">r2</div>
    <div class="bx" id="s2">s2</div>
    <div class="bx" id="a2" title="나는 보이는 화면이 기준이다! 부모가 없어서..ㅠ-ㅠ">a2</div>
