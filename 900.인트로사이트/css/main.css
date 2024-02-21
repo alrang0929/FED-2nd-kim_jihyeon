@@ -9,7 +9,7 @@ html{
 }
 
 /* 마진,패딩 초기화 */
-html,body,h1,h2,h3,p{
+html,body,h1,h2,h3,p,ul,ol{
     margin: 0;
     padding: 0;    
 }
@@ -38,12 +38,35 @@ body{
 .menu{
     width: 700px;
     margin: 0 auto;
-    background-color: rgba(135, 206, 250, 0.696);
+    /* background-color: rgba(135, 206, 250, 0.696); */
     padding: 15px;
 }
-/* 메뉴 하위 h1,h2 옆으로 흐르게 display변경하기 */
-.menu>*{
-    display: inline-block;
+
+/* 클리어 설정 */
+.menu ul::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+/* 각 리스트 */
+.menu li{
+
+    /* 블록요소 옆으로 흐르게 */
+    float: left;
+    width: 50%;
+    text-align: center;
+    font-size: 30px;
+
+}
+/* 메뉴 a요소: 글자색, 밑줄 없앰 */
+.menu a{
+    color: #222;
+    text-decoration: none;
+}
+.menu a:hover{
+    color: #ff2d2d;
+    text-decoration: overline;
+    text-decoration-style: wavy;
 }
 
 /* 컨텐츠박스 */
@@ -55,4 +78,31 @@ body{
     padding: 20px;
     text-align: center;
     background-color: #ffffff6e;
+}
+
+
+#pg2{
+    background-image: url(../images/worksbg02.jpg)no-repeat fixed center/cover;
+}
+
+/* 상단영역 */
+.top-area{
+    position: fixed;
+    top: 0;
+    margin: 100%;
+    background-color: #ffffff20;
+    padding: 20px;
+    /* 상단박스 맨위! */
+    z-index: 999;
+}
+
+/* 로고박스 */
+.logo{
+    text-align: center;
+}
+
+/* 컨텐츠박스 */
+.link-box{
+    position: relative;
+    top: 40%;
 }
