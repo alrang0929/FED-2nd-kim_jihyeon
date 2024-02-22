@@ -2,36 +2,37 @@
 /* 인트로 사이트 메인 CSS - main.css */
 
 /* 스크롤 애니메이션 셋팅 */
-html{
+html {
     scroll-behavior: smooth;
     /* html 즉, Root에 부드러운 스크롤 설정을 하면
     이동시 스크롤 애니메이션이 연출된다! */
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
-system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
-"Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+        "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 /* 마진,패딩 초기화 */
-html,body,h1,h2,h3,p,ul,ol{
+html,body,h1,h2,h3,p,ul,ol {
     margin: 0;
     padding: 0;
-    font-size: none;    
+    font-size: none;
 }
 
-ul,ol{
-list-style: none;
+ul,ol,li {
+    list-style: none;
 
-/* 리스트 스타일 없앰 */
+    /* 리스트 스타일 없앰 */
 
 }
-html,body,.page{
+
+html,body,.page {
     /* 높이값 보이는 화면 기준 채우기 */
     height: 100%;
 }
 
-#pg1{
+#pg1 {
     background: url(../images/BG02.jpg) no-repeat fixed top/cover;
-    
+
     /* background-image: 
     linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
     /* 
@@ -43,10 +44,11 @@ html,body,.page{
     */
 }
 
-#pg2{
+#pg2 {
     background: url(../images/BG3.jpg) no-repeat fixed center/cover;
 }
-.top-area{
+
+.top-area {
 
     position: fixed;
     top: 0;
@@ -57,11 +59,11 @@ html,body,.page{
     padding-top: 20px;
     /* 상단박스 맨위! */
     z-index: 9999;
-}   
+}
 
-body{
-    background: 
-    url(../images/BG02.jpg) no-repeat fixed center/cover;
+body {
+    background:
+        url(../images/BG02.jpg) no-repeat fixed center/cover;
 
     /* background-image: 
     linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
@@ -75,30 +77,32 @@ body{
 }
 
 /* 로고박스 */
-.logo{
-text-align: center;
-margin: 0 100px;
+.logo {
+    text-align: center;
+    margin: 0 100px;
 }
-.logo img{
+
+.logo img {
     height: 60px;
 }
 
 /* 메뉴박스 */
-.menu{
+.menu {
     width: 700px;
     margin: 0 auto;
     /* background-color: rgba(135, 206, 250, 0.696); */
-    padding:30px 0 15px 0;
+    padding: 30px 0 15px 0;
 }
 
 /* clear 설정 */
-.menu ul::after{
+.menu ul::after {
     content: '';
     display: block;
     clear: both;
 }
+
 /* 각 리스트 */
-.menu li{
+.menu li {
 
     /* 블록요소 옆으로 흐르게 */
     float: left;
@@ -107,55 +111,74 @@ margin: 0 100px;
     font-size: 30px;
 
 }
+
 /* 메뉴 a요소: 글자색, 밑줄 없앰 */
-.menu a{
+.menu a {
+    position: relative;
+    padding: 10px;
     color: #222;
     text-decoration: none;
     font-size: 18px;
 }
+
 /* 마우스 호버시?????왜 박스에 먹음..??? */
-.menu a:before, .menu a:after{
+.menu a:before,
+.menu a:after {
     content: '';
     border-bottom: solid 2px rgb(24, 24, 24);
     position: absolute;
+    font-weight: 200;
     bottom: 0;
     width: 0;
 }
-.menu a:before { left: 0; }
-.menu a:after { right: 0; }
 
-.menu a:hover:before, .menu a:hover:after{
-    width: 50%;   
+.menu a:before {
+    left: 0;
 }
-.menu a:hover:before, .menu a:hover:after{
+
+.menu a:after {
+    right: 0;
+}
+
+.menu a:hover:before,
+.menu a:hover:after {
+    width: 60%;
+}
+
+.menu a:hover:before,
+.menu a:hover:after {
+    font-weight: 600;
     -webkit-transition: all 0.2s ease;
-            transition: all 0.2s ease;
-    
+    transition: all 0.2s ease;
+
 }
 
 /* 컨텐츠박스 */
-.link-box{
-position: relative;
-top: 40%;
-right: -338px;
-border: transparent;
-border-radius: 20px;
-width: 30%;
-margin: 0 auto;
-padding: 20px;
-text-align: right;
-background-color: transparent;
+.link-box {
+    position: relative;
+    top: 40%;
+    right: -338px;
+    border: transparent;
+    border-radius: 20px;
+    width: 30%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: right;
+    background-color: transparent;
 
-color: #fff;
+    color: #fff;
 }
 
 /* link-box a요소 초기화 */
-.link-box h2{
+.link-box h2 {
     padding: 20px;
     font-size: 25px;
 
 }
+
 .link-box a {
+    position: relative;
+    padding-left: 400px;
     color: #ffffff;
     text-decoration: none;
     font-size: 18px;
@@ -165,8 +188,10 @@ color: #fff;
     line-height: 2em;
 
 }
+
 /* 링크 호버효과 .. 워째서 양쪽 다나옴*/
-.link-box a:before, .link-box a:after{
+/* .link-box a:before, */
+.link-box a:after {
     content: '';
     border-bottom: solid 1px #fff;
     position: absolute;
@@ -175,20 +200,27 @@ color: #fff;
     width: 0;
 }
 
-.link-box a:before {left: 0;}
-.link-box a:after {right: 0;}
+.link-box a:before {
+    left: 0;
+}
 
-.link-box a:hover:before,.link-box a:hover:after{
-    width: 40%;
+.link-box a:after {
+    right: 0;
+}
+
+/* .link-box a:hover:before, */
+.link-box a:hover:after {
+    width: 50%;
     font-weight: 400;
 }
 
 /* 클릭후 볼드 고정 */
-.link-box a:active{
+.link-box a:active {
     font-weight: 400;
 }
 
-.link-box a:before,.link-box a:after{
+/* .link-box a:before, */
+.link-box a:after {
     -webkit-transition: all 0.2s ease;
-            transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
