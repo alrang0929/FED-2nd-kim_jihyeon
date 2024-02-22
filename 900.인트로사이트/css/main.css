@@ -12,20 +12,31 @@ html {
 }
 
 /* 마진,패딩 초기화 */
-html,body,h1,h2,h3,p,ul,ol {
+html,
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
     margin: 0;
     padding: 0;
     font-size: none;
 }
 
-ul,ol,li {
+ul,
+ol,
+li {
     list-style: none;
 
     /* 리스트 스타일 없앰 */
 
 }
 
-html,body,.page {
+html,
+body,
+.page {
     /* 높이값 보이는 화면 기준 채우기 */
     height: 100%;
 }
@@ -42,6 +53,12 @@ html,body,.page {
         - 방향: 
         to top, to left, to right, to bottom
     */
+}
+
+.stk-img01{
+    position: sticky;
+    height: 100px;
+    top: 400px;
 }
 
 #pg2 {
