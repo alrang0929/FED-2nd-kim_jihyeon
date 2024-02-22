@@ -57,8 +57,12 @@ body,
 
 .stk-img01{
     position: sticky;
-    height: 100px;
-    top: 400px;
+    height: 20%;
+    top: 0px;
+    padding: 100px;
+}
+.stk-img01 img{
+    width: 400px;
 }
 
 #pg2 {
@@ -131,6 +135,7 @@ body {
 
 /* 메뉴 a요소: 글자색, 밑줄 없앰 */
 .menu a {
+    
     position: relative;
     padding: 10px;
     color: #222;
@@ -182,6 +187,7 @@ body {
     padding: 20px;
     text-align: right;
     background-color: transparent;
+    white-space : nowrap;
 
     color: #fff;
 }
@@ -212,7 +218,7 @@ body {
     content: '';
     border-bottom: solid 1px #fff;
     position: absolute;
-    font-weight: 200;
+    font-weight: 100;
     bottom: 0;
     width: 0;
 }
