@@ -218,7 +218,41 @@
                 4. 지연시간 :
                     transition-delay
             */
-        </style>
+            #trans10{
+                width: 200px;
+                height: 200px;
+            }
+            #trans10 img{
+                position: absolute;
+            }
+            
+            /* 유정이 원본 회정하여 숨기기 */
+            #trans10 img:first-child{
+                transform: rotateY(90deg);
+                transition: .4s ease-in;
+                /* 보거미 호버 후 바로 전환 처음에만 천천히 */
+            }
+            /* 유정이 오버시 회전하여 보이기 */
+            #trans10:hover img:first-child{
+                transform: rotateY(0deg);
+                transition: .4s .4s ease-out;
+                /* 오버시 보거미 0.4초 대기 후 애니
+                나중에만 천천히*/
+            }
+            /* 보거미 원본 회전하기 */
+            #trans10 img:last-child{
+                transform: rotateY(0deg);
+                transition: .4s .4s ease-out;
+                /* 오버시 0.4s 기다린 후 0.4s 애니 천천히*/
+            }
+            /* 보거미 오버시 회전하기 */
+            #trans10:hover img:last-child{
+                transform: rotateY(90deg);
+                transition: .4s ease-in;
+                /* 오버시 0.4s 애니
+                처음에만 천천히 */
+            }
+            </style>
     </head>
     <body>
         <!-- 타이틀 -->
