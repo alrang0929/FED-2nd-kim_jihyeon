@@ -49,17 +49,37 @@
             무조건 첫번째 줄에 온 글자만 적용된다!
             - 단, 블록요소에만 적용(인라인요소를 블록화하여도 됨)
 
+            참고: https://www.w3schools.com/css/css_pseudo_elements.asp
 
              */
         /* h2요소 맨앞에 이미지 넣기 */
        h2::before{
-            
+        content: url(./imgs/blogo.png);
+        /* 이미지는 원본을 그대로 사용할 경우 url로 호출!
+        가로, 세로 크기변경 불가능! */
+        margin-right: 20px;
+        /* 인라인요소간 세로정렬 */
+        vertical-align: -10px;
        }
         
 
         /* 맨뒤 추가요소 ::after */
         h2::after{
-            
+            /* 이미지 크기 조절하려면 박스를 만들고
+            배경 이미지로 넣는다 */
+            content: '';
+            display: inline-block;
+            /* 디자인 적용을 위해 */
+            width: 40px;
+            height: 60px;
+            border: 2px solid gray;
+            background: url(./imgs/bg_logo_a_01.png) no-repeat center/80%;
+            border-radius: 5px;
+            /* 박스 그림자 여러개 주기
+            x y blur spread 색...을 콤마로 연결하면 여러개 사용가능!! */
+            box-shadow: 0 0 10px purple, 10px 10px 5px 2px rgba(0, 0, 255, 0.164);
+            margin-left: 20px;
+            vertical-align: middle;
         }
         
         
@@ -80,10 +100,59 @@
         }
 
         /* 반복되는 요소의 앞에 아이콘 가상요소로 넣기 */
-        
+            dt::before{
+                content:'😎★';
+                color: red;
+                font-size: 30px;
+                vertical-align: 2px;
+                margin-right: 10px;
+            }
+                
+            
 
         /* dd전체 before적용하기 */
-               
+
+        dd::before{
+        content:'👨';
+         font-size: 20px;
+         vertical-align: 2px;
+         margin-right: 10px;
+        }
+
+
+        /* 여자인 경우 이모지 변경 */
+        dd:nth-of-type(3):before,
+        dd:nth-of-type(4):before,
+        dd:nth-of-type(8):before,
+        dd:nth-of-type(9):before,
+        dd:nth-of-type(11):before,
+        dd:nth-of-type(12):before,
+        dd:nth-of-type(13):before
+        {
+         content: '👩';
+        }
+        dd:nth-of-type(13)::before{
+            content: '🤷‍♀️🤷‍♂️';
+        }
+
+        /* dd가상요소 없애기 */
+        dd:nth-of-type(14):before{
+            display: none;
+        }
+        dd.story h3::before{
+            content:'📽';
+            margin-right: 10px;
+        }
+        /* dt아이콘 변경 */
+        dt:nth-of-type(2)::before{
+            content:'🤸‍♂️';
+        }
+        dt:nth-of-type(3)::before{
+            content:'🕶';
+        }
+        dt:nth-of-type(4)::before{
+            content:'💨';
+        }
 
 
         /* 출연배우의 dd부터 아이콘변경 */
@@ -101,12 +170,33 @@
         
 
         /* .story의 첫번째 p태그의 첫번째 글자 디자인 변경하기 */
+        .story p:nth-of-type(2) b{
+            font-size: 50px;
+            color: hotpink;
+        }
+        .story p:nth-of-type(2) span{
+            font-size: 30px;
+            color: blue;
+            font-family: 궁서;
+        }
         
+
         
         
         /* .story의 첫번째 p태그의 첫번째줄 디자인 변경하기 */
         
-        
+        .story p:nth-of-type(1)::first-letter{
+            font-size: 50px;
+            font-weight: bold;
+            color: hotpink;
+            font-family: 궁서;
+        }
+
+        .story p:nth-of-type(1)::first-line{
+            font-size: 30px;
+            color: blue;
+            font-family: 궁서;
+        }
 
 
 
@@ -119,10 +209,18 @@
 
         /* 기타 가상요소 ::selection */
         /* 드래그 선택시 글자색 배경색 설정변경! */
+        ::selection{
+            background-color: rgb(206, 154, 255);
+            color: lime;
+        }
         
         
         /* ::selection만쓰면 전체가 다 적용됨! 
         특정선택자::selection 으로 쓰면 자식태그로 싸지 않은 글자만 적용됨!*/
+        /*         p::selection{
+                    background-color: rgb(206, 154, 255);
+                    color: lime;
+                } */
     </style>
 </head>
 
