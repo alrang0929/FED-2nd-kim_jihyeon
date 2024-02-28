@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* 도깨비 PJ : 메인페이지 CSS - main.css */
+
+/* 리셋, 코어, common 공통 외부css합치기 */
+@import url(./reset.css);
+@import url(./core.css);
+@import url(./common.css);
+/* 그리드12 불러오기 */
+@import url(./grid_12_float.css);
+
+/* 공사중 표시 */
+body *{
+    outline: 3px dashed #ccc;
+}
+
