@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <!-- 모바일 뷰포트필수! -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글자단위</title>
     <style>
         /* 
@@ -68,24 +69,24 @@
 
          */
 
-         html{
-            
+        html {
+
             /* 기본글자크기가 16px이라고 해 놓고 왜?
             여기에 글자크기를 셋팅하는가?
             브라우저 글꼴크기는 달라질 수 있기 때문에
             글자크기를 개발자가 정해주려면 html최상위부모
             에 설정하면 모든 요소에 상속된다!!! */
-         }
+        }
 
-         /* em 단위 */
-         /* em은 배수단위 - 싸고 있는 부모박스의 글자크기를
+        /* em 단위 */
+        /* em은 배수단위 - 싸고 있는 부모박스의 글자크기를
          기준하여 계산한다! */
 
 
-         /* 32px */
-         .f1{
+        /* 32px */
+        .f1 {
             font-size: 2em;
-            
+
             /* 
                 상속된px * 배수 = 몇px
                 16px * x = 32px
@@ -96,79 +97,138 @@
                 [ em단위 구하기 ]
                 em = 구하는px / 상속된px
             */
-         }
+        }
 
-         /* 24px */
-         .f2{
-            
+        /* 24px */
+        .f2 {
+
             font-size: 0.75em;
             /* 0.75em = 24px / 32px */
-         }
+        }
 
-         /* 14px */
-         .f3{
+        /* 14px */
+        .f3 {
             font-size: 0.58em;
             /* 0.58em = 14px / 24px */
-         }
+        }
 
-         /* rem 단위 - 기준은 html요소 글자크기임! */
+        /* rem 단위 - 기준은 html요소 글자크기임! */
 
-         /* 32px */
-         .rf1{
-            
+        /* 32px */
+        .rf1 {
+            font-size: 2rem;
             /* rem = 원하는px / html의px
                   = 32px / 16px = 2rem */
-         }
+        }
 
-         /* 24px */
-         .rf2{
-            
+        /* 24px */
+        .rf2 {
+            font-size: 1.5rem;
             /* rem = 원하는px / html의px
                   = 24px / 16px = 1.5rem */
-         }
+        }
 
-         /* 14px */
-         .rf3{
+        /* 14px */
+        .rf3 {
+            font-size: 0.87rem;
             /* rem = 원하는px / html의px
                   = 14px / 16px = 0.87rem */
-         }
+        }
 
 
-         /* % 단위 -> em단위 * 100 */
-         /* 32px */
-         .pf1{
+        /* % 단위 -> em단위 * 100 */
+        /* 32px */
+        .pf1 {
             font-size: 200%;
             /* 2em * 100 = 200% */
-         }
-         /* 24px */
-         .pf2{
+        }
+
+        /* 24px */
+        .pf2 {
             font-size: 75%;
             /* 0.75em * 100 = 75% */
-         }
-         /* 16px */
-         .pf3{
+        }
+
+        /* 16px */
+        .pf3 {
             font-size: 58%;
             /* 0.58em * 100 = 58% */
+        }
+
+        /* 
+
+         [CSS 미디어쿼리]
+         - 화면의 가로크기에 대한 css 설정값을 변경할 수 있도록
+         코드 구역을 설정하여 변경해주는 css미디어 체크 코드구역
+
+         형식)
+         @media screen and (man-width: 몇px) and (max-width: 몇px){
+            CSS설정
          }
 
+         1. 미디어쿼리 체크파트(회피코드)
+            - screen / only screen
+            -> 미디어쿼리를 사용할 수 있는 브라우저만 통과
+         2. 최대크기: (max-width)
+         3. 최소크기: (min-width)
+            - 최대만 쓰면 그 사이즈 이하 포함
+            - 최소만 쓰면 그 사이즈 이상 포함
+         4. and 연결자: 구문사이를 연결함
+            
+         */
 
-         
+        @media screen and (max-width: 1000px) {
 
+            /* em단위와 %단위만 변경됨, 부모요소로 부터 상속된 크기를 기준한 상대 단위이기 떄문
+            rem단위가 그대로인 이유는 html크기를 기준하는데 변경사항이 없기 때문 */
+            body {
+                font-size: 40px;
+            }
+        }
+
+        /* 1000px 이하 */
+
+        /* 미디어쿼리 800이하 */
+        @media screen and (max-width: 800px) {
+            /* 
+            root인 html 글자크기를 변경함
+            rem단위만 변경됨!
+            왜? body크기는 변경되어 있으므로 영향을 주지 못해 em%단위는 변경없음
+            */
+            /* root인 html폰트 사이즈 변경 */
+            html {
+                font-size: 30px;
+            }
+
+        }
+
+        /* 800px 이하 */
+
+        /* 미디어쿼리 800이하 */
+        @media screen and (max-width: 700px) {
+            /* 상대단위를 개별적으로 부분상대변경을 할 경우! */
+            .wrap{
+            font-size: 20px;
+            }
+        }/* 700px 이하 */
     </style>
 </head>
+
 <body>
     <h1>em단위</h1>
-    <div class="f1">1.큰 제목입니다. 
-        <div class="f2">2.작은 제목입니다. 
-            <div class="f3">3.내용입니다.</div>
+    <wrap>
+        <div class="f1">1.큰 제목입니다.
+            <div class="f2">2.작은 제목입니다.
+                <div class="f3">3.내용입니다.</div>
+            </div>
         </div>
-    </div>
+    </wrap>
 
     <hr>
 
     <h1>rem단위</h1>
-    <div class="rf1">1.큰 제목입니다. 
-        <div class="rf2">2.작은 제목입니다. 
+    <div class="rf1">1.큰 제목입니다.
+        <div class="rf2">2.작은 제목입니다.
             <div class="rf3">3.내용입니다.</div>
         </div>
     </div>
@@ -176,12 +236,13 @@
     <hr>
 
     <h1>%단위</h1>
-    <div class="pf1">1.큰 제목입니다. 
-        <div class="pf2">2.작은 제목입니다. 
+    <div class="pf1">1.큰 제목입니다.
+        <div class="pf2">2.작은 제목입니다.
             <div class="pf3">3.내용입니다.</div>
         </div>
     </div>
 
 
 </body>
+
 </html>
