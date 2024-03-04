@@ -33,6 +33,7 @@ html {
 /* 전체 배경이미지 */
 body {
   background: url(../images/bg.jpg) no-repeat fixed top/cover;
+  padding-top: 100vh;
 }
 
 /* 공사중 표시 */
@@ -75,7 +76,10 @@ h1.logo {
 /**************** 2.메인영역 ****************/
 /* 2-1.로봇박스 */
 .robot-box {
-  padding-top: 200px;
+  top:0;
+  position: fixed;
+  transform: scale(0.25) translate(301vw, -10vw);
+  /* padding-top: 200px; */
   margin-bottom: 560px;
 }
 

@@ -69,7 +69,7 @@
         - 대체경로 설정하기 : alternate : 시작->끝,끝->시작
         - 대체경로는 반복횟수가 2이상 또는 infinite 이여야함
     7) 마지막상태(animation-fill-mode) : 애니메이션이 끝났을때
-        - 처음상태로 돌아가는 것이 기본!
+        - 처음상태로 돌아가는 것이 기본!(backwards)
         - 마지막 상태를 유지하고 싶을때 forwards(앞쪽에...즉,애니끝장면)
 
 
@@ -78,13 +78,124 @@
 
 /* 1. 로고애니 */
 
-.logo{
-    animation: logo-ani 2s ease-in-out 1s forwards;
+.logo {
+
+
+    /* 1초후 5초간 이동애니 세팅 */
+    animation: logo-ani 5s linear 1s alternate forwards,
+        /* 4초후 스윙애니 영원히 셋팅 */
+        swing-ani .4s ease-in-out 6s infinite alternate;
 }
 
-@keyframes logo-ani{
-    to{
-        top: 3vw;
-        left: 3vw;
+@keyframes logo-ani {
+
+    0% {
+        top: calc(50% + 10vw);
+        left: calc(50% + 10vw);
+        /* 처음 출발 크기 지정 */
+        transform: scale(2);
     }
+
+    /* 처음위치이동: 왼쪽위 */
+    20% {
+        top: calc(0% + 5vw);
+        left: calc(0% + 5vw);
+        transform: scale(0.5);
+    }
+
+    /* 두번째위치이동: 오른쪽 위 */
+    40% {
+        top: calc(0% + 5vw);
+        left: calc(100% - 25vw);
+        transform: scale(0.5);
+    }
+
+    /* 세번쨰위치이동: 우측 하단 */
+    60% {
+        top: calc(100% - 25vw);
+        left: calc(100% - 25vw);
+        transform: scale(0.5);
+    }
+
+    /* 네번쨰위치이동: 좌측 하단 */
+    80% {
+        top: calc(100% - 25vw);
+        left: calc(0% + 5vw);
+        transform: scale(0.5);
+    }
+
+    /* 처음 위치로 돌아옴(좌측상단) */
+    90% {
+        top: calc(0% + 5vw);
+        left: calc(0% + 5vw);
+        transform: scale(1);
+    }
+
+    /* 다음 스윙애니 각도 준비 */
+    100% {
+        top: calc(0% + 5vw);
+        left: calc(0% + 5vw);
+        transform: scale(1);
+        transform: rotate(20deg);
+    }
+
+}
+
+/* 제자리 스윙 애니 */
+
+@keyframes swing-ani {
+
+    0% {
+        /* 앞 스케일값 */
+        transform: scale(1);
+        transform: rotate(20deg);
+    }
+
+    100% {
+        /* 앞 스케일값 */
+        transform: scale(1);
+        transform: rotate(-20deg);
+    }
+
+}
+
+
+/* 2.로봇이동애니 */
+.robot-box {
+
+    /* 애니메이션: 이시이지반방마
+    - 4초후 4초간 한번만 끝상태 유지
+    */
+    animation: move-robot 4s ease-in-out 4s alternate forwards;
+
+}
+
+@keyframes move-robot {
+    from {
+        transform: scale(0.25) translate(301vw, -10vw);
+    }
+    to {
+       transform: scale(0.6) translate(79vw, 5vw);
+
+    }
+
+}
+
+
+
+
+/* 로봇 다리작동애니 */
+.leg {
+    animation: move-rbleg .4s ease-in-out 4s 10 alternate forwards;
+}
+.leg2{
+    animation-delay: 4.4s;
+}
+
+@keyframes move-rbleg {
+
+    100% {
+        top: 90%;
+    }
+
 }
