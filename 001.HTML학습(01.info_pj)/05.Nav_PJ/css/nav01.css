@@ -1,7 +1,9 @@
 @charset "utf-8";
-@import url(./grid_12_float.css);
-/* 12그리드 불러오기 */
+
 /* 네비게이션 유형1 CSS - nav01.css */
+
+/* 12그리드 불러오기 */
+@import url(./grid_12_float.css);
 
 html,
 body,
@@ -9,53 +11,42 @@ h1 {
     margin: 0;
     padding: 0;
 }
-
 h1.tit {
     text-align: center;
     padding: 20px;
 }
 
 /* 전체 body */
-body {
-
+body{
     color: #fff;
-    background: #0a134e url(../images/nav1bg.png) no-repeat fixed center/cover;
-
-
+    background: #0a134d url(../images/nav1bg.png) no-repeat fixed center/cover;
 }
-
-/* 3無 초기화 */
-ul,
-ol {
+/* ul,ol 초기화 : 3無 */
+ul,ol{
     margin: 0;
     padding: 0;
     list-style: none;
 }
-
-/* a요소 공통 */
-a {
-    color: #ffffff;
+/* a요소공통 */
+a{
+    color: #fff;
     text-decoration: none;
 }
-
-/* 공통클래스: 클리어 설정 */
-ul::after,
-ol::after,
-.clb::after {
-    content: "";
+/* 공통클래스 : 클리어설정 */
+ul::after,ol::after,.clb::after{
+    content: '';
     display: block;
     clear: both;
 }
-
 /* 중앙속박스 */
-.onbox {
+.inbox{
     max-width: 1650px;
     margin: 0 auto;
     outline: 2px dashed lime;
 }
 
-
-.logo{
+/* 로고박스 */
+.logo{    
     padding: 13px 0;
 }
 
@@ -63,109 +54,153 @@ ol::after,
 .gnb{
     margin-left: 63px;
 }
-/* 상위메뉴만 적용하기
-직계자식(>)선택으로 상위메뉴만 선택함*/
-.gnb ul > li {
-    position: relative;
-    /* 부모자격- .smenu의 left값 */
-    
-    float: left;
-    line-height: 70px;
-    padding: 0 32px;
-    font-weight: bold;
-    
-    /* 글자관련셋팅은 하위요소로 상속됨 */
+/* GNB 메뉴 하위 a요소 */
+.gnb a{
+    display: block;
+    /* 블록요소로 확장설정함! */
 }
 
+/* 상위메뉴만 적용하기 
+직계자식(>)선택으로 상위메뉴만 선택함 */
+.gnb ul > li{
+    position: relative;
+    /* 부모자격 - .smenu의 left값 */
+    float: left;
+    padding: 0 32px;
+    line-height: 78px;
+    font-weight: bold;
+    /* 글자관련셋팅은
+    하위요소로 모두 상속됨! */
+}
 /* 서브메뉴 */
 .smenu{
-    /* x축 중앙이동 */
     position: absolute;
     left: 50%;
+    /* x축 중앙이동 */
     transform: translateX(-50%);
-    width: 150px;
-    background-color: #00000050;
-    box-shadow: inset 0px 0px 10px rgb(74, 219, 255);
+
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
+    box-shadow: inset 0 0 10px lightskyblue;
+
     text-align: center;
-    line-height: 30px;
+    line-height: 38px;
+    /* 상속된 두꺼운체 노멀체로 변경 */
     font-weight: normal;
-    font-size: 0.6vw;
-    /* 패딩이 있으면 높이값0 숨기기가 않됨!
-    그래서 하위 요소인 ol태그에 패딩줌 */
+
+    /* 패딩이 있으면 높이값0
+    숨기기가 안됨! 그래서
+    하위 요소인 ol태그에 패딩줌 */
     /* padding: 10px; */
 
     /* 숨기기장치 */
     /* height: 0; */
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s;
+
+    /* 트랜지션 : height -> max-height 속성변경 */
+    transition: max-height .4s;
+}
+/* 상위li오버시 서브메뉴 보이기 */
+.gnb ul>li:hover .smenu{
+    max-height: 210px;
+    /* max-height로 셋팅하는 원리:
+    최대높이값은 컨텐츠내용이 적을때 auto하게
+    내용물 만큼만 높이값이 셋팅된다!
+    따라서 셋팅높이값은 최대로로 셋팅해야하는
+    높이값으로 셋팅하면 더 작은 높이값은
+    자동으로 셋팅된다!
+    (단, 작은 크기는 시간이 짧게 표현됨) */
+
+    /* height: 210px; */
+    /* height: auto; */
+    /* 
+        높이값변경 트랜지션 주의사항
+        -> auto로 셋팅하면 특정 크기로 변경할때만
+        적용되는 트랜지션이 적용되지 않음!(바로나옴)
+        height셋팅시에는 변할 실제 크기를 셋팅해야함!
+        -> 각 상위 li별로 높이값을 각각 셋팅해야하는
+        번거로움이 있다!
+    */
+}
+
+/* 예시로 5번째 높이값 개별셋팅 */
+/* .gnb ul>li:nth-child(5):hover .smenu{
+    height: 58px;
+} */
+
+.smenu ol{
+    padding: 10px;
 }
 
 /* 서브메뉴 li 순서대로 나타나기 */
 .smenu li{
     /* 투명하게 */
-opacity: 0;
-transition: opacity 0.4s;
+    opacity: 0;
+    /* 트랜지션 */
+    transition: all .4s;
 }
-
-/* 오버시 */
+/* 상위메뉴 오버시 */
 .gnb ul>li:hover .smenu li{
-    opacity: 0.5;
-}
-.gnb ul>li .smenu li:hover{
     opacity: 1;
 }
-
-/* 오버시 li 순서별 트렌지션 딜레이 주기 */
-.gnb ul>li:hover .smenu li:nth-child(1){
-    transition-duration: 0.2s;
+/* 하위메뉴 a요소 투명도 조정 */
+.gnb ul>li .smenu li a{
+    opacity: 1;
+    transition: .3s;
 }
+
+/* 하위메뉴 a요소에 오버시 */
+.gnb ul>li .smenu li a:hover{
+    opacity: 1;
+    font-weight: bold;
+}    
+/* 오버시 li순서별 트랜지션 delay주기 */
 .gnb ul>li:hover .smenu li:nth-child(2){
-    transition-duration: 0.4s;
+    transition-delay: .2s;
 }
 .gnb ul>li:hover .smenu li:nth-child(3){
-    transition-duration: 0.6s;
+    transition-delay: .3s;
 }
 .gnb ul>li:hover .smenu li:nth-child(4){
-    transition-duration: 0.8s;
+    transition-delay: .4s;
 }
 .gnb ul>li:hover .smenu li:nth-child(5){
-    transition-duration: 1s;
+    transition-delay: .5s;
 }
 
-/* 상위 li오버시 서브메뉴 보이기 */
-.gnb ul>li:hover .smenu{
-    max-height: 200px;
-
-    /* 높이값변경 트렌지션 주의사항
-    ->auto로 셋팅하면 특정 크기로 변경할떄만 적용되는 트렌지션이 적용되지 않음! (바로나옴) 
-    height셋팅시에는 변할 실제 크기를 셋팅해야됨!
-    ->각 상위 li별로 높이값을 각각 셋팅해야하는 번거로움이 있다!
-    */
-
-    /* 
-    max-height로 셋팅하는 원리:display: 최대높이값은 컨텐츠내용이
-    적을 떄 auto하게 내용물 만큼만 높이값이 셋팅된다!;
-    따라서 최대 높이값은 최대로 셋팅해야하는 높이값으로 셋팅하면 더 작은 높이값은
-    자동으로 설정된다
-
-    (단, 작은 크기는 시간이 짧게 표현됨)
-    */
-
-    /* 
-    height: auto;
-    height: 200px; */
+/* 가상요소 밑줄을 위한 부모자격 */
+.gnb ul>li>a{
+    position: relative;
 }
 
-/* .gnb ul>li:nth-child(5):hover .smenu{
-    height: 50px;
-}
- */
-.smenu ol{
-    padding: 10px;
+/* gnb상위 메뉴 오버시 밑줄 애니 */
+.gnb ul>li>a::after{
+    content: '';
+    position: absolute;
+    /* 앱솔루트는 자동블록됨! */
+    top: 53px;
+    left: 100%;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    /* 오버시 트렌지션 */
+    transition:  .3s;
 }
 
+/* 오버시 밑줄박스애니 */
+.gnb ul>li:hover>a::after{
+    left: 0;
+    width: 100%;
+    /* 아웃시 트렌지션 */
+    /* 오버시 트렌지션>left는 트렌지션 적용말것! */
+    transition: width .3s;
+}
+
+
+
+/* 메인영역 */
 .main-area {
     max-width: 1000px;
     min-height: 600px;
