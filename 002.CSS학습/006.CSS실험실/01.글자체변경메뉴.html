@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01.글자체변경메뉴</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+        /* 
+            원본 참고 사이트
+            https://www.joinflowparty.com/on-demand
+            ->메뉴 클릭하여 중앙 메뉴 오버시 글자체가 다른 메뉴가 하단에서 올라옴
+            아웃 시 복귀
+        */
+        /* 초기화 */
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        /* 메뉴박스 */
+        .menu {
+            border: 2px solid lightblue;
+            border-radius: 15px;
+            padding: 15px;
+            width: 500px;
+            margin: 0 auto;
+            background-color: rgb(117, 255, 117);
+        }
+
+        .menu li {
+            overflow: hidden;
+            height: 67px;
+            margin-top: 10px;
+            border-bottom: 2px solid #000;
+        }
+
+        .menu span {
+            display: block;
+            font-size: 50px;
+        }
+
+        /* 두번쨰 메뉴만 글씨체 변경 */
+        .menu span:last-child {
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            line-height: 50px;
+            font-size: 50px;
+        }
+
+        /* 첫번쨰 span의 마진탑 마이너스 값으로 애니메이션 */
+        .menu span:first-child {
+            transition: .3s;
+        }
+
+        .menu li:hover span:first-child {
+            margin-top: -60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav menu">
+        <ul>
+            <li>
+                <a href="">
+                    <span>EVENTS</span>
+                    <span>Events</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span>WHO WE ARE</span>
+                    <span>Who we are</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span>ON DEMAND</span>
+                    <span>On demand</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span>WHAT WE DO</span>
+                    <span>What we do</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span>HANDY TOOLS</span>
+                    <span>Party tools</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
