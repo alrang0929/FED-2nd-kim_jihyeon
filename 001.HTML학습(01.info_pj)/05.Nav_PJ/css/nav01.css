@@ -55,13 +55,115 @@ ol::after,
 }
 
 
-
+.logo{
+    padding: 13px 0;
+}
 
 /* GNB 메뉴 */
-.gnb li {
+.gnb{
+    margin-left: 63px;
+}
+/* 상위메뉴만 적용하기
+직계자식(>)선택으로 상위메뉴만 선택함*/
+.gnb ul > li {
+    position: relative;
+    /* 부모자격- .smenu의 left값 */
+    
     float: left;
     line-height: 70px;
     padding: 0 32px;
+    font-weight: bold;
+    
+    /* 글자관련셋팅은 하위요소로 상속됨 */
+}
+
+/* 서브메뉴 */
+.smenu{
+    /* x축 중앙이동 */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    background-color: #00000050;
+    box-shadow: inset 0px 0px 10px rgb(74, 219, 255);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: normal;
+    font-size: 0.6vw;
+    /* 패딩이 있으면 높이값0 숨기기가 않됨!
+    그래서 하위 요소인 ol태그에 패딩줌 */
+    /* padding: 10px; */
+
+    /* 숨기기장치 */
+    /* height: 0; */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s;
+}
+
+/* 서브메뉴 li 순서대로 나타나기 */
+.smenu li{
+    /* 투명하게 */
+opacity: 0;
+transition: opacity 0.4s;
+}
+
+/* 오버시 */
+.gnb ul>li:hover .smenu li{
+    opacity: 0.5;
+}
+.gnb ul>li .smenu li:hover{
+    opacity: 1;
+}
+
+/* 오버시 li 순서별 트렌지션 딜레이 주기 */
+.gnb ul>li:hover .smenu li:nth-child(1){
+    transition-duration: 0.2s;
+}
+.gnb ul>li:hover .smenu li:nth-child(2){
+    transition-duration: 0.4s;
+}
+.gnb ul>li:hover .smenu li:nth-child(3){
+    transition-duration: 0.6s;
+}
+.gnb ul>li:hover .smenu li:nth-child(4){
+    transition-duration: 0.8s;
+}
+.gnb ul>li:hover .smenu li:nth-child(5){
+    transition-duration: 1s;
+}
+
+/* 상위 li오버시 서브메뉴 보이기 */
+.gnb ul>li:hover .smenu{
+    max-height: 200px;
+
+    /* 높이값변경 트렌지션 주의사항
+    ->auto로 셋팅하면 특정 크기로 변경할떄만 적용되는 트렌지션이 적용되지 않음! (바로나옴) 
+    height셋팅시에는 변할 실제 크기를 셋팅해야됨!
+    ->각 상위 li별로 높이값을 각각 셋팅해야하는 번거로움이 있다!
+    */
+
+    /* 
+    max-height로 셋팅하는 원리:display: 최대높이값은 컨텐츠내용이
+    적을 떄 auto하게 내용물 만큼만 높이값이 셋팅된다!;
+    따라서 최대 높이값은 최대로 셋팅해야하는 높이값으로 셋팅하면 더 작은 높이값은
+    자동으로 설정된다
+
+    (단, 작은 크기는 시간이 짧게 표현됨)
+    */
+
+    /* 
+    height: auto;
+    height: 200px; */
+}
+
+/* .gnb ul>li:nth-child(5):hover .smenu{
+    height: 50px;
+}
+ */
+.smenu ol{
+    padding: 10px;
 }
 
 .main-area {
