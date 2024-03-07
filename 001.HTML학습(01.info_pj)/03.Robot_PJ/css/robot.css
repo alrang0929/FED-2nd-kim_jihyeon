@@ -359,6 +359,7 @@ h1.logo {
   left: 0;
   width: 70px;
   height: 50px;
+  border-radius: 10px;
   z-index: 1;
 
   border-radius: 20px;
@@ -380,6 +381,7 @@ h1.logo {
   /* 부모박스 절반만큼 밀고 원크기 절반 빼기(가로중앙) */
   width: 60px;
   height: 40px;
+  border-radius: 10px;
   z-index: 1;
 
   border-radius: 20px;
