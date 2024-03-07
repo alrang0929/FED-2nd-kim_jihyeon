@@ -43,6 +43,8 @@
                     jexp.style.color = "black";
                     jumsu.value = "";
                     jumsu.focus();
+                    //5.칭창스티커 배경위치값 초기화
+                    jShow.style.backgroundPosition = "-50%, 0";
                 }; //////////////////doItNow함수//////////////////////////
 
                 // 4. 입력된값 필터링처리
@@ -103,12 +105,10 @@
                     msg = "잘함";
                     fcolor = "green";
                     bgPos = "50% 0%";
-
                 } else if (score >= 70) {
                     msg = "보통";
                     fcolor = "purple";
                     bgPos = "0% 0%";
-
                 } else if (score >= 60) {
                     msg = "노력요함";
                     fcolor = "orange";
@@ -130,8 +130,7 @@
                 jexp.style.color = fcolor;
 
                 //6-3. 칭찬스티커 배경위치 변경하기
-                jshow.style.backgroundPosition = bgPos;
-                
+                jShow.style.backgroundPosition = bgPos;
             } /////////// showJumsu 함수 ////////////
 
             // if문 튜닝~~~!
@@ -260,7 +259,7 @@
             }
 
             /* 칭찬스티커박스 */
-            .jshow {
+            .jShow {
                 position: absolute;
                 top: 19vw;
                 left: 74vw;
@@ -277,6 +276,32 @@
 
                 /* 트랜지션 : 배경위치만! */
                 transition: background-position 1s;
+            }
+            /* 가상요소로 글자넣기 */
+            .jShow::before {
+              /* 글자를 배경보다 아래로 할려면 z-index+포지션(static 상태는 z-index 적용안됨) 있어야함 */
+                z-index: -1;
+                position: relative;
+                content: "칭찬스티커";
+                line-height: 15vw;
+                background: rgb(255, 106, 168);
+                /* text-align: center; <부모한테 상속되고있음!!! */
+                color: #fff;
+                font-size: 2vw;
+                font-weight: bold;
+            }
+            .jShow::after {
+              /* 글자를 배경보다 아래로 할려면 z-index+포지션(static 상태는 z-index 적용안됨) 있어야함 */
+                z-index: -1;
+                position: absolute;
+                content: "♥";
+                line-height: -40px;
+                transform: translateX(-50%);
+                left: 50%;
+                /* text-align: center; <부모한테 상속되고있음!!! */
+                color: rgb(255, 106, 168);
+                font-size: 3vw;
+                font-weight: bold;
             }
         </style>
     </head>
@@ -324,7 +349,7 @@
           -->
             <button class="sbtn" onclick="showJumsu()">평가하기</button>
             <!-- 칭찬스티커 박스 -->
-            <div class="jshow"></div>
+            <div class="jShow"></div>
         </div>
     </body>
 </html>
