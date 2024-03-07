@@ -23,165 +23,174 @@ ol {
   margin: 0;
   padding: 0;
 }
-
-/* html 루트설정 */
-html {
+/* html 루트 설정 */
+html{
   font-size: 10px;
-  /* rem 단위 계산 편의성을 위해 */
+  /* rem단위 글자계산 편위위해 */
   scroll-behavior: smooth;
-  /* 부드러운 스크롤 이동애니 */
+  /* 부드러운 스크롤 애니이동 */
 }
-
 /* 전체 배경이미지 */
 body {
   position: relative;
-  /* 부모자격 부여를 위한 포지션 */
-  background: url(../images/bg.jpg) no-repeat fixed top/cover;
+  /* 부모자격 */
   padding-top: 100vh;
+  background: url(../images/bg.jpg) no-repeat fixed top/cover;
 }
+
 
 /* 공사중 표시 */
 /* body * {
   outline: 2px dashed yellow;
-}
- */
+} */
+
 /**************** 공통 클래스 ****************/
 /* 메탈배경 클래스 */
 .metal1 {
   background: url(../images/metal01.jpg) no-repeat center/cover;
 }
-
 .metal2 {
   background: url(../images/metal02.jpg) no-repeat center/cover;
 }
 
 /**************** 1.상단영역 ****************/
-/* 1-1 로고 */
-h1.logo {
+/* 1-1.로고 */
+h1.logo{
   position: fixed;
+  top: calc(50% - 10vw);
+  left: calc(50% - 10vw);
   width: 20vw;
   height: 20vw;
   border-radius: 50%;
+  z-index: 999;
   background: pink url(../images/robot_03.png) no-repeat center/auto 100%;
-  box-shadow: inset 0 0 5px 5px #00000060, 0 0 10px #ff67f5, 0 0 10px #ffa5f9;
-  z-index: 99999;
-  font-family: 'Orbitron', sans-serif;
+  box-shadow: 
+  inset 0 0 20px 5px #000,
+  0 0 20px 5px aqua;
+
+  /* 글자설정 */
   text-align: center;
   line-height: 20vw;
-  font-weight: bold;
-  font-size: 2rem;
-  color: #ffffff;
-  text-shadow: 0 0 0 rgb(255, 176, 216);
-
-  top: calc(50% - 10vw);
-  left: calc(50% - 10vw);
-
+  font-family: 'Orbitron';
+  font-size: 4.5vw;
+  color: lightgreen;
+  text-shadow: 0 0 10px #000;
 }
+
 /* 탑버튼 이동영역 */
 .tbtn-area{
   position: absolute;
-  /* 부모는 body */
+  /* 부모는? body */
   top: 0;
+  bottom: 18vh;
   right: 0;
-  bottom: 7vw;
-  width: 10vw;
+  width: 12vw;
+
   z-index: 999;
-  /* 공사중표시 */
-  /* outline: 2px solid yellowgreen; */
-
+  outline: 2px dashed yellow;
 }
-
-/* 1-2 top 이동버튼 */
+/* 1-2.탑이동버튼 */
 .btn-top{
-  
   position: sticky;
-  top: 75vh;
-  
-  bottom: 3vw;
-  right: 3vw;
-  width: 100px;
-  height: 100px;
-  border: 5px solid #fff;
+  top: 85vh;
+
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
-  font-family: 'Orbitron', sans-serif;
-  text-align: center;
-  line-height: 2vw;
-  font-weight: bold;
-  font-size: 2rem;
-  color: #ffffff;
-  background: #ccc;
+  border: 5px outset #fff;
+  background-color: #ccc;
 
   z-index: 10;
 }
 
+/* a요소 확장 */
 .btn-top a{
   display: block;
   width: 100%;
   height: 100%;
   
   /* 글자셋팅 */
-  color: #277dff;
+  color: blue;
   text-decoration: none;
-  font: 1.4vw/7vw 'Black Ops One';
-
+  font: 1.4vw/5vw 'Black Ops One';
   /* font: 스두크/줄체; */
 }
-
-/* 마우스 오버시 */
-.btn-top a:hover{
-  color: #000;
-}
-
+/* 오버시 설정 */
 .btn-top:hover{
-    /* oustset 나온 버튼, inset 들어간 버튼 */
-    border-style: inset;
-    background-color: #ffa621;
-
+  background-color: #ff0;
+  /* outset 나온버튼, inset 들어간 버튼 */
+  border-style: inset;
 }
-
+.btn-top:hover a{
+  color: #f00;
+}
 
 
 /**************** 2.메인영역 ****************/
 /* 2-1.로봇박스 */
 .robot-box {
-  top:0;
   position: fixed;
-  transform: scale(0.25) translate(301vw, -10vw);
+  top: 0;
+  left: 50%;
+  transform: translate(164%, 15%) scale(0.3);
   /* padding-top: 200px; */
   margin-bottom: 560px;
-
-  /* 박스 내에 있는 모든 요소에 외곽선에 그림자 또는 글로우 효과 적용 */
-  filter: drop-shadow(0px 0px 10px #60bfff);
+  /* 박스내에 있는 모든 요소의 외곽선에
+  그림자(글로우)효과 주기는 
+  filter:drop-shadow()를 사용함! */
+  filter: drop-shadow(0 0 20px aqua);
 }
-
-/* 텍스트박스 */
-.robot-linkbox{
+/* 2-1-0. 로봇 말풍선 */
+.link-title{
   position: absolute;
-  transform: translateX(200px);
-  border: 10px solid #c7ff7e;
-  top: -30vh;
-  border-radius: 50%;
-  padding: 50px;
-  background: #ffffff;
+  top: -7vw;
+  left: 50%;
+  /* 로봇머리로 부터 위치 일정하게 */
+  transform: translateX(200px) scale(0);
+  /* 로봇쪽에서 커지게 하기위해
+  트랜스폼 기준 변경(왼쪽아래) */
+  transform-origin: left bottom;
   width: 40vw;
   height: 20vw;
-  font-size: 4.4vw;
-  line-height: 440%;
-  font-weight: bold;
+
+  border-radius: 50%;
+  background-color: #fff;
   text-align: center;
-}
+  line-height: 20vw;
 
-.robot-linkbox a{
   text-decoration: none;
-  color: #315303;
+  color: orangered;
+  font-size: 5vw;
+
+  border: 10px dashed orangered;
+  box-sizing: border-box;
+
+}
+/* 가상요소로 삼각형 만들기 */
+.link-title::after{
+  content: '';
+  position: absolute;
+  top: 62.7%;
+  left: -9%;
+  /* 왜%인가? 유동적인 부모를 기준한 위치값이다! */
+  transform: rotate(43deg);
+  /* 가로,세로 크기 0 */
+  width: 0;
+  height: 0;
+  /* 보더탑 크기+색 설정 */
+  border-top: 11vw solid orangered;
+  /* 양쪽보더 크기+투명색 설정 */
+  border-left: 1.5vw solid transparent;
+  border-right: 1.5vw solid transparent;
+}
+/* 로봇 말풍선 오버시 */
+.link-title:hover{
+  color: #fff;
+  background-image: 
+  radial-gradient(circle,red 10%,blue 30%,yellow);
 }
 
-/* 말풍선 오버시 */
-.robot-linkbox:hover{
-  color: #fff;
-  background-image: radial-gradient(circle, #a75bff, #f5a5ff, #fff);
-
-  /* 
+/* 
     [ 원형 그라데이션 ]
 
     - 기본형, 영역지정형은 박스모양을 따라감!
@@ -212,28 +221,6 @@ h1.logo {
                 - side와 corner는 경계선과 끝부분옵션임
     - 가로위치, 세로위치 (중심점) - 단위는 px / %
 */
-}
-
-/* 가상요소로 삼각형 만들기 */
-.robot-linkbox::after{
-  content: '';
-  position: absolute;
-
-  /* 왜 %인가? 유동적인 부모를 기준한 위치값이다! */
-  top: 92%;
-  left: 17%;
-  transform: rotate(27deg);
-  /* 가로세로 크기0 */
-  width: 0;
-  height: 0;
-  /* 보더탑 크기+색 설정 */
-  border-top: 5vw solid #c7ff7e;
-  border-left: 2vw solid transparent;
-  border-right: 2vw solid transparent;
-  
-}
-
-
 
 /* 2-1-1.로봇머리 */
 .head {
@@ -249,7 +236,6 @@ h1.logo {
     왼쪽위부터 시계방향 수치입력 */
   border-radius: 90px 90px 95px 95px;
 }
-
 /* 로봇머리 가상요소로 가발만들기 */
 .head::after {
   content: "";
@@ -262,7 +248,6 @@ h1.logo {
   background: url(../images/hair2.png) no-repeat 0/100% 100%;
   filter: hue-rotate(0deg);
 }
-
 /* 눈공통 */
 .eye {
   position: absolute;
@@ -281,13 +266,11 @@ h1.logo {
   /* 이중테두리 */
   border: 4px double #000;
 }
-
 /* 왼눈 */
 .eye1 {
   left: 32px;
   background-image: url(../images/e1.jpg);
 }
-
 /* 오른눈 */
 .eye2 {
   right: 32px;
@@ -304,7 +287,6 @@ h1.logo {
   background: url(../images/nose.jpg) no-repeat -7px / cover;
   border-radius: 20px;
 }
-
 /* 입 */
 .mouth {
   position: absolute;
@@ -322,14 +304,12 @@ h1.logo {
   width: 58px;
   height: 90px;
 }
-
 /* 왼귀 */
 .ear1 {
   left: -58px;
   /* 라운드처리 */
   border-radius: 20px 0 0 20px;
 }
-
 /* 오른귀 */
 .ear2 {
   right: -58px;
@@ -347,10 +327,9 @@ h1.logo {
   margin: 0 auto;
   margin-top: 50px;
   /* 배경이미지 조정 */
-  background-repeat: no-repeat;
-  background-size: 40%;
+  /* background-repeat: repeat; */
+  background-size: 80%;
 }
-
 /* 몸통 가상요소로 상의 만들기 */
 .body::before {
   content: "";
@@ -361,9 +340,8 @@ h1.logo {
   width: 110%;
   height: 55%;
   background-image: linear-gradient(to bottom, #7dffad, #05a31c);
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 30% 30%;
 }
-
 /* 몸통 가상요소로 하의 만들기 */
 .body::after {
   content: "";
@@ -374,9 +352,8 @@ h1.logo {
   width: 110%;
   height: 35%;
   background-image: linear-gradient(to bottom, #ff93f8, #a30583);
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 30% 30%;
 }
-
 /* 목 */
 .neck {
   position: absolute;
@@ -395,14 +372,13 @@ h1.logo {
 
 /* 팔공통 */
 .arm {
-  z-index: 1;
   position: absolute;
   top: 25px;
   /* 부모는? .body */
   width: 50px;
   height: 180px;
+  z-index: 1;
 }
-
 /* 팔 원형관절 가상요소 공통 */
 /* 큰원 */
 .arm::before {
@@ -422,7 +398,6 @@ h1.logo {
     패딩,보더 포함박스설정하기 */
   box-sizing: border-box;
 }
-
 /* 작은원 */
 .arm::after {
   content: "";
@@ -452,7 +427,6 @@ h1.logo {
   width: 80%;
   height: 80%;
 }
-
 /* 팔하단 가상요소 손만들기 공통 */
 .arm span::after {
   content: "";
@@ -466,7 +440,6 @@ h1.logo {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
-
 /* 왼손 */
 .arm1 span::after {
   /* 배경이미지경로 */
@@ -474,7 +447,6 @@ h1.logo {
   /* left위치값 */
   left: -12px;
 }
-
 /* 오른손 */
 .arm2 span::after {
   /* 배경이미지경로 */
@@ -487,7 +459,6 @@ h1.logo {
 .arm1 {
   left: -63px;
 }
-
 /* 오른팔 */
 .arm2 {
   right: -63px;
@@ -495,13 +466,13 @@ h1.logo {
 
 /* 다리공통 */
 .leg {
-  position: absolute;
-  top: 100%;
+  position: absolute;  
+  top: 97%;
+  border-radius: 20px 20px 0 0;
   /* 부모는? .body */
   width: 70px;
   height: 200px;
 }
-
 /* 다리 사각형관절 가상요소 공통 */
 /* 큰사각 */
 .leg::before {
@@ -512,7 +483,6 @@ h1.logo {
   left: 0;
   width: 70px;
   height: 50px;
-  border-radius: 10px;
   z-index: 1;
 
   border-radius: 20px;
@@ -522,7 +492,6 @@ h1.logo {
     패딩,보더 포함박스설정하기 */
   box-sizing: border-box;
 }
-
 /* 작은사각 */
 .leg::after {
   content: "";
@@ -534,7 +503,6 @@ h1.logo {
   /* 부모박스 절반만큼 밀고 원크기 절반 빼기(가로중앙) */
   width: 60px;
   height: 40px;
-  border-radius: 10px;
   z-index: 1;
 
   border-radius: 20px;
@@ -543,7 +511,6 @@ h1.logo {
   /* 박스 내부그림자 : bsh -> inset 키워드(내부그림자) */
   box-shadow: inset 0 0 5px #222;
 }
-
 /* 다리하단공통 */
 .leg span {
   position: absolute;
@@ -553,7 +520,6 @@ h1.logo {
   width: 80%;
   height: 80%;
 }
-
 /* 다리하단 가상요소 부츠만들기 공통 */
 /* 부츠상단 */
 .leg span::before {
@@ -571,7 +537,6 @@ h1.logo {
   /* 보더,패딩 포함박스 */
   box-sizing: border-box;
 }
-
 /* 부츠하단 */
 .leg span::after {
   content: "";
@@ -589,12 +554,10 @@ h1.logo {
   /* 보더,패딩 포함박스 */
   box-sizing: border-box;
 }
-
 /* 왼다리 */
 .leg1 {
   left: 0px;
 }
-
 /* 오른다리 */
 .leg2 {
   right: 0px;
@@ -602,26 +565,23 @@ h1.logo {
 
 /* 어깨공통 */
 .shdr {
-  z-index: 1;
   position: absolute;
   width: 70px;
   height: 70px;
+  z-index: 1;
 }
-
 /* 왼어깨 */
 .shdr1 {
   left: -81px;
   /* 둥근모서리 */
   border-radius: 30px 0 0 30px;
 }
-
 /* 오른어깨 */
 .shdr2 {
   right: -81px;
   /* 둥근모서리 */
   border-radius: 0 30px 30px 0;
 }
-
 /* TV */
 .tv {
   position: absolute;
@@ -631,7 +591,6 @@ h1.logo {
   height: 136px;
   background: url(../images/tv.jpg) no-repeat 0/100% 100%;
 }
-
 /* 스크린 */
 .screen {
   position: absolute;
@@ -645,7 +604,6 @@ h1.logo {
   /* 자식유튜브 아이프레임 넘치는부분 숨기기 */
   overflow: hidden;
 }
-
 /* 유튭 아이프레임 */
 .screen iframe {
   position: absolute;
@@ -656,147 +614,134 @@ h1.logo {
   height: 101px;
 }
 
-/* 2-2. 로봇설명박스 */
-.text-box {
-  font-family: 'Chakra Petch', sans-serif;
-  font-weight: normal;
+/* 2-2.로봇설명박스 */
+.text-box{
   max-width: 800px;
-  margin: 10px auto;
+  margin: 0 auto;
   color: #fff;
-  padding: 0 30px;
-  background-color: #00000080;
+  padding: 15px 30px;
+  background-color: #0000006f;
   border-radius: 20px;
-  font-size: 1.6rem;
-  /* 박스 내부 그림자 */
-  box-shadow:
-    inset 5px 5px 20px #1984ffb6,
-    inset 0 0 20px #85f1ff,
-    0px 0px 5px #85f1ff,
-    10px 10px 10px #00000060;
-
-  backdrop-filter: blur(6px);
-
+  /* 박스 내부그림자 */
+  box-shadow: 
+  inset 0 0 20px blue,
+  inset 0 0 50px 10px cyan;
   /* 
-  
-  [백드롭필터효과] 
-  - fillter 속성과 동일한 셋팅을 가지며 적용 대상이 겹쳐지는
-    하단의 그래픽을 변경한다
+  [백드롭 필터효과] 
+  - filter속성과 동일한 셋팅을 가지며
+  적용대상이 겹쳐지는 하단의 그래픽을 변경한다!
 
-    backdrop-filter: blur(2px); ->흐림
-    backdrop-filter: brightness(60%); -> 밝기
-    backdrop-filter: contrast(40%); ->대비
-    backdrop-filter: drop-shadow(4px 4px 10px blue); -> 그림자
-    backdrop-filter: grayscale(30%); -> 흑백
-    backdrop-filter: hue-rotate(120deg); -> 색상변경
-    backdrop-filter: invert(70%); -> 반전색
-    backdrop-filter: opacity(20%); -> 투명도
-    backdrop-filter: sepia(90%); ->세피아효과
-    backdrop-filter: saturate(80%); -> 채도
-    
-    - 복합적용 가능!!
-    backdrop-filter: blur(4px), brightness(60%);
+  backdrop-filter: blur(2px); -> 흐림
+  backdrop-filter: brightness(60%); -> 밝기
+  backdrop-filter: contrast(40%); -> 대비
+  backdrop-filter: drop-shadow(4px 4px 10px blue);->그림자
+  backdrop-filter: grayscale(30%);-> 흑백
+  backdrop-filter: hue-rotate(120deg); -> 색상변경
+  backdrop-filter: invert(70%); -> 반전색
+  backdrop-filter: opacity(20%); -> 투명도
+  backdrop-filter: sepia(90%); -> 세피아효과
+  backdrop-filter: saturate(80%); -> 채도
 
-*/
+  -> 복합적용 가능!
+  backdrop-filter: blur(4px) saturate(150%);
+  */
+  backdrop-filter: blur(6px);
 }
 
-/* 2-2-1. 제목 */
-.text-box h2 {
+/* 2-2-1.제목 */
+.text-box h2{
   position: sticky;
-  top: 0;
-  font-weight: normal;
+  top: 10px;
+  /* 글자크기 35px -> em단위 */
+  font-size: 3.5rem;
   font-family: 'Chakra Petch', sans-serif;
   text-align: center;
-  font-size: 3.5rem;
-  color: #c7ff7e;
-  text-shadow: 3px 3px 3px #00000060;
-  background-color: #4b19ff;
+  background-color: #ffffff86;
+  color: lime;
+  text-shadow: 2px 2px 2px #0000006f;
   border-radius: 20px;
-  padding: 10px;
+  /* 얇은글자 */
+  font-weight: normal;
 }
 
-/* 2-2-2. 출처 */
-.text-box small {
-  font-family: 'Chakra Petch', sans-serif;
-  color: yellow;
-  text-shadow: 2px 2px 2px #00000060;
+/* 2-2-2.출처 */
+.text-box small{
+  /* 인라인은 디자인상 블록으로 전환! */
   display: block;
   text-align: center;
-  padding: 1rem;
+  /* 글자크기 12px */
   font-size: 1.2rem;
+  font-family: 'Chakra Petch', sans-serif;
+  color: yellow;
+  text-shadow: 1px 1px 1px #0000006f;
+  padding: 10px;
 }
-
-/* 2-2-3. 내용단락 */
-.text-box p {
-  font-family: 'Barlow', sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 2px #00000060;
-  padding: 1rem;
-  font-size: 1.6rem;
+/* 2-2-3.내용단락 */
+.text-box p {  
+  font-family: 'Barlow';
+  font-size: 1.7rem;
   /* 줄간격 */
-  line-height: 2.2rem;
+  line-height: 1.7;
   /* 자간 */
-  letter-spacing: 0.023rem;
+  letter-spacing: 1px;
   /* 단어간격 */
-  word-spacing: 1.7px;
-
-  /* 첫줄 들여쓰기: text indent(ti) */
-  text-indent: 0.8rem;
+  word-spacing: 2px;
 
   /* 
-  [다단 설정하기]
-
--다중열설정
-->column-count: 다중열 갯수
-->column-rule: 다중열 구분선
-->column-gap: 다중열 사이간격
-   */
-
+    [ 다단설정하기 ]
+    - 다중열속성
+    -> column-count : 다중열개수
+    -> column-rule : 다중열구분선
+    -> column-gap : 다중열사이간격
+  */
+  /* 다단수 셋팅 */
   column-count: 3;
-  /* 사이 구분선은 보더와 유사 */
-  /*  column-rule: 두 종 색; */
-  column-rule: 2px dotted #c8f9ffbe;
+  /* 사이구분선은 border와 유사 */
+  column-rule: 5px dotted lightgreen;
+  /* column-rule: 두께 종류 색; */
   /* 사이간격 */
-  column-gap: 3.5rem;
+  column-gap: 55px;
 
   /* 양쪽정렬 */
   text-align: justify;
-  /* 영문자는 단어를 꺠줘야함 */
+  /* 영문자는 단어를 깨줘야함! */
   word-break: break-all;
 
+  /* 첫줄 들여쓰기 :  text-indent (ti) */
+  text-indent: 40px;
 }
 
 /* 가상요소 첫글자 변경하기 */
-.text-box p::first-letter {
-  font-size: 3rem;
-  color: #e2ff7b;
+.text-box p::first-letter {  
+  font-size: 2.8rem;
+  color: hotpink;
   font-weight: bold;
 }
 
+
 /**************** 3.하단영역 ****************/
-/* 3-1 회사정보 */
-.bottom-area {
-  z-index: 1;
-
-  /* z인덱스 떄문에 포지션줌! */
+/* 3-1. 회사정보 */
+#bottom-area{
   position: relative;
-  display: block;
+  /* z-index적용위해 포지션줌! */
+  z-index: 5;
+
+  margin-top: 100px;
+
   color: #fff;
+  /* 글자크기 : 30px, 글자체 'Black Ops One' */
   font: 3rem 'Black Ops One';
+  /* 글자그림자 */
   text-shadow: 2px 2px 2px #000;
-  border: #000;
-  width: 100%;
-  top: 50px;
+  /* 글자중앙 */
   text-align: center;
-  /* 패딩: 가로/세로중 작은 화면기준 7% */
+  /* 패딩 : 가로/세로중 작은 화면기준 7%
+  -> vmin(작은쪽기준) , vmax(큰쪽기준) */
   padding: 7vmin;
-
-  /* 반투명 배경넣기: 검은색 반투명(0.5)
-  rgb(0 0 0 / 0.5) -> 요즘 더 많이 씀
-  rgba(0 0 0 0.5)
-  
+  /* 반투명 배경넣기 : 검은색 반투명(0.5) 
+    rgb(0 0 0 / 0.5) -> 요즘 더 많이사용함
+    rgba(0,0,0,0.5)
   */
-  background-color: #00000090;
-
-
+  background-color: rgb(0 0 0 / 0.5);
 
 }

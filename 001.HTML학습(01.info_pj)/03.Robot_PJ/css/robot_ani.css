@@ -79,16 +79,13 @@
 /* 1. 로고애니 */
 
 .logo {
-
-
     /* 1초후 5초간 이동애니 세팅 */
     animation: logo-ani 5s linear 1s alternate forwards,
         /* 4초후 스윙애니 영원히 셋팅 */
-        swing-ani .4s ease-in-out 6s infinite alternate;
+        swing-ani 0.4s ease-in-out 6s infinite alternate;
 }
 
 @keyframes logo-ani {
-
     0% {
         top: calc(50% + 10vw);
         left: calc(50% + 10vw);
@@ -138,13 +135,11 @@
         transform: scale(1);
         transform: rotate(20deg);
     }
-
 }
 
 /* 제자리 스윙 애니 */
 
 @keyframes swing-ani {
-
     0% {
         /* 앞 스케일값 */
         transform: scale(1);
@@ -156,110 +151,141 @@
         transform: scale(1);
         transform: rotate(-20deg);
     }
-
 }
-
 
 /* 2.로봇이동애니 */
 .robot-box {
-
     /* 애니메이션: 이시이지반방마
     - 4초후 4초간 한번만 끝상태 유지
     */
     animation: move-robot 4s ease-in-out 4s alternate forwards;
-
 }
 
 @keyframes move-robot {
     from {
         transform: scale(0.25) translate(301vw, -10vw);
     }
+
     to {
-       transform: scale(0.6) translate(79vw, 5vw);
-
+        transform: scale(0.6) translate(79vw, 5vw);
     }
-
 }
-
-
-
 
 /* 3. 로봇 다리작동애니 */
 .leg {
-    animation: move-rbleg .4s ease-in-out 4s 10 alternate forwards;
+    animation: move-rbleg 0.4s ease-in-out 4s 10 alternate forwards;
     /* 4초 대기 0.4초 애니 시간으로 10번 반복 alternate=> 반대로 작동하는 횟수가
     더해짐 (=from->to 5회, =to->from 5회 ) */
 }
-.leg2{
+
+.leg2 {
     /* 한쪽다리는 올라간 다음 올라가야 하므로 애니시작 지연시간을 줌 */
     /* 한방향이 0.3초 이므로 0.3초 기다리면 됨+전체 기다리는 시간 +4초*/
     animation-delay: 4.4s;
 }
 
 @keyframes move-rbleg {
-
     100% {
         top: 90%;
     }
-
 }
 
 /* 3. 로봇 왼팔 허리에 올리기 */
 
-/* 팔 공통설정 */
 
-.arm{
-    /* 기준점 변경 */
+/* 팔공통 트랜스폼 세로축 기준 top으로 변경 */
+.arm,
+.arm span,
+.arm span::after {
     transform-origin: top;
 }
-.arm1{
-    animation: left-arm-ani1 .4s 4.4s forwards;
+
+/* 4. 로봇 왼쪽팔 허리에 올리기 */
+.arm1 {
+    animation: left-arm-ani1 0.4s 8s forwards;
 }
-
-.arm span{
-
-    /* 기준점 변경 */
-    transform-origin: top;
-}
-.arm1 span{
-
-    animation: left-arm-ani2 .4s 4.4s forwards;
-}
-
-/* 손 */
-.arm span::after{
-
-    /* 기준점 변경 */
-    transform-origin: top; 
-}
-
-/* 왼손 */
-.arm1 span::after{
-    animation: left-arm-hand2 .4s 4.4s forwards;
-}
-
-
-
-
-
 
 @keyframes left-arm-ani1 {
-        to {transform: rotate(60deg)};}
-
-
-@keyframes
-left-arm-ani2 {
-
     to {
-        transform: rotate(-95deg)};
-}
-@keyframes
-left-arm-hand2 {
-
-    to {
-        transform: rotate(-40deg)};
+        transform: rotate(34deg);
+    }
 }
 
+/* 왼쪽팔 하단 애니 */
+.arm1 span {
+    animation: left-arm-ani2 0.4s 8s forwards;
+}
+
+@keyframes left-arm-ani2 {
+    to {
+        transform: rotate(-90deg);
+    }
+}
+
+/* 왼쪽팔 손 애니 */
+.arm1 span::after {
+    animation: left-arm-ani3 0.4s 8s forwards;
+}
+
+@keyframes left-arm-ani3 {
+    to {
+        transform: rotate(70deg);
+    }
+}
+
+.arm2 {
+    animation:
+        right-arm-ani1 0.4s ease-in-out 8s infinite alternate;
+}
+
+@keyframes right-arm-ani1 {
+
+    to {
+        transform: rotate(-119deg);
+    }
+}
+
+/* 오른쪽 팔 */
+.arm2 span {
+    animation:
+        right-arm-ani2 0.4s ease-in-out 10s infinite alternate;
+}
+
+@keyframes right-arm-ani2 {
+    from {
+        transform: rotate(-120deg);
+    }
+}
+
+/* 오른쪽 팔꿈치  */
+
+.arm2 span::after {
+    animation:
+        right-arm-ani3 0.4s ease-in-out 10s infinite alternate,
+        right-arm-ani4 0.2s 10s forwards;
+}
+
+/* 오른손 Y축회전 키프레임 */
+@keyframes right-arm-ani4 {
+    to {
+        transform: rotateY(180deg);
+        left: -13px;
+    }
+}
 
 
+/* 말풍선 애니메이션 */
+.robot-linkbox {
+    /* 중심축 변경 */
+    /* 로봇쪽에서 크게 해주기 위해 기준 변경(좌측하단) */
+    transform-origin: left bottom;
 
+    animation: linkbox-scale .5s ease-in-out 10s forwards;
+}
+
+@keyframes linkbox-scale {
+
+    to {
+        transform: translateX(200px) scale(1);
+    }
+}
