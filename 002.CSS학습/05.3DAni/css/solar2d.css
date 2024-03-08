@@ -1,0 +1,522 @@
+@charset "UTF-8";
+/* 태양계 2D 애니메이션 CSS: solar2d.css */
+
+/* 웹폰트 */
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@900&display=swap");
+
+/* font-family: 'Big Shoulders Stencil Text', cursive; */
+
+/********************************************************** 
+
+[CSS에서 변수 사용하기]
+
+1. 변수 설정하기
+   :root{
+    --변수명1 : 값1;
+    --변수명2 : 값2;
+}
+
+2. 변수 호출하기
+    var(--변수명)
+
+3. 변수는 언제 사용하나?
+ (1) 같은 값이 여러부분에서 사용될 때
+ (2) 미디어쿼리에서 변경이 필요한 경우 변수값만 변경하면 복잡한 값 변경이 불필요하게됨
+ (3)전역적으로 지정된 색상 또는 지정된 값 등 프로잭트 내의 공유되는 값을
+ 변수로 셋팅한다!
+
+**********************************************************/
+
+/* 마우스커서 */
+.cursor {
+    position: absolute;
+    z-index: 20;
+  }
+
+/* 변수설정구역 */
+:root {
+    /* 1. 태양크기 */
+    --sun-size: 250px;
+
+    /* 2, 지구크기 */
+    --earth-size: 80px;
+
+    /* 3. 지구가 떨어진 거리 */
+    --earth-trans-size: -250px;
+
+    /* 2, 달 크기 */
+    --moon-size: 40px;
+
+    /* 3. 달이 떨어진 거리 */
+    --moon-trans-size: 80px;
+
+    /* 4, 목성 크기 */
+    --jupiter-size: 150px;
+
+    /* 5. 목성이 떨어진 거리 */
+    --jupiter-trans-size: 400px;
+
+    /* 6, 토성 크기 */
+    --saturn-size: 160px;
+
+    /* 7. 토성이 떨어진 거리 */
+    --saturn-trans-size: -460px;
+
+    /* 8, 명왕성 크기 */
+    --pluto-size: 50px;
+
+    /* 9. 명왕성이 떨어진 거리 */
+    --pluto-trans-size: 650px;
+
+    --spacewalker-size: 150px;
+    --spacewalker-trans-size: 300px;
+}
+
+/* 초기화 */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* 공통CSS */
+/* 배경이미지 설명숨기기(
+    image replacement: 배경 이미지에 설명을 넣고 숨긴다) */
+.ir {
+    display: block;
+
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    /* display:none으로 주면 리더기가 못읽음 (웹접근성을 위해)*/
+}
+
+/* 공사중 */
+/* body * {
+    outline: 2px dotted yellow;
+} */
+
+body {
+    background: url(../images/space.jpg) repeat center/cover;
+    /* 스크롤바 없앰 */
+    animation: movebg 20s linear infinite forwards reverse;
+}
+
+/* 배경이동 */
+@keyframes movebg {
+
+    0%{
+        background-position: 0 center;
+    }
+    100%{
+        background-position: -300px center;
+    }
+    
+}
+
+/* 타이틀 */
+.tit {
+    margin: 0;
+    padding: 0;
+    padding-top: 20px;
+
+    /* 폰트설정 */
+    font-family: "Big Shoulders Stencil Text", cursive;
+    font-size: 70px;
+    color: #fff;
+
+    text-align: center;
+}
+
+#solar {
+    position: absolute;
+    /* 부모는? 보이는 화면(window) */
+
+    top: 50%;
+    left: 50%;
+    /* 트렌스폼 중앙이동 */
+    transform: translate(-50%, -50%);
+
+    width: var(--sun-size);
+    height: var(--sun-size);
+}
+
+/* 태양박스 */
+#sun {
+    position: absolute;
+    /* 부모는? solar */
+
+    top: 0;
+    left: 0;
+
+    width: var(--sun-size);
+    height: var(--sun-size);
+
+    /* 박스설정 */
+    border-radius: 50%;
+
+    /* 넘치는 태양 이미지 숨기기 */
+    overflow: hidden;
+
+    filter: drop-shadow(0 0 20px #ffd35a);
+}
+
+/* 태양 이미지 */
+#sun img {
+    width: 100%;
+    height: 100%;
+    animation: flame-ani 8s linear infinite alternate;
+    /* 20초간 등속도로 영원히 왔다갔다 */
+}
+
+/* 태양이 이글거리는 애니메이션 키프레임 */
+
+@keyframes flame-ani {
+    100% {
+        transform: scale(1.5);
+    }
+}
+
+/* #sun:hover img {
+    transform: scale(1.5);
+} */
+
+/* 행성공통 - 애니메이션 멈춤설정
+
+
+[애니메이션 2가지 상태]
+
+1. 실행상태(기본설정)
+animation-play-state: running;
+
+2. 멈춤상태
+animation-play-state: paused;
+
+*/
+.planet:hover {
+    animation-play-state: paused !important
+        /*기존 애니메이션이 id로 셋팅되어서 기본값 running이 더 우선됨!
+    -> !important로 우선순위 높임  */
+    ;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* 행성 설명박스 공통 */
+.info {
+    position: absolute;
+    overflow: hidden;
+    /* 내부패딩이 없어야 완벽하게 숨겨짐 */
+
+    top: 0;
+    left: 100%;
+    width: 0;
+    max-height: 2px;
+
+    color: rgb(207, 248, 255);
+    font-size: 1.2vw;
+    font-weight: normal;
+    line-height: 26px;
+    letter-spacing: -1px;
+
+    /* border: 2px dashed aquamarine; */
+    border-top: 2px solid aquamarine;
+    border-bottom: 2px solid aquamarine;
+    /*  box-shadow: inset 0px 0px 15px aquamarine; */
+    background: #00000050;
+
+    /* 드롭필터 */
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+
+    /* 트렌지션: 아웃시 max-height먼저 보이고 width는 나중에 */
+    transition: width 0.4s, max-height 0.4s;
+}
+
+/* 정보제목 */
+.info h2,
+.info p {
+    margin: 0;
+    padding: 10px;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+/* 행성에 마우스 오버시 정보 보이기 애니 */
+/* planet 직계 info만 호버 */
+.planet:hover > .info,
+#earth:hover .info {
+    padding: 10px;
+    width: 200px;
+
+    /* 최대 높이값은 컨텐츠 중 가장 큰 사이즈를 기준으로 */
+    max-height: 300px;
+
+    /* 오버시 width먼저 보이고 max-height는 나중에 */
+    transition: width 0.4s, max-height 0.4s 0.4s;
+}
+
+/* 지구+달 랩핑: 실제로 도는 박스 */
+.earth-wrap {
+    position: absolute;
+    /* 부모는? #solra */
+
+    /* 지구중앙이동 : calc(50-크기절반)*/
+    top: calc(50% - var(--earth-size) / 2);
+    left: calc(50% - var(--earth-size) / 2);
+
+    border-radius: 50%;
+
+    width: var(--earth-size);
+    height: var(--earth-size);
+
+    /* 지구 애니메이션 */
+    animation: earth-ani 5s linear infinite;
+}
+
+/* 지구 */
+#earth {
+    position: absolute;
+    /* 부모는? #earth-wrap */
+
+    /* 지구중앙이동 : calc(50-크기절반)*/
+    top: 0;
+    left: 0;
+
+    border-radius: 50%;
+
+    width: var(--earth-size);
+    height: var(--earth-size);
+
+    background: url(../images/earth.png) no-repeat 0/100% 100%;
+}
+
+/* 지구회전 키프레임 */
+@keyframes earth-ani {
+    0% {
+        transform: rotate(0deg) translateX(var(--earth-trans-size)) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(var(--earth-trans-size)) rotate(-360deg);
+    }
+
+    /* 
+
+    [키프레임 회전시 2번쨰 회전의 의미는?]
+
+        rotate(360deg) -> 중앙회전
+        translateX(250px) ->위치이동
+        rotate(-360deg); -> 이동된 요소의 회전
+    
+    */
+}
+/*
+
+    [키프레임 회전시 2번쨰 회전의 의미는?]
+
+        rotate(360deg) -> 중앙회전
+        translateX(250px) ->위치이동
+        rotate(-360deg); -> 이동된 요소의 회전
+    
+    */
+
+/* 달  */
+#moon {
+    position: absolute;
+    /* 부모는? #earth */
+
+    /* 달 중앙이동 : calc(50-크기절반)*/
+    top: calc(50% - var(--moon-size) / 2);
+    left: calc(50% - var(--moon-size) / 2);
+
+    border-radius: 50%;
+
+    width: var(--moon-size);
+    height: var(--moon-size);
+
+    background: url(../images/moon.png) no-repeat 0/100% 100%;
+
+    /* 달  애니메이션 */
+    animation: moon-ani 4s linear infinite;
+}
+
+/* 달 회전 키프레임 */
+@keyframes moon-ani {
+    0% {
+        transform: rotate(0deg) translateX(var(--moon-trans-size)) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(var(--moon-trans-size)) rotate(-360deg);
+    }
+}
+
+/* 우주인 */
+#spacewalker {
+    position: absolute;
+    /* 부모는? #solra */
+
+    top: calc(50% - var(--spacewalker-size) / 2);
+    left: calc(50% - var(--spacewalker-size) / 2);
+
+    width: var(--spacewalker-size);
+    height: var(--spacewalker-size);
+
+    background: url(../images/spacewalk.png) no-repeat 0/100% 100%;
+
+    animation: spacewalker-ani 20s ease-in-out infinite;
+}
+
+@keyframes spacewalker-ani {
+    0% {
+        transform: rotate(0deg) translateX(var(--spacewalker-trans-size)) rotate(0deg) translateY(120px);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(var(--spacewalker-trans-size)) rotate(-360deg) translateY(-100px);
+    }
+}
+
+/* 목성 */
+#jupiter {
+    position: absolute;
+    /* 부모는? #solra */
+
+    /* 목성중앙이동 : calc(50-크기절반)*/
+    top: calc(50% - var(--jupiter-size) / 2);
+    left: calc(50% - var(--jupiter-size) / 2);
+
+    border-radius: 50%;
+
+    width: var(--jupiter-size);
+    height: var(--jupiter-size);
+
+    background: url(../images/jupiter.png) no-repeat 0/100% 100%;
+
+    /* 목성 애니메이션 */
+    animation: jupiter-ani 14s linear infinite;
+}
+
+/* 목성회전 키프레임 */
+@keyframes jupiter-ani {
+    0% {
+        transform: rotate(0deg) translateX(var(--jupiter-trans-size)) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(var(--jupiter-trans-size)) rotate(-360deg);
+    }
+}
+
+/* 토성 */
+#saturn {
+    position: absolute;
+    /* 부모는? #solra */
+
+    /* 토성중앙이동 : calc(50-크기절반)*/
+    top: calc(50% - var(--saturn-size) / 2);
+    left: calc(50% - var(--saturn-size) / 2);
+
+    border-radius: 50%;
+
+    width: var(--saturn-size);
+    height: var(--saturn-size);
+
+    /* background: url(../images/saturn.png) no-repeat 0/100% 100%; */
+
+    /* 토성 애니메이션 */
+    animation: saturn-ani 10s linear infinite;
+}
+
+/* 토성회전 키프레임 */
+@keyframes saturn-ani {
+    0% {
+        transform: rotate(0deg) translateY(var(--saturn-trans-size)) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateY(var(--saturn-trans-size)) rotate(-360deg);
+    }
+}
+
+#saturn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -30%;
+    width: 160%;
+    height: 100%;
+    background: url(../images/saturn.png) no-repeat 0/100% 100%;
+}
+
+/* 명왕성 */
+#pluto {
+    position: absolute;
+    /* 부모는? #solra */
+
+    /* 명왕성중앙이동 : calc(50-크기절반)*/
+    top: calc(50% - var(--pluto-size) / 2);
+    left: calc(50% - var(--pluto-size) / 2);
+
+    border-radius: 50%;
+
+    width: var(--pluto-size);
+    height: var(--pluto-size);
+
+    background: url(../images/pluto.png) no-repeat 0/100% 100%;
+
+    /* 명왕성 애니메이션 */
+    animation: pluto-ani 30s linear infinite;
+}
+
+/* 명왕성회전 키프레임 */
+@keyframes pluto-ani {
+    0% {
+        transform: rotate(0deg) translateY(var(--pluto-trans-size)) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateY(var(--pluto-trans-size)) rotate(-360deg);
+    }
+}
+
+/*행성경로 원 그리기 */
+.path-way div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--earth-trans-size) * -2);
+    height: calc(var(--earth-trans-size) * -2);
+    transform: translate(-50%, -50%);
+
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* 지구 경로크기 */
+.path-way .earth {
+    width: calc(var(--earth-trans-size) * -2);
+    height: calc(var(--earth-trans-size) * -2);
+}
+
+/* 목성 경로크기 */
+.path-way .jupiter {
+    width: calc(var(--jupiter-trans-size) * 2);
+    height: calc(var(--jupiter-trans-size) * 2);
+}
+/* 토성 경로크기 */
+.path-way .saturn {
+    width: calc(var(--saturn-trans-size) * -2);
+    height: calc(var(--saturn-trans-size) * -2);
+}
+/* 명왕성 경로크기 */
+.path-way .pluto {
+    width: calc(var(--pluto-trans-size) * 2);
+    height: calc(var(--pluto-trans-size) * 2);
+}
+
