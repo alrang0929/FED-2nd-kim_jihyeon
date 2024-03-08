@@ -99,17 +99,14 @@ body {
 } */
 
 body {
-    background: url(../images/space.jpg) repeat center/cover;
+    background: url(../images/space.jpg) no-repeat center/cover;
     /* 스크롤바 없앰 */
-    animation: movebg 20s linear infinite forwards reverse;
+    animation: movebg 10s linear infinite alternate;
 }
 
 /* 배경이동 */
 @keyframes movebg {
 
-    0%{
-        background-position: 0 center;
-    }
     100%{
         background-position: -300px center;
     }
@@ -367,7 +364,7 @@ animation-play-state: paused;
 
     background: url(../images/spacewalk.png) no-repeat 0/100% 100%;
 
-    animation: spacewalker-ani 20s ease-in-out infinite;
+    animation: spacewalker-ani 20s ease-in-out infinite alternate;
 }
 
 @keyframes spacewalker-ani {
