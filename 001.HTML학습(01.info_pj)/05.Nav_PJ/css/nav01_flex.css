@@ -277,5 +277,11 @@ ul::after,ol::after,.clb::after{
 
 .mult-lengs ul li:nth-child(2) ~ li a::after{
     display: none;
+    
+}
+.mult-lengs ul li:nth-child(2) ~ li a:hover{
+    color: rgb(185, 228, 255);
+    transition: .2s;
+    
 }
 
