@@ -20,6 +20,8 @@
 
 /* 전체 글자 크기 */
 .html {
+    font-family: 'Nanum Gothic', sans-serif;
+    /* 폰트 */
     font-size: 10px;
     /* rem 단위 계산 편의를 위하여 */
 }
