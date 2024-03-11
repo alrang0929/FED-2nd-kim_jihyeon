@@ -4,5 +4,19 @@
 /* 공유기능 요소 셋팅 */
 
 /************* 1. 상단영역 *************/
+/* 메인로고 */
+.mlogo{
+    margin-top: 20px;
+}
+
+.gnb{
+position: relative;
+}
+.gnb ul{
+    justify-content: center;
+    display: flex;
+    padding: 0 40px;
+    flex-wrap: nowrap;
+}
 /************ 2. 메인영역 ************/
 /************* 3. 하단영역 *************/

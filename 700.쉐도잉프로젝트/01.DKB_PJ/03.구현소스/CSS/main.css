@@ -1,15 +1,15 @@
 @charset "utf-8";
 /* 도깨비 PJ : 메인페이지 CSS - main.css */
 
-/* 리셋, 코어, common 공통 외부css합치기 */
+/* 리셋, 코아, 커먼 공통 외부CSS 합치기 */
 @import url(./reset.css);
 @import url(./core.css);
 @import url(./common.css);
-/* 그리드12 불러오기 */
-@import url(./grid_12_float.css);
+/* 그리드 12 불러오기 */
+@import url(./grid_12_flex.css);
 
 /* 공사중 표시 */
-body *{
+body * {
     outline: 2px dashed #ccc;
 }
 /* 1. 상단영역 */
@@ -20,31 +20,31 @@ body *{
 .ban-area{
     height: 680px;
 }
-/* 3. 서브파트메뉴*/
-.sbpart-area {
+/* 2.5.서브파트메뉴 */
+.spart-menu{
     height: 68px;
 }
-/* 4. 인트로영역 */
+/* 3. 인트로영역 */
 .intro-area{
     height: 575px;
 }
-/* 5. 미리보기영역 */
-.prevew-area{
+/* 4. 미리보기영역 */
+.preview-area{
     height: 803px;
 }
-/* 6. 현장포토영역 */
+/* 5. 현장포토영역 */
 .real-photo-area{
     height: 1043px;
 }
-/* 7. 대표이미지 영역 */
+/* 6. 대표이미지 영역 */
 .main-photo-area{
     height: 731px;
 }
-/* 8. 최신동영상영역 */
+/* 7. 최신동영상영역 */
 .clip-video-area{
     height: 548px;
 }
-/* 9. 하단영역 */
+/* 8. 하단영역 */
 .footer-area{
     height: 371px;
 }
