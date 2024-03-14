@@ -52,10 +52,10 @@
   line-height: 30px;
 }
 
-/* 서브가 있는 리스트 선택하기 */
+/*  서브가 있는 리스트 선택하기 */
 /* 4~6까지 */
 /* a요소 오버시 커서변경 */
-.gnb ul li:nth-child(3) ~ li:nth-child(-n + 6) a {
+.gnb ul>li:nth-child(3) ~ li:nth-child(-n + 6)>a {
   text-decoration: overline;
 
   /* 손가락표시 변경하기 */
@@ -64,7 +64,7 @@
 }
 
 /* 가상요소로 아래쪽 화살표 넣가 */
-.gnb ul li:nth-child(3) ~ li:nth-child(-n + 6) a::after {
+.gnb ul>li:nth-child(3) ~ li:nth-child(-n + 6)>a::after {
   /* 트랜스폼은 인라인에서 적용안됨 */
   display: inline-block;
   transform: translateX(1.5px);
@@ -78,12 +78,31 @@
   /* 부모는? 보이는 화면 */
   left: 0;
   width: 100%;
+
+  /* 최대 높이 숨기기 */
+  max-height: 0;
+
+  /* 내용 숨기기 */
+  overflow: hidden;
+
+  transition: 0.4s;
 }
+
+/* 상위메뉴 오버시 서브메뉴 보이기 */
+.gnb ul li:hover .smenu {
+  max-height: 56vh;
+}
+
+
+
 .smenu ol{
   /* 플렉스 박스 */
   display: flex;
   /* 플렉스 랩핑 박스 */
   flex-wrap: wrap;
+  gap: 1rem 2vw;
+  /* flex박스 간격 속성: gap: gap(위아래,양쪽) -> 하나의 값만 쓰면
+  모두 셋팅*/
 }
 
 /* 서브 속박스 */
@@ -92,11 +111,18 @@
   margin: 0 auto;
   padding: 4rem;
   white-space: nowrap;
+  padding: 4.9rem 12.8rem 6rem;
+  background: #fff;
 }
 
 /* 서브타이틀 */
 .smenu h2{
-  font-size: 3rem;
+  font-size: 2rem;
+}
+
+
+.top-area{
+  background: #fff;
 }
 
 
