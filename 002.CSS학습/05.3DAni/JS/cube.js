@@ -35,7 +35,12 @@ btngo.onclick = function(){
     //2. 변경대상: .cube -> cube변수
     //3. 변경내용: cube에 클래스 on을 없으면 넣고 있으면 제거
     //미리 셋팅된 애니 작동 멈춤됨!
-    cube.classList.toggle('on')
+    cube.classList.toggle('on');
+
+        //cube 거리변경 변수셋팅은
+        // html요소에 class on을 넣기 뺴기하면 적용된다
+    document.querySelector('html').classList.toggle('on');
+    
     //classList는 요소의 클래스만 전문적으로 다루어주는 JS내장 객체
     //메서드로 add() - 넣기, remove() - 제거, toggle() - 넣기 뺴기
 
