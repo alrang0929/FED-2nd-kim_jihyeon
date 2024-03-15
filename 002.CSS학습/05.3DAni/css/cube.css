@@ -1,0 +1,146 @@
+@charset "utf-8";
+/* 큐브 애니메이션 CSS - cube.css */
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+background-image:
+linear-gradient(to bottom, rgb(172, 243, 255), rgb(255, 196, 232));
+height: 100vh;
+}
+
+
+/* css 변수 셋팅 */
+:root{
+
+    /* 큐브 공통크기 */
+    --cube-size: 300px
+}
+
+/* 큐브 */
+.cube{
+    position: absolute;
+    /* 정가운데 정렬 */
+    /* 50%밀고 박스의 절반 크기 뺴기 */
+    top: calc(50% - var(--cube-size)/2);
+    left: calc(50% - var(--cube-size)/2);
+    /* 부모는 화면 */
+    
+    width: var(--cube-size);
+    height: var(--cube-size);
+
+    outline: 2px solid red;
+
+    /************************************************************* 
+    
+    [입체로 설정하기]
+    - 입체로 설정할 요소의 부모박스
+    아래와 같이 설정해준다!
+
+    (부모 = 싸고 있는 요소)
+    transform-style: 속성값은 아래 2가지
+
+    1)flat: 기본값 2D
+    2)preservw-3d: 3D -> 요 값을 설정해준다
+    
+    *************************************************************/
+
+    transform-style: preserve-3d;
+
+    /* 입체를 잘보이게 하기위해 약간 회전 */
+    transform: rotateX(10deg) rotateY(30deg);
+
+
+}
+
+/* 큐브각면 공통 */
+.cube span{
+    position: absolute;
+    /* 앱솔루트는 자동 block */
+    width: 100%;
+    height: 100%;
+
+    outline: 2px dotted blue;
+    opacity: .8;
+}
+
+/* 1.앞면 */
+.cube span:nth-child(1){
+
+    /* 화면방향 z축 이동
+    translateZ 값을 이용
+    양의 값은 앞, 음의 값은 뒤로 이동
+    */
+    transform: translateZ(calc(var(--cube-size)/2));
+    /* 큐브의 이동은 큐브 크기의 절반 */
+
+    /* 배경이미지 넣기 */
+    background: url(../images/seoulCity.jpg) no-repeat center/cover;
+}
+
+/* 2. 오른쪽면 */
+.cube span:nth-child(2){
+
+    /* Y축회전 + 화면방향 이동(z축 이동): 순서 중요!!! */
+    transform:
+    rotateY(90deg)
+    translateZ(calc(var(--cube-size)/2));
+    /* 큐브의 이동은 큐브 크기의 절반 */
+
+    /* 배경이미지 넣기 */
+    background: url(../images/newyorkCity.jpg) no-repeat center/190% auto;
+}
+
+/* 3. 오른쪽 뒷면 */
+.cube span:nth-child(3){
+
+    /* Y축회전 + 화면방향 이동(z축 이동): 순서 중요!!! */
+    transform:
+    rotateY(180deg)
+    translateZ(calc(var(--cube-size)/2));
+    /* 큐브의 이동은 큐브 크기의 절반 */
+
+    /* 배경이미지 넣기 */
+    background: url(../images/parisCity.jpg) no-repeat center/cover;
+}
+
+
+/* 4. 왼쪽면 */
+.cube span:nth-child(4){
+
+    /* Y축회전 + 화면방향 이동(z축 이동): 순서 중요!!! */
+    transform:
+    rotateY(-90deg)
+    translateZ(calc(var(--cube-size)/2));
+    /* 큐브의 이동은 큐브 크기의 절반 */
+
+    /* 배경이미지 넣기 */
+    background: url(../images/cityMain.jpg) no-repeat center/cover;
+}
+/* 5. 윗면 */
+.cube span:nth-child(5){
+
+    /* Y축회전 + 화면방향 이동(z축 이동): 순서 중요!!! */
+    transform:
+    rotateX(90deg)
+    translateZ(calc(var(--cube-size)/2));
+    /* 큐브의 이동은 큐브 크기의 절반 */
+
+    /* 배경이미지 넣기 */
+    background: url(../images/citys.jpg) no-repeat center/cover;
+}
+/* 6. 아랫면 */
+.cube span:nth-child(6){
+
+    /* Y축회전 + 화면방향 이동(z축 이동): 순서 중요!!! */
+    transform:
+    rotateX(-90deg)
+    translateZ(calc(var(--cube-size)/2));
+    /* 큐브의 이동은 큐브 크기의 절반 */
+
+    /* 배경이미지 넣기 */
+    background: url(../images/London_city.jpg) no-repeat center/cover;
+}
