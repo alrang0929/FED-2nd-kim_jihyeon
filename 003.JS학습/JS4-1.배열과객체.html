@@ -467,8 +467,97 @@
           // GU.msgFn(메시지,자기자신)
           // -> 2가지를 함수에 보내준다!
         };
+
+        /************************************************************************* 
+      
+        [미션: 내가 만든 객체 활용하기]
+        1. 주제: 영화정보
+        2. 조건: 객체의 변수명을 자신만의 이름으로 작성함,
+        단 속성명을 동일하게 작성할 것!
+        (속성명을 샘플에서 정한다)
+        3. 객체를 쌤과 모두에게 공유한다!(톡업)
+        
+      *************************************************************************/
+
+        //자신만의 오브젝트 -> 변경가능하게 let으로
+        let jjob = {};
+        //object 에다가 오브젝트 형만 만들고 객체내용은 아래에서
+
+        //1. 영화제목
+        jjob.title = "럭키";
+        //2. 감독
+        jjob.drector = "이게박";
+        //3. 배우
+        jjob.actor = "유해진,조윤희";
+        jjob.ganre = "코미디";
+        jjob.ratings = "15세";
+        jjob.trailer = function () {
+          console.log("예고편:영화아이디");
+          //예고편 플레이 함수 호출
+          playMovie('G2zyFe4Z5w0');
+        }; ///////////////trailer메서드////////////////////
+
+        console.log("나의 객체:", jjob);
+
+        //화면에 정보를 보여주는 함수
+        const showMovieInfo = function () {
+          //1. 함수호출 확인
+          console.log("영화정보!");
+          //1. 출력대상 target[5]
+          //2. 내용넣기
+          target[5].innerHTML = `
+        ★ 영화명 : ${jjob.title}
+        ★ 감독 : ${jjob.drector}<br>
+        ★ 배우 : ${jjob.actor}
+        ★ 장르 : ${jjob.ganre}
+        ★ 등급 : ${jjob.ratings}
+        `;
+
+          //툴팁 보이기
+          target[5].title = `클릭하시면 ${jjob.title}예고편을 보실 수 있습니다!`;
+
+          //예고편 메서드 호출
+          target[5].onclick = jjob.trailer;
+        }; //////////////////showMovieInfo 함수/////////////////////////
+
+        //css조정하기
+        target[5].style.lineHeight = "34px";
+        target[5].style.cursor = "pointer";
+        target[5].style.fontSize = "14px";
+
+        //할당형 함수는 바로 호출시 하단에서 해야함!
+        showMovieInfo();
       } /////////// loadFn 함수 //////////
       ////////////////////////////////////
+
+      /******************************************************************** 
+      
+      함수명: playmovie
+      기능: 영화 예고편 화면 띄우기
+
+      ********************************************************************/
+
+      function playmovie(mcode) {
+        //mcode = 영화아이디
+        // 함수호출 및 전달값 확인
+        console.log("예고편상영이요~!", mcode);
+
+        //1. 대상선정: #mvbox
+        let mvbox = document.querySelector('#mvbox');
+
+        //2. 영화박스에 아이프레임 넣기
+        mvbox.innerHTML = `
+        
+        <div id="mv">
+        <!-- 유튜브 아이프레임 --!>
+          <iframe width="893" height="502" src="https://www.youtube.com/embed/G2zyFe4Z5w0" title="[럭키] 1차 예고편" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        
+          <!-- 닫기버튼 --!>
+          <button class="cbtn"> × </button>
+        </div>
+        `;
+      } ////////////////// playmovie 함수//////////////////////////////////
+      ///////////////////////////////////////////////////////////////////
     </script>
   </head>
 
@@ -481,5 +570,9 @@
     <div class="cont"></div>
     <div class="cont"></div>
     <div class="cont"></div>
+    <!-- 영화 예고편용 박스 -->
+    <aside id="mvbox">
+
+    </aside>
   </body>
 </html>
