@@ -1,44 +1,4 @@
-//나의 영화 초이스 객체 JS
-
-//지현 오브젝트 -> 변경가능하게 let으로
-let jjob = {};
-//object 에다가 오브젝트 형만 만들고 객체내용은 아래에서
-
-//1. 영화제목
-jjob.title = "7광구";
-//2. 감독
-jjob.director = "김지훈";
-//3. 배우
-jjob.actor = "하지원,안성기";
-jjob.genre = "SF";
-jjob.ratings = "15세";
-jjob.trailer = function () {
-  console.log("예고편:영화아이디");
-  //예고편 플레이 함수 호출
-  playMovie("CrVrk5Vy96o");
-}; ///////////////trailer메서드////////////////////
-
-// 탐쌤의 오브젝트!
-// -> 변경가능하게 let으로 선언한다!
-let tomObj = {};
-// 오브젝트 형만 만들고 객체내용은 아래에서!
-
-// 1. 영화제목
-tomObj.title = "외계+인 2부";
-// 2. 감독
-tomObj.director = "최동훈";
-// 3. 배우
-tomObj.actor = "류준열, 김태리, 김우빈";
-// 4. 장르
-tomObj.genre = " 액션,다크 판타지,코미디";
-// 5. 관람가
-tomObj.ratings = "12세";
-// 6. 예고편
-tomObj.trailer = function () {
-  console.log("예고편:영화아이디");
-  // 예고편 플레이 함수호출!
-  playMovie("4uSn4Dem9i0");
-}; ////// trailer 메서드 ////////
+// 나의 영화 초이스 객체 JS
 
 // 민지의 오브젝트!
 // 자신만의 오브젝트! -> 변경가능하게 let으로 선언한다!
@@ -99,7 +59,7 @@ dyObj.actor = "안소니 곤잘레스, 가엘 가르시아 베르날";
 // 4. 장르
 dyObj.genre = "애니메이션, 모험, 코미디";
 //5. 관람가
-dyObj.rating = "전체관람가";
+dyObj.ratings = "전체관람가";
 // 6. 예고편
 dyObj.trailer = function () {
   console.log("예고편:영화아이디");
@@ -120,7 +80,7 @@ jaeObj.actor = "마동석,손석구";
 // 4. 장르
 jaeObj.genre = "범죄";
 // 5. 관람가
-jaeObj.rating = "19세";
+jaeObj.ratings = "19세";
 // 6. 예고편
 jaeObj.trailer = function () {
   console.log("예고편:영화아이디");
@@ -239,6 +199,24 @@ lekObj.trailer = function () {
   playMovie("L9y9aJ13oCI");
 }; /// trailer 메서드
 
+//지현 오브젝트 -> 변경가능하게 let으로
+let jjob = {};
+//object 에다가 오브젝트 형만 만들고 객체내용은 아래에서
+
+//1. 영화제목
+jjob.title = "7광구";
+//2. 감독
+jjob.director = "김지훈";
+//3. 배우
+jjob.actor = "하지원,안성기";
+jjob.genre = "SF";
+jjob.ratings = "15세";
+jjob.trailer = function () {
+  console.log("예고편:영화아이디");
+  //예고편 플레이 함수 호출
+  playMovie("CrVrk5Vy96o");
+}; ///////////////trailer메서드////////////////////
+
 // 수진 오브젝트 -> 변경 가능하게 let으로 선언
 let suObj = {};
 // 오브젝트 형만 만들고 객체 내용은 아래에서
@@ -308,3 +286,25 @@ jjyObj.trailer = function () {
   // 예고편 플레이 함수호출
   playMovie("_bm91mlFaJI");
 }; ////// trailer 함수 //////
+
+// 현우의 오브젝트!
+// 자신만의 오브젝트! -> 변경가능하게 let으로 선언한다!
+let koObj = {};
+// 오브젝트 형만 만들고 객체내용은 아래에서!
+
+// 1. 영화 제목
+koObj.title = "악마를 보았다";
+// 2. 감독
+koObj.director = "김지운";
+// 3. 배우
+koObj.actor = "이병헌,최민식";
+// 4. 장르
+koObj.genre = "범죄";
+// 5. 관람가
+koObj.ratings = "19세";
+// 6. 예고편
+koObj.trailer = function () {
+  console.log("예고편:영화아이디");
+  // 예고편 플레이 함수 호출!
+  playMovie("xwWgp1bqVwE");
+}; /////////// trailer 메서드 ///////////
