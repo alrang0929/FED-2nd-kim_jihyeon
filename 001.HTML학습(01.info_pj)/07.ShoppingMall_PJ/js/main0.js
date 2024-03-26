@@ -45,7 +45,12 @@ function loadFn() {
   const abtn = qsa(".abtn");
   //변경대상: #slide
   const slide = qs("#slide");
-  //console.log(abtn,slide));
+  //블릿대상:
+  const indic = document.querySelectorAll('.indic li');
+  // console.log(indic,slide);
+
+
+
   //왼쪽 이동버튼 없애기
   abtn[0].style.display = "none";
   
@@ -115,7 +120,20 @@ function loadFn() {
 
     slide.style.left = -100 * snum + "%";
     slide.style.transition = ".2s ease-in-out";
-  } //////////////////goslide 함수///////////////////////////
+
+    //5- 블릿표시 구현하기
+    //모든 class on 지우기 + 현 순번 클래스 넣기
+    indic.forEach((ele,idx)=>{
+      
+      //ele-각각의 li(요소), idx - 각각의 순번
+      if(idx === snum){
+        //현재 순번 on넣기
+        ele.classList.add('on')}
+      else(//나머지는 on빼기
+        ele.classList.remove('on'))
+      });/////foreach////////////////////
+
+    } //////////////////goslide 함수///////////////////////////
   //////////////////////////////////////////////////////////
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////
