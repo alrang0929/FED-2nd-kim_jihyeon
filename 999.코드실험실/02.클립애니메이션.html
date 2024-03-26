@@ -13,6 +13,11 @@
       }
       /* 배경색은 겉박스에서! */
       .w1 {
+        /* 만약 클립패스 박스에 그림자or 필터를 넣고 싶으면
+        부모박스에 필터 사용하면 된다!
+        but 배경색을 넣으면 외곽선을 찾아주는 효과이므로
+        그림자 효과가 상쇄된다 -> 그림자는 아래쪽 다른 상자에 준다!
+        */
         background-color: lightseagreen;
       }
       .w2 {
@@ -98,10 +103,22 @@
       } /* circle-ani */
 
       .pg2 {
+        clip-path: polygon(50% 0%, 89% 19%, 99% 61%, 72% 95%, 28% 95%, 1% 61%, 11% 19%);
         background-image: url(https://images.unsplash.com/photo-1503424886307-b090341d25d1?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
       }
+
+      /* 클레스 on을 넣으면 변경됨 */
+      .pg2.on{
+        clip-path: polygon(51% -0.2%, 100.6% 0%, 123.8% 61%, 101.6% 99.2%, 0.8% 99.6%, -28.6% 18.2%, 1% -0.4%);
+      }
       .pg3 {
+        /* 한쪽끝에서 커지는 원 클립 패스 */
+        clip-path: circle(5% at 0% 0%);
         background-image: url(https://images.unsplash.com/photo-1549558549-415fe4c37b60?q=80&w=2919&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      }
+      /* 클래스 on 적용시 */
+      .pg3.on{
+        clip-path: circle(300% at 0% 0%);
       }
 
       /* 
@@ -119,7 +136,7 @@
             ele.classList.toggle('on');
           };/////obnclick//////////////
         });//foreach/////////////////////////////
-      })//////////////////////window///////////////
+      })//////////////////////load구역///////////////
 
     </script>
   </head>
