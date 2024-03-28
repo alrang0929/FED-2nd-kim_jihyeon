@@ -39,7 +39,7 @@
 }
 /* Top a링크 */
 .top-menu ul a {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   line-height: 40px;
   font-weight: bold;
 }
@@ -58,7 +58,7 @@
   display: block;
   padding: 0 13px;
 
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   line-height: 60px;
   font-weight: bold;
 }
@@ -266,7 +266,7 @@ z-index: 999;
 .descbx h3{
   margin-top: 0;
   font-family: 'Gugi';
-  font-size: min(1.5rem,1.2rem);
+  font-size: min(1.2rem,1.2rem);
   /* 글자크기 최대 1.2rem , 최소 1.2rem */
   font-weight: normal;
   padding: 15px 10px 5px;

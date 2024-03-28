@@ -6,6 +6,19 @@
     <title>쓸쓸하고 찬란하神 도깨비 드라마 소개</title>
     <link rel="shortcut icon" href="./images/pavicon_tvN.png" />
     <link rel="stylesheet" href="./css/main.css" />
+    <!-- 외부 메인js 불러오기: 모듈로 불러오기 -->
+    <script type="module" src="./JS/main.js"></script>
+    <!-- 
+        type모듈로 js를 호출하면 모듈 문법이 적용된다!
+        다른 js 외부파일을 모듈로 호출한 파일에서 부를 수 있다!
+        기본적으로 모듈을 사용하는 처리는 defer 처리 된다
+        즉, html 요소 로딩후 호출하게 된다.
+
+        주의!! 반드시 서버형 호출을 해야 본 문법을 사용할 수 있다
+        로컬에서 바로 열기하면 JS는 호출되지 않음!
+        그래서 서버에 올리거나 가상서버로 열어야함!
+
+     -->
   </head>
   <body class="scbar">
     <!-- 1. 상단영역 -->
@@ -154,14 +167,24 @@
       <!-- 배너는 중앙속박스 적용안함! -->
       <section class="ban-area">
         <h2 class="temp-tit">2. 배너영역</h2>
+        <!-- 임시버튼 -->
+
+        <div style="position: relative; font-size: 24px; z-index: 999;>
+          <a href="#" class="abtn ab1">이전</a>
+          <a href="#" class="abtn ab2">다음</a>
+        </div>
+
+        <!-- 임시블릿 -->
+        <div class="indic" style="position: relative; font-size: 24px; z-index: 999;">
+
+        </div>
+
         <div class="cont-box">
           <div class="col-12">
             <!-- 슬라이드 박스 -->
             <div class="slide-box">
               <ul class="slider">
-                <li class="snum-01"></li>
-                <li class="snum-02"></li>
-                <li class="snum-03"></li>
+
               </ul>
             </div>
             <!-- 캐릭터 박스 -->
