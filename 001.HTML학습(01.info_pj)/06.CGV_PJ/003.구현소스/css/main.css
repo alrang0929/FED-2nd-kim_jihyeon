@@ -9,24 +9,16 @@
     font-family: 'Cute Font', cursive;
     font-family: 'Jua', sans-serif;
 */
+/* 리셋 */
+@import url(./reset.css);
 
-/* 초기화 */
-html,body,h1,h2,ul,ol{
-    margin: 0;
-    padding: 0;
-}
-/* 리스트 초기화 */
-ul,ol{
-    /* 블릿,숫자 없앰 : lin */
-    list-style: none;
-}
 body{
     background-color: #000;
 }
 
 /* 공사중 표시 */
 body * {
-    outline: 2px dashed yellow;
+    /* outline: 2px dashed yellow; */
     /* outline: 두 종 색; */
 }
 /* 공통 클래스 */
@@ -42,6 +34,8 @@ body * {
     height: 80px;
     /* 배경이미지 */
     background: url(../images/curtain.jpg) repeat-x;
+    position: relative;
+    /* 부모자격: .gnb */
 }
 /* 1-1.타이틀 */
 .tit{
@@ -50,7 +44,127 @@ body * {
     color: aquamarine;
     line-height: 80px;
     text-align: center;
+    /* 글자 글로우 효과 */
+    text-shadow: 0 0 0px aquamarine;
+
+    animation: tit-ani .4s ease-in infinite alternate;
 }
+
+@keyframes tit-ani{
+    100%{
+        text-shadow: 0 0 15px aquamarine;
+    }
+}
+
+/* 1-2 gnb메뉴 */
+.gnb{
+    position: absolute;
+    right: 10PX;
+    bottom: 35%;
+    z-index: 999;
+}
+.gnb>ul{
+    /* 플렉스 박스 */
+    display: flex;
+    font-family: 'Jua', sans-serif;
+    font-size: 2rem;
+    gap: 0 2rem;
+}
+
+.gnb ul>li{
+position: relative;
+/* 하위메뉴와 연결되게함 */
+padding-bottom: 20px;
+/* 부모자격 : smenu */
+}
+
+/* 서브메뉴 */
+.smenu{
+
+    top: 45px;
+
+    position: absolute;
+    /* gnb가 부모! */
+    width: 150px;
+    /* outline: 2px solid  yellow; */
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    line-height: 2;
+    padding: 3px;
+    background: url(../images/bg_smenu.png) no-repeat center/cover;
+    height: max-content;
+    left: 50%;
+    transform: translateX(-50%);
+    /* box-shadow: 0 0 5px #fff; */
+    /* 가상요소를 포함한 모든 외곽선에 효과 적용 > filter!! */
+    filter: drop-shadow(0 0 5px #fff);
+
+    display: none;
+}
+
+/* 상위메뉴 오버시 메뉴 보이게 */
+.gnb ul>li:hover .smenu{
+display: block;
+}
+
+/* 가상요소 삼각형 만들기 */
+.smenu::before{
+    content: '';
+    
+    top: -15px;
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    background-color: #282828;
+    /* 클립패스로 자르기 */
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* 서브메뉴 ol */
+.smenu>ol{
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+/* 사이 구분선 class */
+.bd-top{
+    border-top: 1px solid #ccc;
+}
+
+/* 서브 오버시 폰트컬러 변경 */
+.smenu li:hover a{
+    cursor: pointer;
+    color: red;
+}
+/* 서브메뉴 오버시 아이콘 */
+.smenu li:hover a::after{
+    content: '🍀';
+    /* 오른쪽 끝에 */
+    float: right;
+}
+
+/* 예매*/
+.gnb ul>li:nth-child(1) .smenu li:hover a::after{
+    content: '🌸';
+    float: right;
+}
+
+/* 극장 */
+.gnb ul>li:nth-child(2) .smenu li:hover a::after{
+    content: '🍺';
+    float: right;
+}
+
+/* 이벤트 */
+.gnb ul>li:nth-child(3) .smenu li:hover a::after{
+    content: '🌻';
+    float: right;
+}
+
 /************ 2. 메인영역 ************/
 .main-area{
     position: relative;
