@@ -1,11 +1,10 @@
 // 배너 슬라이드 JS - slide.js //
 
-// 모듈로 내보낼떄 하나만 내보내면 export default 사용
-//맨 아래에서 이름을 호출하여 사용하거나
-//함수앞에 사용 가능!
+// 모듈로 내보낼때 하나만 내보내면 export default를 사용!
+// 맨 아래서 이름을 호출하여 사용하거나
+// 함수 앞에 사용할 수 도 있음.
 
-
-//////////슬라이드 전체함수/////////////////////////////
+/// 슬라이드 전체 함수 //////////////
 export default function slideFn() {
   // DOM 선택함수
   const qs = (x) => document.querySelector(x);
@@ -13,7 +12,8 @@ export default function slideFn() {
 
   // addEvent 함수
   // ele - 요소, evt - 이벤트, fn - 함수
-  const addEvt = (ele, evt, fn) => ele.addEventListener(evt, fn);
+  const addEvt = (ele, evt, fn) => 
+  ele.addEventListener(evt, fn);
 
   // HTML태그 로딩후 loadFn함수 호출! ///
   addEvt(window, "DOMContentLoaded", loadFn);
@@ -75,8 +75,7 @@ export default function slideFn() {
     for (let i = 0; i < 3; i++) {
       // 슬라이드 넣기
       slide.innerHTML += `
-    <li data-seq="${i}"
-        class="snum-0${i+1}"></li>
+    <li data-seq="${i}" class="snum-0${i+1}"></li>    
     `;
       // 블릿 넣기
       indic.innerHTML += `
@@ -89,7 +88,7 @@ export default function slideFn() {
     indic = document.querySelectorAll(".indic li");
 
     // 슬라이드 순번 전역변수
-    // let snum = 0;
+    // let snum = 0; -> 불필요!
 
     // 2. 버튼을 모두 이벤트 설정하기
     for (let x of abtn) {
@@ -115,6 +114,8 @@ export default function slideFn() {
       // evt-이벤트객체전달 : PointerEvent{}
       // sts-버튼클릭인지 자동호출인지 구분하는 변수
       // -> true면 버튼클릭, false면 자동호출로 구분
+      // -> 버튼클릭시엔 아무것도 안보내므로 기본값
+      // true가 할당되어 적용됨!
       // -> 만약 전달값이 없으면 기본값으로 셋팅함!
       // -> ES6문법에서 전달변수 초기값 주기 문법생김!
 
@@ -124,10 +125,10 @@ export default function slideFn() {
       // 전달된다!
       console.log("전달변수:", evt, sts);
 
-      //만약 버튼 클릭일 경우 인터발지우기 함수 호출!
+      // 만약 버튼 클릭일 경우 인터발지우기함수호출!
       if (sts) {
         clearAuto();
-      } //////////////////////////if sts
+      } ///// if ////
 
       // 광클금지 설정하기 ///////////
       // 클릭신호를 막아서 못들어오게 하고
@@ -142,10 +143,8 @@ export default function slideFn() {
       // 1.오른쪽 버튼인 .ab2인가?
       let isRbtn = sts ? this.classList.contains("ab2") : true;
       // sts값이 true냐? 맞으면 버튼을 클릭한 것이므로
-      // this키워드에 의한 클래스 .ab2 존재여부를 물어라
+      // this키워드에 의한 클래스 .ab2 존재여부를 물어라!
       // false냐? 맞으면 무조건 true값을 할당해라!
-      // -> 버튼 클릭시엔 아무것도 안보내므로 기본값
-      // true가 할당되어 적용됨!
       // 왜? 자동넘김은 오른쪽버튼 클릭한 방향으로 가야하니까!
 
       // [classList 객체의 contains() 메서드]
@@ -245,11 +244,10 @@ export default function slideFn() {
     } ///////////// goSlide 함수 ////////////////
     /////////////////////////////////////////////
 
-    // 1. 인터발용 변수(지울목적)
+    // 인터발용 변수(지울목적)
     let autoI;
-    // 2. 타임아웃용 변수(지울목적): 실행 쓰나미 방지!!
+    // 타임아웃용 변수(지울목적)
     let autoT;
-
     // 자동넘김호출함수 최초호출하기
     autoSlide();
 
@@ -273,53 +271,49 @@ export default function slideFn() {
     function clearAuto() {
       // 지우기 확인!
       console.log("인터발 지워!");
-      // 1. 인터발 지우기
+      // 1.인터발 지우기
       clearInterval(autoI);
-
-      // 2. 타임아웃 지우기
+      // 2.타임아웃 지우기 : 실행쓰나미 방지!!!
       clearTimeout(autoT);
-
-      // 3. 5초후 자동실행 재실행
-
-      //5초 후 아무 작동도 안하면 다시 인터발 호출
+      // 3.5초후 아무작동도 안하면 다시 인터발호출
       autoT = setTimeout(() => {
         autoSlide();
       }, 5000);
     } ////////// clearAuto ////////////
 
-//이동버튼 이벤트 설정하기
-//이벤트 대상: 이동버튼 영역 .evt-cover aside
 
-//변경대상: 버튼 -.abtn 변수에 할당됨
-const evtCover = qsa('.evt-cover aside');
+    // 이동버튼 이벤트 설정하기 //////
+    // 이벤트대상: 이동버튼 영역 - .evt-cover aside
+    const evtCover = qsa('.evt-cover aside');
+    // 변경대상: 버튼 - .abtn -> abtn변수에 할당됨!
+    evtCover.forEach((ele,idx)=>{
+      // console.log(ele);
+      // 이벤트 셋팅하기1 : mouseover - 버튼보이기
+      ele.onmouseover = ()=>{
+        abtn[idx].style.display = 'block';
+      }; /// mouseover ///
 
-evtCover.forEach((ele,idx)=>{
-// console.log(ele);
-//이벤트 셋팅하기1 mouseover : 버튼 보이기
-ele.onmouseover = ()=>{
-  abtn[idx].style.display = 'block';
-};
+      // 이벤트 셋팅하기2 : mouseout - 버튼숨기기
+      ele.onmouseout = ()=>{
+        abtn[idx].style.display = 'none';
+      }; /// mouseout ///
 
-//이벤트 셋팅하기2 mouseout : 버튼 숨기기
-ele.onmouseout = ()=>{
-  abtn[idx].style.display = 'none';
-};
+      // 이벤트 셋팅하기3 : mousemove - 버튼따라오기
+      ele.onmousemove = (e)=>{
+        abtn[idx].style.top = e.pageY+'px';
+        abtn[idx].style.left = e.pageX+'px';
+      }; /// mousemove ///
 
-//이벤트 셋팅하기3 mousemove : 버튼 따라오기
-ele.onmousemove = (e)=>{
-abtn[idx].style.top = e.pageY + 'px';
-abtn[idx].style.left = e.pageX + 'px';
-};//////onmousemove///////////////////
+      // 이벤트 셋팅하기4 : click - 이동함수 호출!
+      ele.onclick = goSlide;
+    }); ///// forEach /////////////////
 
-//3.이벤트 셋팅하기4: click - 이동함수 호출!
-ele.onclick = goSlide;
 
-});////////////////forEach
 
 
 
 
   } //////////////// loadFn 함수 ///////////////
   /////////////////////////////////////////////
-} ///////////////slideFn함수////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
+} ///////////// slideFn 함수 ///////////////
+////////////////////////////////////////////
