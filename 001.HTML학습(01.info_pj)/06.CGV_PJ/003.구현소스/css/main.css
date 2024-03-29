@@ -165,6 +165,59 @@ display: block;
     float: right;
 }
 
+/* 영사기 */
+.cam{
+    position: absolute;
+    top: -7%;
+    right: -41%;
+    
+}
+.cam img{
+    width: 50%;
+    transform-origin: 50%, 50%;
+    rotate: 20deg;
+    transition: .2s ease-in-out;
+    
+}
+
+.gnb:hover .cam img{
+    rotate: 0deg;
+}
+.gnb:hover .beam{
+    opacity: 1;
+    transition: width .3s .3s;
+}
+
+
+/* 빔박스 */
+.beam{
+    /* 메뉴, 카메라 보다 아래 */
+    z-index: -1;
+    position: absolute;
+    top: -14px;
+    right: -11px;
+    height: 70px;
+    width: 0px;
+    opacity: 1;
+    transform-origin: right;
+    
+    background: url(../images/bim.png) no-repeat right/auto 100%,
+    url(../images/screen.gif) no-repeat right 100%/auto 100%;
+
+    animation: beam-ani .01s linear .2s infinite alternate;
+
+}
+
+/* 빔 애니메이션 */
+@keyframes beam-ani{
+    100%{
+        opacity: .5;
+        width: 100%;
+    }
+}
+
+
+
 /************ 2. 메인영역 ************/
 .main-area{
     position: relative;
