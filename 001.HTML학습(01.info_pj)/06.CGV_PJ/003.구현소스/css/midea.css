@@ -1,0 +1,121 @@
+@charset "utf-8";
+/* CGV PJ 미디어쿼리 CSS - media.css */
+
+/* max-width를 사용한 미디어쿼리를 큰 사이즈 부터
+작은 사이즈 순으로 세팅함! */
+
+/************* 1350px 이하 미디어쿼리 시작 *************/
+@media screen and (max-width: 1350px) {
+  /* GNB 위치이동 */
+  .gnb {
+    right: 70px;
+  }
+}
+/************* 1350px 이하 미디어쿼리 종료 *************/
+
+/*************1024px 이하 미디어쿼리 시작 *************/
+@media screen and (max-width: 1024px) {
+  /* GNB메뉴 위치 및 배치 변경하기 */
+  .gnb {
+    /* 2. 새로운 기준 top값 사용!*/
+    top: 70px;
+    /* 1. 기존 bottom 위치 기준을 auto로 초기화 */
+    bottom: auto;
+    right: 17px;
+  }
+  .gnb ul {
+    flex-direction: column;
+    align-items: flex-end;
+
+    /* 높이값을 이용한 메뉴 숨기기 */
+    overflow: hidden;
+    height: 0;
+    transition: height 0.2s ease-in-out;
+  }
+
+  /* gnb 오버시 ul 보이기 */
+  .gnb:hover ul {
+    height: 127px;
+  }
+
+  /* 서브메뉴 오버시 숨기기 */
+  .gnb ul > li:hover .smenu {
+    display: none;
+  }
+
+  /* 영사기 위치변경 */
+  .cam {
+    /* 하단 gnb메뉴와 구역 연결! 오버시 연결 필요 */
+    padding-bottom: 10px;
+    top: -62px;
+    right: -12px;
+  }
+}
+/*************1024px 이하 미디어쿼리 종료 *************/
+
+/************* 810px 이하 미디어쿼리 시작 *************/
+@media screen and (max-width: 810px) {
+  /* 메인영역: 비율변경, 배경조정 */
+  .main-area {
+    position: relative;
+    /* height: 788px; */
+    aspect-ratio: 1 / 1.15;
+    background: url(../images/bg.jpg) no-repeat center -37% / 148%;
+  }
+
+  /*스크린: 크기, 위치조정 */
+  .screen {
+    top: 3.8%;
+    left: 5.6%;
+    width: 90.7%;
+    height: 53%;
+  }
+
+  /************ 하단영역 박스 ************/
+  .footer-area {
+    gap: 20px;
+    flex-direction: column;
+  }
+  /* 3-3.SNS */
+  .sns-box {
+    margin-left: 0;
+    margin-bottom: 40rem;
+  }
+
+  /* 포스터 리스트 */
+  .poster-menu ul {
+    flex-wrap: wrap;
+  }
+
+  .poster-menu{
+    width: 84%;
+    bottom: -3%;
+}
+
+  /* 상위 ul>li 리스트 */
+  .poster-menu > ul > li {
+    /* 가로폭 2%로 변경 */
+    gap: 0 2%;
+    flex-basis: calc(100% / 3 - 1.4%);
+    /* font-size: 4.5vw; */
+    /* 100%의 3등분 - gap값(사이값)2%에서 남는 gap을 등분할한 적당한 수치 1.4%를 빼줌 */
+  }
+
+  .mv-info ol{
+    /* 글자크기 */
+    font-size: 3.5vw;
+    /* 줄간격 */
+    line-height: 1;
+}
+
+}
+/************* 810px 이하 미디어쿼리 종료 *************/
+
+/************* 810px 이하 미디어쿼리 시작 *************/
+@media screen and (max-width: 810px) {
+  /* GNB 위치이동 */
+  .gnb {
+    right: 70px;
+  }
+}
+/************* 810px 이하 미디어쿼리 종료 *************/
