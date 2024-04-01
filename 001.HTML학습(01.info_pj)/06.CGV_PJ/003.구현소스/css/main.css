@@ -1,16 +1,5 @@
 @charset "utf-8";
-/* CGV PJ 메인 페이지 CSS - main.css */
-
-/*********** 1. 웹폰트 : CDN ***********/
-/* Cute Font, Jua, Audiowide 체 */
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Cute+Font&family=Jua&display=swap');
-/* 
-    font-family: 'Audiowide', cursive;
-    font-family: 'Cute Font', cursive;
-    font-family: 'Jua', sans-serif;
-*/
-/* 리셋CSS 불러오기 */
-@import url(./reset.css);
+@import url(./core.css);
 
 body{
     background-color: #000;
@@ -273,17 +262,33 @@ body * {
  */
 /* 포스터 리스트 */
 .poster-menu ul{
-    /* 플렉스박스 */
+    
+    /* 3D 원근설정 / 하위 li에 적용 */
+    perspective: 100vh;
     display: flex;
-    /* 하위 요소 사이간격 */
     gap: 0 15px;
 }
 /* 상위 ul>li 리스트 */
 .poster-menu>ul>li{
+    /* 기준선 하단으로 변경 */
+    transform-origin: bottom;
     position: relative;
     /* 부모자격 - 영화정보박스 */
     overflow: hidden;
     /* 자식요소인 영화정보박스 숨기기 */
+
+    /* x축 회전 */
+    transform: rotateX(70deg);
+    transition: transform .2s ease-in-out;
+}
+
+/* li에 호버시 일어나기+.on 줄때 일어나기 */
+.poster-menu>ul>li.on,
+.poster-menu>ul>li:hover{
+    transform: rotateX(0deg);
+    /* 오버요소 항상 위로! */
+    z-index: 1;
+    outline: 1px solid aqua;
 }
 
 /* 포스터 이미지 */
@@ -307,6 +312,7 @@ body * {
 }
 /* 부모li에 오버시 영화정보 박스 올라오기 */
 .poster-menu>ul>li:hover .mv-info{
+   
     top: 0;
 }
 /* 영화정보박스 하위 ol */
