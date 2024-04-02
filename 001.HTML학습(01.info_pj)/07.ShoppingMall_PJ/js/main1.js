@@ -268,6 +268,7 @@ function loadFn() {
     }, 3000);
   } /////// autoSlide 함수 /////////////
 
+  //자동넘김 셋팅 구역
   /// [ 인터발 지우기함수 ] ///////
   function clearAuto() {
     // 지우기 확인!
