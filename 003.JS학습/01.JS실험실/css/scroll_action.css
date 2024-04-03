@@ -128,4 +128,24 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 10vw;
+  transition: top .2s ease-out;
+  animation: woman-ani .1s ease-in-out infinite;
+}
+
+/* 떨녀애니 */
+@keyframes woman-ani{
+
+0%{
+  transform:
+  translateX(-50%) rotate(0deg) scale(1);
+}
+50%{
+  transform:
+  translateX(-50%) rotate(360deg) scale(3);
+}
+100%{
+  transform:
+  translateX(-50%) rotate(720deg) scale(1);
+}
+
 }

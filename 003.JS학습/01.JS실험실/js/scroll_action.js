@@ -214,7 +214,9 @@ if(scTop > posTop[2] - gap && scTop < posTop[2]) {
 //떨어지는 여자 이미지가 아래쪽으로 이동애니함!
 // [비례식을 세운다!]
 // 스크롤 한계값 : 윈도우 높이 = 스크롤 이동값 : 이미지 이동값
-// 이미지 이동값 = 스크롤 한계값 * 윈도우 높이 / 스크롤 이동값 
+ 
+
+
 
 //떨어지는 여자요소
 //0. 변수값 셋팅하기
@@ -224,6 +226,7 @@ if(scTop > posTop[2] - gap && scTop < posTop[2]) {
 let docH = document.body.clientHeight;
 //화면높이
 let winH = window.innerHeight;
+
 //스크롤 한계깞
 let scLimit = docH - winH;
 
@@ -242,7 +245,19 @@ myFn.addEvt(window,'scroll',moveWoman);
 function moveWoman(){
   //1. 스크롤 위치값
   let scTop = window.scrollY;
-  console.log('스크롤 위치값:',scTop);
+  
+  //2. 떨녀 top값
+  let wTop = winH * scTop / scLimit;
+  console.log('스크롤 위치값:',scTop,'\n여자:',wTop);
+
+// 이미지 이동값 = 스크롤 한계값 * 윈도우 높이 / 스크롤 이동값 
+// 이미지 이동값 = scTop * winH / scLimit
+
+//3. 딸녀에게 적용하기
+woman.style.top = wTop + 'px';
+
+//4. 맨 위일 때 위쪽으로 숨김
+if(scTop === 0)woman.style.top = '-30%';
 
 
 }/////////moveWoman함수////////////////
