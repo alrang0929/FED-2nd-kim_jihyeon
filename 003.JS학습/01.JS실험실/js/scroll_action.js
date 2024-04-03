@@ -73,9 +73,12 @@ myFn.addEvt(window,'scroll',showIt);
 function showIt(){
 //함수호출확인
 //class on 함수 호출하기
-//for of 문으로 호출
 
-for(let x of scAct) addOn(x);
+//for of 제어문으로 처리방법
+// for(let x of scAct) addOn(x);
+
+//for each 매서드 처리방법
+scAct.forEach(ele=>addOn(ele));
 
 // let pos = myFn.getBCR(scAct[0]);
 // let pos1 = myFn.getBCR(scAct[1]);
@@ -90,7 +93,7 @@ for(let x of scAct) addOn(x);
 //스크롤 등장 기준설정: 화면 2/3
 
 const CRITARIA = window.innerHeight / 3*2;
-console.log('기준값:',CRITARIA)
+// console.log('기준값:',CRITARIA)
 
 //class on 넣기 함수
 function addOn(ele){//ele=대상요소
@@ -165,12 +168,12 @@ scAct.forEach((ele,idx)=>{
 // 화면 절반크기 변수(포스터 위치에서 뺄값!)
 const gap = window.innerHeight/2;
 
-console.log('포스터 위치:',posTop)
+// console.log('포스터 위치:',posTop)
 
 
 function moveTit(){
   let scTop = window.scrollY;
-  console.log('타이틀 이동',scTop);
+  // console.log('타이틀 이동',scTop);
 
 //1. 맨 위 원위치 하기 : 첫번쨰 기준보다 작음
 if(scTop < posTop[0] - gap) {
@@ -201,8 +204,46 @@ if(scTop > posTop[2] - gap && scTop < posTop[2]) {
 }
 
 }///////moveTit///////////////////////////
-
 ///////////moveTit함수//////////////////////
-
-
 } ///////////////////////////showLetters
+
+//////////////////////////////////////////////////////////////////
+//////////////////떨어지는 여자 구현하기 //////////////////////////
+
+//기본원리: 스크롤 이동에 따른 화면 높이값 범위 안에서
+//떨어지는 여자 이미지가 아래쪽으로 이동애니함!
+// [비례식을 세운다!]
+// 스크롤 한계값 : 윈도우 높이 = 스크롤 이동값 : 이미지 이동값
+// 이미지 이동값 = 스크롤 한계값 * 윈도우 높이 / 스크롤 이동값 
+
+//떨어지는 여자요소
+//0. 변수값 셋팅하기
+//(1) 스크롤 한계값: 전체 document 높이 - 화면 높이
+
+//전체 document높이
+let docH = document.body.clientHeight;
+//화면높이
+let winH = window.innerHeight;
+//스크롤 한계깞
+let scLimit = docH - winH;
+
+console.log(
+  '문서높이:',docH,
+'\n화면높이:',winH,
+'\n한계값:',scLimit);
+
+//1. 대상선정
+const woman = myFn.qs('#woman')
+
+//2. 스크롤 이벤트 설정하기: widow가 이벤트 대상!
+myFn.addEvt(window,'scroll',moveWoman);
+
+//3. 함수 만들기
+function moveWoman(){
+  //1. 스크롤 위치값
+  let scTop = window.scrollY;
+  console.log('스크롤 위치값:',scTop);
+
+
+}/////////moveWoman함수////////////////
+
