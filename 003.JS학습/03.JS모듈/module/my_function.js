@@ -4,7 +4,7 @@
 
 
 
-// const myFn
+// const myFn -> 선언과 할당후 export default 하려면 하단에서! << 여턴 받는데선 이름 지정 소용X
 export default { //직접 내보내기
     // 요소선택함수 ////////
     qs: (x) => document.querySelector(x),
