@@ -361,6 +361,7 @@ z-index: 999;
 /************* 2.5. 서브파트메뉴 / 스티키 메뉴 *************/
 #spart-menu{
   /* 스티키 포지션 - 상단스크롤 걸림! */
+  z-index: 999;
   position: sticky;
   top: 0;
   background-color: #fff;
