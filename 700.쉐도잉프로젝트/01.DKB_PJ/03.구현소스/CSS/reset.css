@@ -25,7 +25,7 @@ figcaption {
 }
 
 /* ul,ol 순번,블릿없앰 */
-ul,ol{
+ul,ol,li{
     list-style: none;
 }
 

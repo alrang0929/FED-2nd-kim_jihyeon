@@ -32,15 +32,18 @@ introMv.onclick = () => {
   introMv.classList.remove("off");
 }; //////클릭 이벤트 함수
 
-//2. 미리보기 파트 내용 넣기
-//로딩시 바로 실행됨 -> 실행코드를 지역화 하고자할 때 함수로 만들고 이를 호출하면됨. 그러나 불편함!
+/****************************************** 
+ 
+[코드의 지역화(코드랩핑)]
 
-// [코드의 지역화(코드랩핑)]
-//익명함수로 만들고 바로 실행하게 하면 된다
-//방법: (익명함수)() -> 바로 실행함
-//실제코드01: ((익명함수)=>{코드})()
-//실제코드02: (function(){코드})()
-//->이렇게 하는 목적: 변수,함수 충돌방지!
+방법: (익명함수)() -> 바로 실행함
+실제코드01: ((익명함수)=>{코드})()
+실제코드02: (function(){코드})()
+->이렇게 하는 목적: 변수,함수 충돌방지!
+
+******************************************/
+
+//2. 미리보기 파트 내용 넣기
 
 //미리보기 구현 코드랩핑구역//////////////////////////
 (() => {
@@ -70,3 +73,77 @@ introMv.onclick = () => {
   //2. 화면출력하기 /////////////////
   previewBox.innerHTML = hcode;
 })(); ///////////////미리보기 코드 랩핑구역/////////////////
+
+////////////3. 현장포토 파트////////////
+(() => {
+  //대상: live-box
+  const liveBox = myFn.qs(".live-box");
+  //data: DKB_data.js의 배열 previewData
+  const lvData = dkbData.liveData;
+  console.log("대상:", liveBox, lvData);
+  //구조: ul > li > figure>img+figurecaption
+  // 8개만 데이터를 구성하여 html에 넣는다
+  //html 코드 변수
+  let hcode = `<ul>`;
+  lvData.forEach((v) => {
+
+    // li구성을 hcode 변수에 대입연산자로 할당함!
+    //liveData 배열은 총 8개, 모두 돌기 셋팅
+
+    hcode += `
+      <li>
+        <figure>
+          <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
+          <figcaption>${v.title}</figcaption>
+        </figure>
+      </li>
+      `;
+
+    }); //forEach//////////////////////////
+    hcode += `</ul>`;
+
+  //데이터 확인
+  // console.log(hcode);
+  // console.log('미리보기 data:',dkbData.liveData);
+
+  //2. 화면출력하기 /////////////////
+  liveBox.innerHTML = hcode;
+})(); ////////////현장포토 파트 끝////////////////
+
+
+////////////4. 대표이미지 파트////////////
+(() => {
+  //대상: live-box
+  const posterBox = myFn.qs(".poster-box");
+  //data: DKB_data.js의 배열 previewData
+  const psData = dkbData.posterData;
+  console.log("대상:", posterBox, psData);
+  //구조: ul > li > figure>img+figurecaption
+  // 8개만 데이터를 구성하여 html에 넣는다
+  //html 코드 변수
+  let hcode = `<ul>`;
+  psData.forEach((v) => {
+
+    // li구성을 hcode 변수에 대입연산자로 할당함!
+    //posterData 배열은 총 5개, 모두 돌기 셋팅
+
+    hcode += `
+      <li>
+        <figure>
+          <img src="./images/poster_img/${v.imgName}.jpg" alt="${v.title}">
+          <figcaption>${v.title}</figcaption>
+        </figure>
+      </li>
+      `;
+
+    }); //forEach//////////////////////////
+    hcode += `</ul>`;
+
+  //데이터 확인
+  // console.log(hcode);
+  // console.log('미리보기 data:',dkbData.posterData);
+
+  //2. 화면출력하기 /////////////////
+  posterBox.innerHTML = hcode;
+})(); ////////////대표이미지 파트 끝////////////////
+
