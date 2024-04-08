@@ -61,8 +61,14 @@
 }
 
 /* 메인영역 col-box */
-.main-area[class*='col-']{
-    padding: 10px;
+.main-area {
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+
+/* 메인파트 직계하위박스(겉박스) div 두번째부터 패딩탑 위아래 사이간격 주기 */
+.main-area>div+div{
+    padding-top: 60px;
 }
 
 /* 공통 서브타이틀 */

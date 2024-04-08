@@ -96,9 +96,60 @@ body * {
 
 /************************ 4. 미리보기영역 ************************/
 .preview-area{
-    height: 803px;
-
+    /* padding-top: 60px; */
+    /* height: 803px;
+    높이값을 지정하면 내용만큼 자동으로 높이값이
+    잡히지 않아서 매번 크기에 따라 값을 셋팅 해야함!
+    그러므로 되도록이면 auto로 두자
+    */
+}
+.preview-box ul{
+    gap: 1rem;
+    justify-content: space-between;
+}
+/* 리스트박스 */
+.preview-box li{
+    flex-basis: calc(100% / 4 - 20px);
     
+    /* 패딩값 고려하여 뺌 */
+    padding: 20px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 1px #797979;
+    box-sizing: border-box;
+
+    /* 여러줄 말줄임표시 셋팅하기 */
+    display: -webkit-box;
+    overflow: hidden;
+    /*... 말줄임표 표시*/
+    text-overflow: ellipsis;
+    /*보여줄 라인 수*/
+    -webkit-line-clamp: 7;
+    /*진행방향*/
+    -webkit-box-orient: vertical;
+}
+
+/* 리스트박스 타이틀 */
+.preview-box li h3{
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    font-weight: normal;
+}
+/* 리스트박스 내용 */
+.preview-box li p{
+    overflow: hidden;
+    font-size: 1rem;
+    margin-top: 1.4rem;
+    padding-bottom: 1rem;
+    opacity: .5;
+    color: #1a1a1a;
+    line-height: 1.7;
+    transition: .1s;
+}
+
+/* 리스트 내용 오버시 오퍼시티 1 */
+.preview-box li:hover p{
+    opacity: 1;
 }
 /*********************** 5. 현장포토영역 ***********************/
 .real-photo-area{
