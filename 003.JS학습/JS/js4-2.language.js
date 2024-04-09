@@ -16,7 +16,7 @@ console.log(langData);
 const selBox = myFn.qs('.sel');
 //2-2. 변경 대상: #gnb a/ #cont img / #intro address
 //(1)GNB메뉴: #gnb a
-const gnbList = myFn.qsa('.gnb a');
+const gnbList = myFn.qsa('#gnb a');
 //(2)메인 이미지: #cont img
 const mainImg = myFn.qsa('#cont img');
 //(3) 하단 주소: #info address
@@ -32,7 +32,6 @@ myFn.addEvt(selBox,'change',chgLang);
 function chgLang(){
 //선택된 option velue속성값
 let optVal = this.value;
-
 //2. option의 value값으로 다국어 객체값 매칭하기
 let selLang = langData[optVal];
 //호출 및 값확인
@@ -45,5 +44,12 @@ gnbList.forEach((ele,idx) =>{
     ele.innerText = selLang['메뉴'][idx];
 
 })//////forEach//////////////
+
+//3-2 메인이미지 src값 변경하기!
+//각경로의 이미지명은 다국어 코드명으로 되어 있다!
+mainImg.src = `images/${optVal}.jpg`;
+
+//4. 회사주소 언어 바꾸기
+addrBox.innerText = selLang['주소'];
 
 }///////chgLang////////////////////////////
