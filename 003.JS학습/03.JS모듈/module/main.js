@@ -85,13 +85,14 @@ const contBox = myFn.qs("#demo");
 // (3) 영화정보 출력박스 : .mvpart
 const mvBox = myFn.qs(".mvpart");
 
-console.log("대상:", titBox, contBox, mvBox);
+console.log("대상:", titBox, contBox, mvBox, txtData.myObj, txtData.myFunc);
 
 // 2. 변경적용하기
 // (1)  타이틀 출력하기 : 큰제목 + 작은제목
 titBox.innerHTML = `
     <h2>${txtData.mTitle}</h2>
     <h3>${txtData.sTitle}</h3>
+    
 `;
 
 // (2) 내용 넣기 : 이름과 나이를 소개하는 메시지 넣기

@@ -52,8 +52,11 @@ const mvData = [
         "재개봉 흥해라!!!",
     ],
 ];
+//객체 예시
+const myObj =  {name:'수현',age:34};
+const myFunc = x => '나는${x}다!';
 
-export {mTitle, sTitle, personInfo, mvData};
+export {mTitle, sTitle, personInfo, mvData,myObj,myFunc};
 
 /******************************************** 
     [ export 형식 ]
