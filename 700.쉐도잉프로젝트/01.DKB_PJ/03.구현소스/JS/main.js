@@ -9,24 +9,56 @@ import myFn from "./my_function.js";
 //데이터셋팅 불러오기
 import * as dkbData from "../data/DKB_data.js";
 //GNB데이터
-import gnbData from"../data/GNB_data.js";
+import gnbData from "../data/GNB_data.js";
 console.log(gnbData);
 
 ////////////구현코드 파트///////////////////////
 
 //GNB메뉴 코드 넣기
 //대상: .gnb
-myFn.qs('.gnb').innerHTML =`
-
-    <ul>
+//데이터: gnbData 는 객체! 따라서 배열용 map()매서드 못씀
+//-> gnbData를 Keys 배열로 변환해서 사용함!
+//이 객체의 key는 상위메뉴 이기도함
+//Object.keys(객체) -> 해당객체의 속성명(키) 배열생성이 됨!
+console.log(Object.keys(gnbData));
+myFn.qs(".gnb").innerHTML = `
+<ul>
+${Object.keys(gnbData)
+  .map(
+    (v) => `
+  <li>
+  <a href="#">${v}</a>
   ${
-    Object.keys(gnbData).map(v=>`
-    <li>
-    <a href="#">${v}</a>
+    //서브메뉴가 없음?'':서브메뉴 출력!}
+    //gnbData[키] => 값을 가져옴
+    gnbData[v] == "없음"
+      ? ""
+      : `
+    <div class="smenu">
+      <div class="swrap">
+        <h2>${v}</h2>
+        <ol>
+        ${gnbData[v]
+          .map(
+            (vSub) => `
+          <li>
+            <a href="#">${vSub}</a>
+          </li>
+          `
+          )
+          .join("")}
+          </ol>
+        </div>
+      </div>
+    `
+  }  
   </li>
-    `).join('')}
-    </ul>
-`;
+ 
+  `
+  )
+  .join("")}
+  </ul>
+  `;
 
 //1. 부드러운 스크롤 호출
 startSS();
@@ -71,14 +103,14 @@ introMv.onclick = () => {
   //데이터 원본 정렬을 내림차순으로 변경! sort
   //배열값인 객체의 idx키값을 기준으로 내림차순 정렬 할때 문자형 숫자이므로
   //Number(숫자형 매서드)로 싸서 숫자로써 비교하여 정확한 내림차순이 되게 한다
-  pData.sort((a,b)=>
-  Number(a.idx)==Number(b.idx)?0 : Number(a.idx)<Number(b.idx)?1:-1)
+  pData.sort((a, b) =>
+    Number(a.idx) == Number(b.idx) ? 0 : Number(a.idx) < Number(b.idx) ? 1 : -1
+  );
 
   //콘솔로도 데이터 변경이 됨! sort는 원본 데이터를 변경!
   // console.log(
   // pData.sort((a,b)=>
   // Number(a.idx)==Number(b.idx)?0 : Number(a.idx)<Number(b.idx)?1:-1));
-
 
   //구조: ul > li > h3 + p
   // 8개만 데이터를 구성하여 html에 넣는다
@@ -115,7 +147,6 @@ introMv.onclick = () => {
   //html 코드 변수
   let hcode = `<ul>`;
   lvData.forEach((v) => {
-
     // li구성을 hcode 변수에 대입연산자로 할당함!
     //liveData 배열은 총 8개, 모두 돌기 셋팅
 
@@ -127,9 +158,8 @@ introMv.onclick = () => {
         </figure>
       </li>
       `;
-
-    }); //forEach//////////////////////////
-    hcode += `</ul>`;
+  }); //forEach//////////////////////////
+  hcode += `</ul>`;
 
   //데이터 확인
   // console.log(hcode);
@@ -138,7 +168,6 @@ introMv.onclick = () => {
   //2. 화면출력하기 /////////////////
   liveBox.innerHTML = hcode;
 })(); ////////////현장포토 파트 끝////////////////
-
 
 ////////////4. 대표이미지 파트////////////
 (() => {
@@ -152,7 +181,6 @@ introMv.onclick = () => {
   //html 코드 변수
   let hcode = `<ul>`;
   psData.forEach((v) => {
-
     // li구성을 hcode 변수에 대입연산자로 할당함!
     //posterData 배열은 총 5개, 모두 돌기 셋팅
 
@@ -164,9 +192,8 @@ introMv.onclick = () => {
         </figure>
       </li>
       `;
-
-    }); //forEach//////////////////////////
-    hcode += `</ul>`;
+  }); //forEach//////////////////////////
+  hcode += `</ul>`;
 
   //데이터 확인
   // console.log(hcode);
@@ -175,4 +202,3 @@ introMv.onclick = () => {
   //2. 화면출력하기 /////////////////
   posterBox.innerHTML = hcode;
 })(); ////////////대표이미지 파트 끝////////////////
-
