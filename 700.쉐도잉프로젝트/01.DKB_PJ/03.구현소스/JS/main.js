@@ -8,8 +8,25 @@ import myFn from "./my_function.js";
 //////////////////////////////////////////////////////////////////////////
 //데이터셋팅 불러오기
 import * as dkbData from "../data/DKB_data.js";
+//GNB데이터
+import gnbData from"../data/GNB_data.js";
+console.log(gnbData);
 
 ////////////구현코드 파트///////////////////////
+
+//GNB메뉴 코드 넣기
+//대상: .gnb
+myFn.qs('.gnb').innerHTML =`
+
+    <ul>
+  ${
+    Object.keys(gnbData).map(v=>`
+    <li>
+    <a href="#">${v}</a>
+  </li>
+    `).join('')}
+    </ul>
+`;
 
 //1. 부드러운 스크롤 호출
 startSS();
@@ -51,6 +68,18 @@ introMv.onclick = () => {
   const previewBox = myFn.qs(".preview-box");
   //data: DKB_data.js의 배열 previewData
   const pData = dkbData.previewData;
+  //데이터 원본 정렬을 내림차순으로 변경! sort
+  //배열값인 객체의 idx키값을 기준으로 내림차순 정렬 할때 문자형 숫자이므로
+  //Number(숫자형 매서드)로 싸서 숫자로써 비교하여 정확한 내림차순이 되게 한다
+  pData.sort((a,b)=>
+  Number(a.idx)==Number(b.idx)?0 : Number(a.idx)<Number(b.idx)?1:-1)
+
+  //콘솔로도 데이터 변경이 됨! sort는 원본 데이터를 변경!
+  // console.log(
+  // pData.sort((a,b)=>
+  // Number(a.idx)==Number(b.idx)?0 : Number(a.idx)<Number(b.idx)?1:-1));
+
+
   //구조: ul > li > h3 + p
   // 8개만 데이터를 구성하여 html에 넣는다
   //html 코드 변수
