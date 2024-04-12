@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>쓸쓸하고 찬란하神 도깨비 드라마 소개</title>
+    <link rel="shortcut icon" href="./images/pavicon_tvN.png" />
     <!-- 폰트어썸 아이콘CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
-    <link rel="shortcut icon" href="./images/pavicon_tvN.png" />
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/media.css" />
     <!-- 메인JS 불러오기 : 모듈로 불러오기 -->
     <script type="module" src="./js/main.js"></script>
     <!-- 
@@ -28,19 +29,17 @@
     <div id="top-area"></div>
     <!-- 2. 배너영역 -->
     <div id="ban-area"></div>
-      </nav>
-      <!-- 2.5. 서브파트메뉴 -->
-      <div id="spart-menu"></div>
-    </div>
-    <!-- 메인영역 -->
-    <!-- 3. 인트로영역 -->
+    <!-- 2.5. 도깨비 드라마 메뉴 : 스티키메뉴 -->
+    <div id="spart-menu"></div>
+
+    <!-- 메인 영역 -->
     <main class="main-area">
+      <!-- 3. 인트로영역 -->
       <div id="intro-area">
         <section class="intro-area inbox">
           <!-- <h2 class="temp-tit">3. 인트로영역</h2> -->
           <div class="cont-box">
-            <div class="col-6">
-      
+            <div class="col-6 col-2nd-12">
               <!-- 드라마소개파트 제목 -->
               <h2 class="stit">도깨비</h2>
               <!-- 하위제목+아이콘 -->
@@ -77,16 +76,15 @@
               <!-- 설명박스 -->
               <p class="intro-txt">
                 불멸의 삶을 끝내기 위해 인간 신부가 필요한 도깨비, 그와 기묘한
-                동거를 시작한 기억상실증 저승사자. 그런 그들 앞에 '도깨비 신부'라
-                주장하는 '죽었어야 할 운명'의 소녀가 나타나며 벌어지는 神비로운
-                낭만 설화.
+                동거를 시작한 기억상실증 저승사자. 그런 그들 앞에 '도깨비
+                신부'라 주장하는 '죽었어야 할 운명'의 소녀가 나타나며 벌어지는
+                神비로운 낭만 설화.
               </p>
               <!-- 인트로 버튼 -->
               <button class="intro-btn">방송편성보기</button>
-      
             </div>
             <!-- 인트로 동영상 파트 -->
-            <div class="col-6">
+            <div class="col-6 col-2nd-12">
               <figure class="intro-mv-box">
                 <div class="intro-mv-img off">
                   <img
@@ -105,11 +103,10 @@
       </div>
       <!-- 4. 미리보기영역 -->
       <div id="preview-area">
-        <section class="preview-area inbox main-area">
+        <section class="preview-area inbox">
           <h2 class="stit">미리보기</h2>
           <div class="cont-box">
-            <div class="col-12 preview-box">
-            </div>
+            <div class="col-12 preview-box"></div>
           </div>
         </section>
       </div>
@@ -136,22 +133,12 @@
         <section class="clip-video-area inbox">
           <h2 class="stit">최신동영상</h2>
           <div class="cont-box">
-            <div class="col-12">
-              <ul>
-                <li>
-                  <div class="clip-mv-box">
-                    <img src="./images/clip_img/1.jpg" alt="김고은. 능력있으神 공유에게 뜬금포 사랑고백 ′사랑해요′">
-                  </div>
-                  <h4>김고은. 능력있으神 공유에게 뜬금포 사랑고백 ′사랑해요′</h4>
-                  <h3>도깨비1화</h3>
-                </li>
-              </ul>
-            </div>
+            <div class="clip-box col-12"></div>
             <!-- 이동버튼박스 -->
-          <div class="btn-box">
-            <button class="fa-solid fa-chevron-left"></button>
-            <button class="fa-solid fa-chevron-right"></button>
-          </div>
+            <div class="btn-box">
+              <button class="fa-solid fa-chevron-left"></button>
+              <button class="fa-solid fa-chevron-right"></button>
+            </div>
           </div>
         </section>
       </div>

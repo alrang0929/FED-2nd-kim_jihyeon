@@ -10,14 +10,22 @@
 
 /* 공사중 표시 */
 body * {
- /*    outline: 2px dashed #ccc; */
+    /* outline: 2px dashed #ccc; */
 }
-
-/* 3. 인트로영역 */
+/* 메인파트 전체박스 */
+.main-area {
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+/* 메인파트 직계하위박스(겉박스) div 두번째부터
+패딩탑 위아래 간격주기 */
+.main-area>div+div{
+    padding-top: 60px;
+}
+/**************** 3. 인트로영역 ****************/
 .intro-area{
-    height: 575px;
+    /* height: 575px; */
 }
-
 /*********** 방송편성소개파트 : .intro-part ***********/
 .main .intro-part .partbox {
     height: 455px;
@@ -31,7 +39,7 @@ body * {
 .intro-desc{
     display: flex;
     flex-wrap: wrap;
-    font-size: 2.2rem;
+    font-size: 1.2rem;
 }
 .intro-desc h3{
     margin-right: 10px;
@@ -43,7 +51,7 @@ body * {
 /* 설명박스 */
 .intro-txt{
     padding: 20px;
-    font-size: 1.4rem;
+    font-size: 1rem;
     line-height: 2;
     color: #555;
 }
@@ -51,7 +59,7 @@ body * {
 .intro-btn{
     padding: 20px 50px;
     border-radius: 10px;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     background-color: transparent;
     border: 1px solid #000;
     font-weight: bold;
@@ -63,10 +71,10 @@ body * {
     /* 부모자격 */
     aspect-ratio: 2/1.1;
 }
-/* 가상요소로 플레이버튼 만들기 */
+/* 가상요소로 플레이버튼 만들기
+-> .off를 준 경우에만 가상요소 버튼보임
+따라서 비디오태그 넣을 경우 .off 지울것! */
 .intro-mv-img.off::after{
-    /* .off를 준 경우에만 가상요소 버튼 보임!
-    따라서 video로 태그 전환시 .off 제거 */
     content: '';
     position: absolute;
     top: 50%;
@@ -92,129 +100,112 @@ body * {
     padding-top: 10px;
 }
 
-
-
-/************************ 4. 미리보기영역 ************************/
+/************** 4. 미리보기영역 **************/
 .preview-area{
-    /* padding-top: 60px; */
-    /* height: 803px;
-    높이값을 지정하면 내용만큼 자동으로 높이값이
-    잡히지 않아서 매번 크기에 따라 값을 셋팅 해야함!
-    그러므로 되도록이면 auto로 두자
+    /* height: 803px; 
+    -> 높이값을 지정하면 내용만큼 자동으로
+    높이값이 잡히지 않아서 매번 크기에 따라
+    값을 셋팅해야하므로 auto로 두자!
     */
 }
-.preview-box ul{
-    gap: 1rem;
-    justify-content: space-between;
+.preview-box ul {
+    gap: 20px;
 }
 /* 리스트박스 */
-.preview-box li{
-    flex-basis: calc(100% / 4 - 20px);
-    
-    /* 패딩값 고려하여 뺌 */
-    padding: 20px 20px;
+.preview-box li {
+    /* 한줄에 4개 플렉스 배치 - gap값 고려해서뺌 */
+    flex-basis: calc(100% / 4 - 15px);
+    padding: 24px 20px;
     cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0 0 1px #797979;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #22222240;
     box-sizing: border-box;
+}
+/* 리스트 타이틀 */
+.preview-box li h3 {
+    font-size: 2rem;
+    color: #000;
+    font-weight: normal;
+}
+/* 리스트 내용 */
+.preview-box li p {
+    font-size: 1.5rem;
+    margin-top: 1.4rem;
+    color: #00000099;
+    line-height: 1.7;
 
     /* 여러줄 말줄임표시 셋팅하기 */
     display: -webkit-box;
     overflow: hidden;
-    /*... 말줄임표 표시*/
+    /* 말줄임표시 */
     text-overflow: ellipsis;
-    /*보여줄 라인 수*/
+    /* 보여줄 라인수 셋팅속성 */
     -webkit-line-clamp: 7;
-    /*진행방향*/
+    /* 라인진행방향 셋팅 */
     -webkit-box-orient: vertical;
 }
-
-/* 리스트박스 타이틀 */
-.preview-box li h3{
-    font-size: 1.5rem;
-    color: #1a1a1a;
-    font-weight: normal;
-}
-/* 리스트박스 내용 */
-.preview-box li p{
-    overflow: hidden;
-    font-size: 1rem;
-    margin-top: 1.4rem;
-    padding-bottom: 1rem;
-    opacity: .5;
-    color: #1a1a1a;
-    line-height: 1.7;
-    transition: .1s;
+/* 리스트박스 오버시 내용글자색 */
+.preview-box li:hover p {
+    color: #000;
 }
 
-/* 리스트 내용 오버시 오퍼시티 1 */
-.preview-box li:hover p{
-    opacity: 1;
-}
-/*********************** 5. 현장포토영역 ***********************/
+/************** 5. 현장포토영역 **************/
 .real-photo-area{
     /* height: 1043px; */
 }
-
 /* 현장포토 그리드박스 */
+.live-box ul {
+    display: grid;
+    /* 4개 컬럼 동일비율 셋팅 */
+    grid-template-columns: repeat(4, 1fr);
+    /* 사이간격 */
+    gap: min(20px,1.2vw);
 
+}
+/* 현장포토 리스트 */
 .live-box li{
     cursor: pointer;
 }
-
-.live-box ul{
-    display: grid;
-    /* 4개 컬럼 동일배율 */
-    grid-template-columns: repeat(4, 1fr);
-
-    /* 그리드 간격 */
-    gap: min(20px, 1vw);
-}
-
 /* 이미지 */
 .live-box img{
     border-radius: 6px;
     width: 100%;
 }
-
 /* 이미지 타이틀 */
 .live-box figcaption{
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding-top: 1rem;
+    font-size: 2rem;
+    padding-top: 1.4rem;
 }
-
-/*********************** 6. 대표이미지 영역 ***********************/
+/************** 6. 대표이미지 영역 **************/
 .main-photo-area{
     /* height: 731px; */
 }
+/* 대표이미지 그리드박스 */
+.poster-box ul {
+    display: grid;
+    /* 4개 컬럼 동일비율 셋팅 */
+    grid-template-columns: repeat(4, 1fr);
+    /* 사이간격 */
+    gap: min(20px,1.2vw);
 
+}
+/* 대표이미지 리스트 */
 .poster-box li{
     cursor: pointer;
 }
-
-.poster-box ul{
-    display: grid;
-    /* 4개 컬럼 동일배율 */
-    grid-template-columns: repeat(4, 1fr);
-
-    /* 그리드 간격 */
-    gap: min(20px, 1vw);
-}
-
-/* 대표이미지 리스트 grid-row 셋팅
-->2줄로 셋팅하려면 줄번호가
-*/
-/* 2~4번 */
+/* 대표이미지 리스트 grid-row셋팅하기
+-> 2줄로 세팅하려면 줄번호가 3번이 끝번호임! */
+/* 1번 */
 .poster-box li:nth-child(1){
-grid-row: 1/2;
+    grid-row: 1/2;
 }
+/* 2번째부터 4번째까지 선택 */
 .poster-box li:nth-child(1) ~ li:nth-child(-n+4){
-grid-row: 1/3;
+    grid-row: 1/3;
 }
+/* 다음줄 첫번째 li가 윗줄로 올라옴! */
 .poster-box li:nth-child(5){
-/* 다음줄 li가 위로 올라옴 */
-grid-row: 2/3;
+    grid-row: 2/3;
 }
 
 /* 이미지 */
@@ -222,14 +213,16 @@ grid-row: 2/3;
     border-radius: 6px;
     width: 100%;
 }
-
 /* 이미지 타이틀 */
 .poster-box figcaption{
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding-top: 1rem;
+    font-size: 2rem;
+    padding-top: 1.4rem;
 }
-/*********************** 7. 최신동영상영역 ***********************/
+/************** 7. 최신동영상영역 **************/
+.clip-video-area{
+    position: relative;
+    /* 부모자격 - 이동버튼의 부모 */
+}
 .clip-box ul {
     position: relative;
     left: 0;/* 이동초기값 */
@@ -252,6 +245,7 @@ grid-row: 2/3;
 /* 동영상 이미지박스 이미지 */
 .clip-mv-box img {
     width: 100%;
+    border-radius: 6px;
 }
 /* 동영상 이미지박스 가상요소로 플레이버튼 */
 .clip-mv-box::after {
@@ -270,6 +264,7 @@ grid-row: 2/3;
     font-size: 18px;
     font-weight: normal;
 
+    /* 2줄 말줄임 셋팅 */
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -284,7 +279,7 @@ grid-row: 2/3;
 }
 
 .clip-box {
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 
