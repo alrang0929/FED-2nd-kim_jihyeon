@@ -1,72 +1,27 @@
 // DKB PJ 메인 JS - main.js //////////////
 // 모듈로 호출된 JS에서는 다른 외부JS를 import로 호출가능!
 // import하려는 파일에서 반드시 함수,변수 등을 export해야함!
-import slideFn from "./slide.js";
+
 // 부드러운 스크롤 불러오기
 import { startSS, setScrollPos } from "./smoothScroll23.js";
 import myFn from "./my_function.js";
 //////////////////////////////////////////////////////////////////////////
 //데이터셋팅 불러오기
 import * as dkbData from "../data/DKB_data.js";
-//GNB데이터
-import gnbData from "../data/GNB_data.js";
-console.log(gnbData);
 
+//공통처리함수 불러오기: 가장먼저 호출!
+import setElement from "./common.js";
+
+setElement(); // 함수호출
 ////////////구현코드 파트///////////////////////
 
-//GNB메뉴 코드 넣기
-//대상: .gnb
-//데이터: gnbData 는 객체! 따라서 배열용 map()매서드 못씀
-//-> gnbData를 Keys 배열로 변환해서 사용함!
-//이 객체의 key는 상위메뉴 이기도함
-//Object.keys(객체) -> 해당객체의 속성명(키) 배열생성이 됨!
-console.log(Object.keys(gnbData));
-myFn.qs(".gnb").innerHTML = `
-<ul>
-${Object.keys(gnbData)
-  .map(
-    (v) => `
-  <li>
-  <a href="#">${v}</a>
-  ${
-    //서브메뉴가 없음?'':서브메뉴 출력!}
-    //gnbData[키] => 값을 가져옴
-    gnbData[v] == "없음"
-      ? ""
-      : `
-    <div class="smenu">
-      <div class="swrap">
-        <h2>${v}</h2>
-        <ol>
-        ${gnbData[v]
-          .map(
-            (vSub) => `
-          <li>
-            <a href="#">${vSub}</a>
-          </li>
-          `
-          )
-          .join("")}
-          </ol>
-        </div>
-      </div>
-    `
-  }  
-  </li>
- 
-  `
-  )
-  .join("")}
-  </ul>
-  `;
 
 //1. 부드러운 스크롤 호출
 startSS();
 
 console.log("모듈로 메인JS호출!!!", document.querySelector(".top-menu"));
 
-// slideFn 슬라이드 기능함수 호출!
-slideFn();
+
 
 //. 인트로 동영상 클릭시 동영상 태그 넣기
 //이벤트대상=변경대상 :intro-mv-img
@@ -202,3 +157,33 @@ introMv.onclick = () => {
   //2. 화면출력하기 /////////////////
   posterBox.innerHTML = hcode;
 })(); ////////////대표이미지 파트 끝////////////////
+
+//5. 최신 동영상 파트 데이터 태그 구성하여 화면출력하기
+//코드 랩핑구역///////////////////////////////////////
+(()=>{
+
+  //5-1)변경대상: .clip-box
+  const clipBox = myFn.qs(".clip-box");
+  //5-2) 생성코드 변수
+  
+  //5-3) 화면 출력하기
+  //5-4) 데이터만큼 순회하여 li 코드 만들기!
+  //데이터: dkbData.clipData
+  
+  let hcode = `<ul>`;
+  dkbData.clipData.forEach(v=>{
+  hcode +=`  
+  <li>
+  <div class="clip-mv-box">
+    <img src="./images/clip_img/${v.idx}.jpg" alt="${v.subtit}">
+  </div>
+  <h4>${v.subtit}</h4>
+  <h3>${v.title}</h3>
+</li>
+  `;
+  })
+  hcode += `</ul>`;
+
+  clipBox.innerHTML = hcode;
+ 
+})();/////////////최신 동영상 파트 종료
