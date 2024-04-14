@@ -85,6 +85,7 @@ scAct.forEach(ele=>addOn(ele));
 
 // let pos = myFn.getBCR(scAct[0]);
 // let pos1 = myFn.getBCR(scAct[1]);
+
 // let pos2 = myFn.getBCR(scAct[2]);
 // console.log('첫번째대상위치:',pos);
 // if(pos<500) scAct[0].classList.add('on');
