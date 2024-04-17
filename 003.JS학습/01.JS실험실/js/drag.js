@@ -194,6 +194,12 @@ function goDrag(ele,coll) {
   mFn.addEvt(dtg, "mouseleave", () => {
     // 드래그 상태값 false로 변경!
     dFalse();
+    // 드래그시 과도한 드래그로 갑자기 아웃되면 lastX lastY 값이 셋팅되지 못한다!
+    //이것을 기존 요소의 위치값으로 보정함!
+    //단, style 위치값 코드는 'px'단위가 있으므로 parseInt 처리를 한다
+    lastX = parseInt(dtg.style.left);
+    lastY = parseInt(dtg.style.top);
+
     console.log("마우스나감!", dragSts);
     
   }); ///////// mouseleave //////////
