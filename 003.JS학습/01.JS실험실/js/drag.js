@@ -49,25 +49,41 @@ function setDrag(clsName) {
   //드래그 함수 호출
   //HTML 컬렉션 이므로 forEach 매서드로 호출
   //forEach ((요소,순번,전체)=>{})
-  ele.forEach((x,y,z) => goDrag(x,z));
+  ele.forEach((x) => goDrag(x));
   //z는 전체 요소집합 컬렉션임(z-index 초기화에 필요!)
 } ////////////////setDrag함수////////////
+
+//z인덱스 공통관리 변수(전역변수)
+let zNum = 0;
 
 /******************************************* 
  [ 드래그 다중적용 함수 만들기 ]
  함수명 : goDrag
  기능 : 다중 드래그 기능 적용
+
+ 수정사항 체크:
+ 1) 드래그 시 위치이동 안되는 버그
+    >원인: top, left 초기값 셋팅 안될경우 에러 발생
+ 2) z-index초기화로 인한 순서변경 어색함!
+
  *******************************************/
-function goDrag(ele,coll) {
+
+
+ 
+function goDrag(ele) {
   // ele - 드래그 대상요소 클래스 이름 받는 변수
   // -> 하나씩 전달된 드래그 요소임!
-  //coll = 드래그 요소 전체 컬렉션을 받는 변수
-  console.log(ele, coll);
+  console.log(ele);
   //=>마우스 다운시 z-index 대상 1로 만들때 다른 요소는 0변경시 사용!
   // 드래그 적용 대상 및 이벤트 설정하기 ////
   // 1. 대상선정 : 보내준 대상 HTML컬렉션
   const dtg = ele;
   // const dtg = mFn.qs('.dtg2');
+  // 드래그할 대상의 css 기본값을 셋팅한다
+  // 필수 셋팅요소는 position relativ / top 0 / left 0
+  dtg.style.position = "relative";
+  dtg.style.top = "0";
+  dtg.style.left = "0";
 
   // 2. 변수 셋팅 ///////////////////////
   // (1) 드래그 상태 변수 만들기
@@ -109,8 +125,16 @@ function goDrag(ele,coll) {
 
       // 1. 드래그 상태에서 움질일대 포인터 위치값
       // - 브라우저용 포인터 위치는 pageX, pageY를 사용!
-      moveX = e.pageX;
-      moveY = e.pageY;
+      // - 모바일용 터치 스크린 위치는? touches[].screenX Y
+      //->두가지를 모두 사용하는 방법은 or문 할당법을 사용한다
+      //->변수 = 할당문 1 || 할당문2
+      //===>>> 두 할당문중 값이 유효한(즉, true값)이 할당된다
+      //DT용 코드와 MO코드를 동시에 셋팅할 수 있다
+      moveX = e.pageX ||e.touches[0].screenX;
+      moveY = e.pageY ||e.touches[0].screenY;
+      // moveX = e.pageX;
+      // moveY = e.pageY;
+      // console.log(e.touches[0]);
 
       // 2. 움직일 위치 결과값
       // 움직일때 위치 포인트 - 첫번째 위치 포인트
@@ -118,6 +142,7 @@ function goDrag(ele,coll) {
       // moveY - firstY
       resultX = moveX - firstX;
       resultY = moveY - firstY;
+
       // -> 순수하게 움직인 거리를 계산함!
       // -> 움직인위치 - 첫번째위치 순으로 빼준 이유는?
       // ->>> top, left위치이동 양수 음수차를 고려한 순서임
@@ -142,9 +167,12 @@ function goDrag(ele,coll) {
 
   // (4) 첫번째 위치포인트 셋팅함수 : firstX, firstY 값셋팅
   const firstPoint = (e) => {
-    firstX = e.pageX;
-    firstY = e.pageY;
-    console.log("첫포인트:", firstX, " | ", firstY);
+    // DT용 값과 MO값을 or문으로 동시에 셋팅! 
+    firstX = e.pageX||e.touches[0].screenX;
+    firstY = e.pageY||e.touches[0].screenY;
+    // firstX = e.pageX;
+    // firstY = e.pageY;
+    // console.log("첫포인트:", firstX, " | ", firstY);
   }; ///////// firstPoint 함수 //////////
 
   // (5) 마지막 위치포인트 셋팅함수 : lastX, lastY 값셋팅
@@ -168,9 +196,9 @@ function goDrag(ele,coll) {
     // 이벤트 전달을 토스해줘야 한다!(전달변수 e)
     dtg.style.cursor = "grabbing";
     //z인덱스 0으로(HTML 컬랙션 전달변수 coll) 초기화
-    coll.forEach(x=>x.style.zIndex=0)
-    //z인덱스 1로 높이기
-    dtg.style.zIndex = 1;
+    // coll.forEach(x=>x.style.zIndex=0)
+    //z인덱스 전역변수 zNum 숫자를 1씩 높이기
+    dtg.style.zIndex = ++zNum;
 
     console.log("마우스 다운!", dragSts);
   }); ///////// mousedown //////////
@@ -203,6 +231,44 @@ function goDrag(ele,coll) {
     console.log("마우스나감!", dragSts);
     
   }); ///////// mouseleave //////////
+
+
+
+/////////////////////모바일 이벤트 처리 구역////////////////////////
+
+
+  // (1) 마우스 다운 이벤트 함수연결하기
+  mFn.addEvt(dtg, "touchstart", (e) => {
+    // 드래그 상태값 true로 변경!
+    dTrue();
+    // 첫번째 위치포인트 셋팅!
+    firstPoint(e);
+    // 단독할당되지 않고 내부 함수호출로 연결되어있으므로
+    // 이벤트 전달을 토스해줘야 한다!(전달변수 e)
+    // dtg.style.cursor = "grabbing";
+    //z인덱스 0으로(HTML 컬랙션 전달변수 coll) 초기화
+    // coll.forEach(x=>x.style.zIndex=0)
+    //z인덱스 전역변수 zNum 숫자를 1씩 높이기
+    dtg.style.zIndex = ++zNum;
+
+    console.log("터치 스타트!", dragSts);
+  }); ///////// touchstart //////////
+
+  // (2) 마우스 업 이벤트 함수연결하기
+  mFn.addEvt(dtg, "touchend", () => {
+    // 드래그 상태값 false로 변경!
+    dFalse();
+    // 마지막 위치포인트 셋팅!
+    lastPoint();
+    // dtg.style.cursor = "grab";
+    
+    console.log("터치엔드!", dragSts);
+  }); ///////// touchend //////////
+
+  // (3) 마우스 무브 이벤트 함수연결하기
+  mFn.addEvt(dtg, "touchmove", dMove);
+  //////////// touchmove /////////////
+
 } /////////////// goDrag 함수 ///////////////
 /////////////////////////////////////////////
 

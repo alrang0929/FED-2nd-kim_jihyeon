@@ -10,9 +10,47 @@
     1. 함수를 만들경우 반드시 대문자로 시작해야 호출됨!(정해진규칙)
     2. 홀로태그를 사용할때는 마지막에 스스로 닫기를 꼭 해줌!(/>)
     3. 함수 내부의 리턴값으로 만든 요소는 반드시 최상위요소가 하나여여함!
+    4. div와 같은 최상위를 만들어 내보내기를 한다
+    -> 그런데 이런 불필요한 태그 구조를 원치 않느 경우 
+    //<React.Fragment></REact.Fragment>를 사용하면 내보낼떄 하나로 묶는 역할을 하지만 실제 출력안됨 (참고: CLI에서는 빈태그 사용 <></>)
 */
 
+//생성자 함수 만들기
+//대문자로 시작하는 이름을 만든다
+function MyFirstReact() {
+  //목적: 코드를 만들어서 리턴한다!
 
+  return (
+    <React.Fragment>
+      <h1>나는 리엑트가 좋아질듯●'◡'●</h1>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png" alt="" />
+      <h2>
+        [리엑트란 무엇인가]
+        <br />
+        <br />
+        <br /># 프론트엔드 JS 라이브러리다! # 사용자 UI의 구성요소를 빌드하기
+        위한도구 <br />
+        [ 작동원리 ] <br />
+        <br />
+        # 가상돔(Virtual DOM)을 사용하여 최소의 html리소스를 사용함으로 <br />
+        빠르고 쉽게 UI화면의 구성한다! <br /># 가상돔은 실제DOM을 변경하기전에
+        메모리상에서 구성하는 가짜 DOM이다! <br />
+        # 변경사항을 한번에 구성하여 반영하기 위한도구다! <br />
+        # 리액트는 변경하고자 하는 부분만 업데이트 가능함! <br />
+      </h2>
+      <ul>
+        <li>리엑트 라이브러리</li>
+        <li>리엑트dom 라이브러리</li>
+        <li>바벨 라이브러리</li>
+      </ul>
+      <h4>#블라블라솨솨솨솨</h4>
+      <iframe width="100%" height="360" src="https://www.youtube.com/embed/q-xKYA0EO-c" title="Static Hermes: the Next Generation of Hermes - Tzvetan Mikov | React Native EU 2023" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    </React.Fragment>
+  );
+} ///////////////////myFirstReact 생성자 함수
+
+ReactDOM.render(<MyFirstReact />, document.querySelector("#mydiv"));
 
 // 리액트 html대상요소에 삽입하기
 /* 
