@@ -78,11 +78,6 @@ ol {
     outline: 5px dotted blue;
 }
 
-.banbx ul{
-    will-change: left;
-    transition: left .4s ease-out;
-}
-
 .slide {
     display: flex;
     /* 플렉스박스!!! */
@@ -99,6 +94,10 @@ ol {
     220%임 -> 하나당 110%  */
     width: 100%;
     height: 100%;
+    /* 트랜지션 */
+    /* transition: left .4s ease-out; */
+    /* 변경준비 */
+    will-change: left;
 }
 
 /* 슬라이드 드래그 기능을 위해 
@@ -124,8 +123,8 @@ ol {
     /* 트랜지션 */
     transition: .4s ease-in-out;
 }
-/* 3번째가 주인공이므로 원래밝기로 조금 크게변경! */
-.slide li:nth-child(3){
+/* li.on이 주인공이므로 원래밝기로 조금 크게변경! */
+.slide li.on{
     filter: brightness(100%);
     transform: scale(1.1);
 }
