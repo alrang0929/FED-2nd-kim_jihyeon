@@ -123,9 +123,9 @@ function slideFn(selEl) {
     clearAuto();
 
     // 5. 중앙 li에 클래스 on넣기
-    // slideSeq값은 오른쪽버튼2,왼쪽버튼3
+    // slideSeq값은 오왼2,왼오3
     let slideSeq = isRight ? 3 : 2;
-    addOnSlide(slideSeq);
+    addOnSlide(3);
   } ////////// goSlide 함수 /////////
 
   // 중앙슬라이드 클래스 on처리 함수 /////
@@ -241,7 +241,9 @@ function slideFn(selEl) {
       rightSlide();
       // 블릿변경함수호출(오른쪽은 1)
       chgIndic(1);
-
+      // 중앙슬라이드 클래스 on넣기 호출
+      addOnSlide(3);
+      //=>오른쪽이동이므로 2를 보냄
       // // console.log('실행!');
       // 오른쪽버튼 클릭이벤트 강제발생!
       // 선택요소.click()
@@ -250,7 +252,7 @@ function slideFn(selEl) {
   } ///////// slideAuto 함수 //////////////
 
   // 인터발함수 최초호출!
-  //    slideAuto();
+  slideAuto();
 
   // 버튼을 클릭할 경우를 구분하여 자동넘김을 멈춰준다!
   function clearAuto() {
@@ -332,7 +334,8 @@ function slideFn(selEl) {
     // 드래그 상태는 dragSts값이 true인 경우에만 허용!
     if (dragSts) {
       // // console.log('드래그중~!');
-
+      // 0. 자동넘김 멈춤함수 호출하기
+      clearAuto();
       // 1. 드래그 상태에서 움질일대 포인터 위치값
       // - 브라우저용 포인터 위치는 pageX, pageY를 사용!
       // - 모바일용 터치 스크린 터치위치는
@@ -393,7 +396,6 @@ function slideFn(selEl) {
   //(6) 슬라이드 드래그 이동구현
   //=> mouseup / touchend 이벤트 발생시 호출
   const moveDragSlide = () => {
-
     // 중앙li순번 방향별 셋팅하기
     let slideSeq = 2; // 왼쪽버튼(오른쪽이동)
     // 만약 오른쪽버튼 왼쪽이동일 경우 순번은 3이된다!
@@ -443,13 +445,14 @@ function slideFn(selEl) {
 
     // 블릿변경함수호출 : 오른쪽이 3 일때 true
     chgIndic(slideSeq === 3 ? true : false);
-
-  };//////////// moveDragSlide 함수////////////
+  }; //////////// moveDragSlide 함수////////////
 
   /////////////////////////////////////////////////////
   // 4. 드래그 이벤트 설정하기 //////////
   // (1) 마우스 다운 이벤트 함수연결하기
   mFn.addEvt(dtg, "mousedown", (e) => {
+    // 0. 자동넘김 멈춤함수 호출하기
+    clearAuto();
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!
@@ -468,6 +471,8 @@ function slideFn(selEl) {
 
   // (2) 마우스 업 이벤트 함수연결하기
   mFn.addEvt(dtg, "mouseup", (e) => {
+    // 0. 자동넘김 멈춤함수 호출하기
+    clearAuto();
     // 드래그 상태값 false로 변경!
     dFalse();
     // 마지막 위치포인트 셋팅!
@@ -478,7 +483,6 @@ function slideFn(selEl) {
     moveDragSlide();
     // console.log("마우스 업!", lastX);
   }); ///////// mouseup //////////
-
 
   // (3) 마우스 무브 이벤트 함수연결하기
   mFn.addEvt(dtg, "mousemove", dMove);
@@ -501,6 +505,8 @@ function slideFn(selEl) {
 
   // (1) 터치스타트 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchstart", (e) => {
+    // 0. 자동넘김 멈춤함수 호출하기
+    clearAuto();
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!
@@ -516,6 +522,8 @@ function slideFn(selEl) {
 
   // (2) 터치엔드 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchend", () => {
+    // 0. 자동넘김 멈춤함수 호출하기
+    clearAuto();
     // 드래그 상태값 false로 변경!
     dFalse();
     // 마지막 위치포인트 셋팅!
