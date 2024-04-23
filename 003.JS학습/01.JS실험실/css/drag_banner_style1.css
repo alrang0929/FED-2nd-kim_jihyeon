@@ -61,6 +61,22 @@ ol {
     padding: 20px;
 }
 
+/* 배너 최상위박스에 막기장치 가상요소(드래그 막기) */
+.banbx.on::after
+{
+    content: '';
+    transform: scale(1.1);
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    z-index: 99;
+    /* background-color: rgba(60, 0, 255, 0.5); */
+
+
+}
+
 /* 배너전체박스 */
 .banbx {
     /*슬라이드부모*/
@@ -76,6 +92,10 @@ ol {
     box-sizing: border-box;
     
     outline: 5px dotted blue;
+
+/* 드래그 선택영역 안잡히게 하기 */
+-webkit-user-drag: none;
+user-select: none;
 }
 
 .slide {
@@ -209,3 +229,4 @@ ol {
     box-sizing: border-box;
     padding-top: 10px;
 }
+
