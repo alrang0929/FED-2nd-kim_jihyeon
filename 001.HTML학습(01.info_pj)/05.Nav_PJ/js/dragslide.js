@@ -526,7 +526,7 @@ function slideFn(selEl) {
     // 드래그 상태값 false로 변경!
     dFalse();
     // 마지막 위치포인트 셋팅!
-    lastPoint(e);
+    lastPoint();
     dtg.style.cursor = "grab";
 
     //드래그 슬라이드 이동함수 호출
