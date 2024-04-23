@@ -167,3 +167,28 @@ html,body{
     opacity: 1;
     /*우선적용!*/
 }
+
+/* 서브 컨텐츠 */
+.sub-cont{
+    display: flex;
+    height: 500px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+/* 파티션 박스 */
+.sub-cont>div{
+    flex: 1;
+    outline: 2px dashed lightpink;
+}
+
+.cont-right-box{
+    overflow: hidden;
+}
+
+.sub-banbx{
+    left: 0;
+    aspect-ratio: auto;
+    width: 100%;
+}
