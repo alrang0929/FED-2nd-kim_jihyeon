@@ -9,6 +9,19 @@ html,body{
     overflow-x: hidden;
 }
 
+/* 가상요소 드래그 막기 장치 */
+.banbx.on::after{
+    content: "";
+    position:absolute;
+    transform: scaleY(1.1);
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    z-index:99;
+    /* background-color: rgba(43, 55, 224, 0.5); */
+}
+
 /* 배너전체박스 */
 .banbx {
     /*슬라이드부모*/
@@ -69,10 +82,12 @@ html,body{
     transition: .4s ease-out;
 }
 /* 3번째가 주인공이므로 원래밝기로 조금 크게변경! */
-.slide li:nth-child(3){
+/* 클래스 on이 주인공! */
+.slide li.on{
     filter: brightness(100%);
     transform: scale(1.1);
 }
+
 .slide li img {
     /*이미지는 박스에 맞춤!*/
     width: 100%;
