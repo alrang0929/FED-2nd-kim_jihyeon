@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="./js/call_myself.js"></script>
+    <title>06.재귀호출 : 무한이동 갤러리</title>
+
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        .gbox{
+            overflow: hidden;
+        }
+        .gbox ul{
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .gbox li{
+            /* 플렉스 부모박스 크기에 맞춰 줄어들? 1 / 안줄어들? 0 */
+            flex-shrink: 0;
+            width: 25vw;
+            aspect-ratio: 664/443;
+
+            padding-left: 1vw;
+            box-sizing: border-box;
+        }
+        .gbox li img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h1>06.재귀호출 : 무한이동 갤러리</h1>
+    <div class="gbox"></div>
+</body>
+</html>
