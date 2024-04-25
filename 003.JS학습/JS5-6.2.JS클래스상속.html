@@ -67,7 +67,7 @@
         //속성셋팅 생성자 메서드는 필수!
         //기본적으로 부모 생성자 매서드 전달변수 사용!
         //왜? 상속받았으니까!!
-        constructor(pos, tit, sum, dir, act, des, msg, num){
+        constructor(pos, tit, sum, dir, act, des, msg, num) {
           //super() 메서드: 부모생성자 호출용
           //new키워드로 CGV클래스 인스턴스 생성시 부모 클래스의 생성자가 필요로 하는
           //전달값을 받아서 부모에게 전달한다
@@ -76,27 +76,25 @@
 
           //부모속성값 6개 외에 2개의 속성값을 더 전달받아서
           //CGV클래스만의 속성을 만든다
-          //CGV만의 개별적인 속성 만들기 
+          //CGV만의 개별적인 속성 만들기
           this.극장안내 = msg;
           this.수용인원 = num;
-        }//cgv 생성자 메서드 ///////////
+        } //cgv 생성자 메서드 ///////////
 
         //cgv만의 메서드 만들기////////////////
-        showCGV(txt){
+        showCGV(txt) {
           //txt전달변수를 부모 메서드에 전달하여 부모공통 메서드를
           //호출한 결과 리턴값을 받아 처리
 
           //부모 메서드 접근법: super.부모메서드명()
-          return super.공통메서드(txt) +
-          ",", "<br>CGV안내 : " + this.극장안내;
-        }//////////showCGV 메서드/////////////////
-      }/////////////CGV class////////////////////
-
+          return super.공통메서드(txt) + ",", "<br>CGV안내 : " + this.극장안내;
+        } //////////showCGV 메서드/////////////////
+      } /////////////CGV class////////////////////
 
       /**************************************** 
       ///////   MegaBox 영화상영관 클래스 //////
       ****************************************/
-      
+
       //////////////////////////////////////////////
       /////// 클래스로 객체 생성하고 화면출력하기 /////
       //////////////////////////////////////////////
@@ -118,10 +116,42 @@
       );
 
       //객체확인하기
-      console.log("cgv객체 확인: ",cgvInfo);
+      console.log("cgv객체 확인: ", cgvInfo);
+      console.log("cgv객체 key배열확인: ", Object.keys(cgvInfo));
+/////////////////////로드구역/////////////////////////////////////////
 
-      
+    window.addEventListener("load",()=>{
+
+     //CGV-part에 출력
+     document.querySelector(".cgv-part").innerHTML = 
+      `<div class="cgv-info">
+      <h1>[ 🎪CGV 상영관 영화안내 ]</h1>
+      <h2>
+        <ol>
+          ${Object.keys(cgvInfo)
+          .map(v=>`
+          <li>
+            ${v=="포스터"?
+            `<img src="${cgvInfo[v]}" 
+            alt="영화 ${cgvInfo["제목"]}의 포스터">`: v +":"+cgvInfo[v]}
+          </li>
+          `).join('')}
+          
+          <li>
+            🎁 메시지 : ${
+              cgvInfo.showCGV("cgv는 항상 훌륭합니당")
+            }
+          </li>
+        </ol>
+      </h2>
+    </div>`;
+
+      })///////////////////로드구역////////////////////////////
+ 
     </script>
   </head>
-  <body></body>
+  <body>
+    <!-- CGV 출력박스 -->
+    <div class="cgv-part"></div>
+  </body>
 </html>
