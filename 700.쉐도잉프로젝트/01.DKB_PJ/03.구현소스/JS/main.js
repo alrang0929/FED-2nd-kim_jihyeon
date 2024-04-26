@@ -9,6 +9,9 @@ import myFn from "./my_function.js";
 //데이터셋팅 불러오기
 import * as dkbData from "../data/DKB_data.js";
 
+//드래그 슬라이드 불러오기
+import setSlide from"./dragslide.js";
+
 //공통처리함수 불러오기: 가장먼저 호출!
 import setElement from "./common.js";
 
@@ -170,7 +173,7 @@ introMv.onclick = () => {
   //5-4) 데이터만큼 순회하여 li 코드 만들기!
   //데이터: dkbData.clipData
   
-  let hcode = `<ul>`;
+  let hcode = `<ul class="slide">`;
   dkbData.clipData.forEach(v=>{
   hcode +=`  
   <li>
@@ -187,3 +190,6 @@ introMv.onclick = () => {
   clipBox.innerHTML = hcode;
  
 })();/////////////최신 동영상 파트 종료
+
+//태그 구성후 드래그 슬라이드 호출
+setSlide('banbx');
