@@ -379,6 +379,13 @@ function slideFn(selEl) {
   const dMove = (e) => {
     // e - 이벤트 객체 전달변수
     // 드래그 상태는 dragSts값이 true인 경우에만 허용!
+
+    // 드래그 상태는 dragSts값이 true인 경우에만 허용!
+    //이동버튼+블릿 이벤트 없앰설정하기
+    //상위 selEl 클래스 no 주면됨
+    if(dragSts)selEl.classList.add('no');
+    else selEl.classList.remove('no');
+      
     if (dragSts) {
       // // //////console.log('드래그중~!');
       // 0. 자동넘김 멈춤함수 호출하기
@@ -549,7 +556,8 @@ function slideFn(selEl) {
     //스텍(stack)에서 처리가 끝날때까지 기다렸다가 큐에서 순서대로 스택으로 넘어가 처리함 
 
     setTimeout(dFalse,0);
-
+    //마우스가 벗어나면 이동판별함수 호출
+    if(dragSts) moveDragSlide();
     // dFalse();
     // 과도한 드래그로 갑자가 아웃되면 lastX,lastY값이
     // 셋팅되지 못한다! 이것을 기존 요소의 위치값으로 보정함!
