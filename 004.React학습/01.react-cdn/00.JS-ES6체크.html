@@ -44,7 +44,7 @@
         const newArr3 = arr1.map(val=>`<h1>${val}</h1>`)
         console.log('새배열3:',newArr3);
         
-        // 5. JS 구조화 //////////////////
+        // 5. JS 비구조화 할당(=구조분해할당) //////////////////
         // -> 배열의 값을 각각의 변수에 담는 방법
         // 기존방식은 무엇?
         const list = ['현대','삼성','LG'];
@@ -59,9 +59,53 @@
         const home = ['의자','TV','노트북'];
         // 변수를 한꺼번에 선언하여 배열값을 각각 할당함!
         let [chair,tv,notebook] = home;
-        console.log('구조화방식으로 배열값 변수할당:',
+        console.log('비구조화할당 방식으로 배열값 변수할당:',
         chair,tv,notebook);
+
+    const home2 = ["엄마", "아빠", "동생"];
+      // 변수를 한꺼번에 선언하여 배열값을 각각 할당함!
+      // 중간값을 건너 뛸 경우 콤마로 비워둔다!
+      let [mom, , bro] = home2;
+      console.log("구조분해할당으로 배열값 변수할당:", mom,bro);
         
+      // 객체도 구조분해할당으로 쉽게~!
+      // 자동차 객체 생성
+      const vehicleOne = {
+        brand: "Ford",
+        model: "Mustang",
+        type: "car",
+        year: 2021,
+        color: "red",
+      };
+      // 기존방식 : 새변수에 객체값 할당하기
+      let brand = vehicleOne.brand;
+      let model = vehicleOne.model;
+      let type = vehicleOne.type;
+      let year = vehicleOne.year;
+      let color = vehicleOne.color;
+      console.log("기존방식 각 변수할당:", 
+      brand, model, type, year, color);
+
+      // 구조분해방식으로 할당할 자동차정보 객체생성
+      const newCar = {
+        carName: "제네시스",
+        carModel: "제네2024",
+        carType: "세단형",
+        carYear: 2024,
+        carColor: "cyber gray",
+      };
+
+      // 객체 구조분해할당은 원래 객체속성명으로 받아야함!
+      // const {객체속성명, 객체속성명} = 객체변수
+      const{carName, carYear} = newCar;
+      console.log('구조분해할당 결과: ',carName, carYear);
+      
+      
+      // 객체 구조분해할당시 새로운 변수명을 쓰려면
+      // 기존이름에 콜론으로 새이름을 부여하는 방식을 사용함
+      // const {기존속성명변수:새이름변수} = 객체변수
+      const{carModel:뛰뛰, carType:뛰빵뛰빵} = newCar;
+      console.log('구조분해할당 새이름 할당 결과: ',뛰뛰, 뛰빵뛰빵);
 
         // 6. 모듈 문법 : 03.JS모듈
 
