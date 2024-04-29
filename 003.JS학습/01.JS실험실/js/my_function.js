@@ -17,6 +17,7 @@ export default { //직접 내보내기
   
     // 바운딩위치값함수
     getBCR: (ele) => ele.getBoundingClientRect().top,
+    getBCR2: (ele) => ele.getBoundingClientRect().left,
   
     // 옵셋탑값 반환함수
     getOT: (ele) => ele.offsetTop,

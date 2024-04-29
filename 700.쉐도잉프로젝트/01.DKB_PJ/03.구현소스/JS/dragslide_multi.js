@@ -373,9 +373,10 @@ function slideFn(selEl) {
 
   // (3) 드래그 상태시 처리함수
   const dMove = (e) => {
-    if (dragSts) {
-      // 1. 드래그 상태에서 움질일대 포인터 위치값
+    if (dragSts) {      
 
+      // 1. 드래그 상태에서 움질일대 포인터 위치값
+      
       // DT용 코드와 Mobile코드를 동시에 셋팅할 수 있다!
       moveX = e.pageX || e.touches[0].screenX;
 
@@ -389,7 +390,7 @@ function slideFn(selEl) {
 
       // 4. 양쪽끝에서 튕겨서 제자리 보내기
       // (1) 현재 리스트 li 수집하기
-      let currList = mFn.qsaEl(dtg, "li");
+      let currList = mFn.qsaEl(dtg,"li");
       // (2) 리스트 길이(개수)
       let listLength = currList.length;
       // (3) 리스트 한개당 크기(li가로크기)
@@ -397,11 +398,12 @@ function slideFn(selEl) {
       // (4) 마지막위치 한계값 left
       // -> 히든박스width - 전체 슬라이드 width
       // 전체 슬라이드 width = li한개당width * 슬라이드개수
-      let limitSize = selEl.offsetWidth - oneSize * listLength;
-      console.log("마지막한계left:", limitSize);
+      let limitSize = 
+      selEl.offsetWidth - (oneSize * listLength);
+      console.log('마지막한계left:',limitSize);
 
       // 4-1. 맨앞에서 튕기기 ////////////
-      if (parseInt(dtg.style.left) > 0) {
+      if(parseInt(dtg.style.left)>0){
         // 약간의 시간간격으로 조금 간후 튕겨서 돌아오는 효과
         setTimeout(() => {
           // left 값 0
@@ -412,7 +414,7 @@ function slideFn(selEl) {
       } ////// if /////////
 
       // 4-2. 맨뒤에서 튕기기 ////////////
-      if (parseInt(dtg.style.left) < limitSize) {
+      if(parseInt(dtg.style.left)<limitSize){
         // 약간의 시간간격으로 조금 간후 튕겨서 돌아오는 효과
         setTimeout(() => {
           // left 값 0
@@ -421,6 +423,9 @@ function slideFn(selEl) {
           lastX = limitSize;
         }, 200);
       } ////// if /////////
+
+
+
     } /////// if ////////
 
     // 드래그 중(dragSts===true)일때는 주먹손(grabbing),
@@ -497,34 +502,35 @@ function slideFn(selEl) {
     // chgIndic(slideSeq === 3 ? true : false);
   }; ////////// moveDragSlide 함수 /////////////
 
-  //(7) 슬라이드 확정위치 이동함수////////
-
+  // (7) 슬라이드 확정위치 이동함수 ////////
   const fixedPosition = () => {
-    ////////중간위치일 때 배너위치 수정하기
+    // 중간위치일때 배너 위치 수정하기 /////
     // (1) 현재 리스트 li 수집하기
-    let currList = mFn.qsaEl(dtg, "li");
+    let currList = mFn.qsaEl(dtg,"li");
     // (2) 리스트 한개당 크기(li가로크기)
     let oneSize = currList[0].offsetWidth;
-    // (3) 한계li크기로 현재 left위치 크기를 나누어서
-    //소수점 아래 결과는 반올림 해준다 => 특정위치로 이동함
+    // (3) 한개li크기로 현재 left위치크기를 나누어서
+    // 소수점 아래결과는 반올림해준다! -> 특정위치로 이동함!
+    let divideNum = parseInt(dtg.style.left) / oneSize;
+    console.log('나눈수:',divideNum);
+    divideNum = Math.round(divideNum);
+    console.log('나눈수 반올림:',divideNum);
+    divideNum = Math.abs(divideNum);
+    console.log('나눈수 반올림후 절대값:',divideNum);
 
-    let dividNum = parseInt(dtg.style.left) / oneSize;
-    console.log("나눈수:", dividNum);
-    dividNum = Math.round(dividNum);
-    console.log("나눈수 반올림:", dividNum);
-    dividNum = Math.abs(dividNum);
-    console.log("나눈수 반올림 후 절대값:", dividNum);
+    // 특정위치로 이동하기 : 한개당크기 * 개수
+    dtg.style.left = -(oneSize * divideNum) + "px";
+    // -> 위치값은 마이너스임!
 
-    //특정 위치로 이동하기: 한개당 크기 * 갯수
-    dtg.style.left = -(oneSize * dividNum) + "px";
-    //=>위치값은 마이너스르르륵
-  }; /////////////////fixedPosition/////////////
+  }; // fixedPosition 함수 ////////////////
+
 
   //////////////////////////////////////
   // 4. 드래그 이벤트 설정하기 //////////
 
   // (1) 마우스 다운 이벤트 함수연결하기
   mFn.addEvt(dtg, "mousedown", (e) => {
+
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!
@@ -534,6 +540,7 @@ function slideFn(selEl) {
 
     // 마우스 다운시 주먹손!
     dtg.style.cursor = "grabbing";
+
   }); ///////// mousedown //////////
 
   // (2) 마우스 업 이벤트 함수연결하기
@@ -552,7 +559,7 @@ function slideFn(selEl) {
     // 드래그 슬라이드 이동함수 호출!
     // moveDragSlide();
 
-    //슬라이드 위치확정 이동변수 호출
+    // 슬라이드 위치확정 이동함수 호출!
     fixedPosition();
 
     // // console.log("마우스 업!", lastX);
@@ -564,11 +571,12 @@ function slideFn(selEl) {
 
   // (4) 마우스가 대상을 벗어나면 드래그상태값 false처리하기
   mFn.addEvt(dtg, "mouseleave", () => {
+    
     setTimeout(dFalse, 0);
     
-    //슬라이드 위치확정 이동변수 호출
+    // 슬라이드 위치확정 이동함수 호출!
     fixedPosition();
-
+    
     // 마우스가 벗어나면 이동판별함수 호출!
     // if(dragSts) moveDragSlide();
   }); ///////// mouseleave //////////
@@ -577,10 +585,12 @@ function slideFn(selEl) {
 
   // (1) 터치스타트 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchstart", (e) => {
+
     // 드래그 상태값 true로 변경!
     dTrue();
     // 첫번째 위치포인트 셋팅!
     firstPoint(e);
+
   }); ///////// touchstart //////////
 
   // (2) 터치엔드 이벤트 함수연결하기
@@ -602,7 +612,7 @@ function slideFn(selEl) {
   // (3) 터치무브 이벤트 함수연결하기
   mFn.addEvt(dtg, "touchmove", dMove);
   //////////// touchmove /////////////
-
+  
   // (4) 컨트롤 마우스 엔터처리 삭제함!
 
   // (5) 브라우저 크기 리사이즈시 동적 변경값 업데이트함수
