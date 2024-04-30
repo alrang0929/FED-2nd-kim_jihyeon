@@ -4,7 +4,7 @@
 import mFn from "./my_function";
 
 //자동차정보 불러오기
-import { carInfo } from "./carData";
+import { carInfo, carImage } from "./carData";
 console.log(carInfo);
 
 /********************************************************** 
@@ -39,6 +39,7 @@ function IntroCar({ brand, modelNum }) {
       <h2>나의 차는 {brand}입니다!</h2>
       {/* 추가질문 컴포넌트 호출! */}
       <AskMoreInfo
+        brand={brand}
         model={setInfo.model}
         color={setInfo.color}
         opt={setInfo.opt}
@@ -58,27 +59,38 @@ function IntroCar({ brand, modelNum }) {
 */
 
 //추가질문으로 자동차 정보를 자세히 기술하는 컴포넌트/////////
-function AskMoreInfo({ model, color, opt }) {
+function AskMoreInfo({ model, color, opt, brand }) {
   return (
     <React.Fragment>
       <h1>더 자세히 말씀해주시겠어요?</h1>
       {/* 디테일 정보구성 컴포넌트 호출! */}
-      <DetailCarInfo model={model} color={color} opt={opt} />
+      <DetailCarInfo 
+      brand={brand}
+      model={model} 
+      color={color} 
+      opt={opt}
+        />
     </React.Fragment>
   );
 } ////////AskMoreInfo/////////////
 
 //디테일 정보구성 컴포넌트
-function DetailCarInfo({ model, color, opt }) {
+function DetailCarInfo({ model, color, opt, brand }) {
   //info = 세부적인 정보 객체가 들어온다
   //전달속성은 model(모델명), color(차색), opt(CSS 옵션)
+  //객체값 추가는 (객체변수.속성명=값)
+  
+  opt.width = "600px";
+  //실제css 변수형 속성명을 사용해야 효과있음
+
+  console.log(opt);
   return (
     <React.Fragment>
       <h2>
         모델명은 {model}이고 자동차색은 {color}입니다!
       </h2>
       {/* 이미지 출력 */}
-      <img src="./images/ray.png" alt="기아레이" style={opt} />
+      <img src={"./images/"+carImage[brand]} alt={brand} style={opt}  />
       {/* 리엑트 style 속성의 값으로 객체를 CSS속성에 맞게 주면
             inline code로 css를 셋팅할 수 있다 */}
     </React.Fragment>
@@ -100,8 +112,11 @@ function ShowBrandCar({ brand, modelNum }) {
 ReactDOM.render(
   <div>
     <ShowBrandCar brand="기아레이" modelNum={0} />
+    <ShowBrandCar brand="현대제네시스" modelNum={0} />
     <ShowBrandCar brand="기아레이" modelNum={1} />
+    <ShowBrandCar brand="현대제네시스" modelNum={1} />
     <ShowBrandCar brand="기아레이" modelNum={2} />
+    <ShowBrandCar brand="현대제네시스" modelNum={2} />
   </div>,
   mFn.qs("#root1")
 );
