@@ -56,6 +56,25 @@
               언더바를 안써도 부분파일 처리를 해줌
             - 파일 호출시 확장자 생략 가능 (ex: @import "reset";) < 자동으로 앞의 언더바와 확장자 생략해줌
             - 일반 css 파일 import와 차이 : http리퀘스트를 하지 않음!
+        5) mixin : 일종의 공통css코드를 리턴하는 함수
+            (1)셋팅형식
+                case1: @mixin 믹스인이름 {css코드}
+                case2: @mixin 믹스인이름(변수){css코드}
+                case3: @mixin 믹스인이름(변수:기본값) {css코드}
+
+            (2) 믹스인 호출방법 @include 믹스인을 포함하라!!
+                ->@include : 믹스인이름;
+                ->@include : 믹스인이름(전달값);
+
+        6) 네스팅 이어붙이기 기법: &
+            - 가상요소, 가상클래스, 특정클래스를 현재 선택요소에 셋팅하는 방법!
+            - &(엠퍼센드) = 현재 선택요소 자신
+
+        7) 반복코드 확장 : @extend (expend: 연장하다, 확장하다)
+           (1) 사용이유: 반복되는 같은 셋팅의 클래스를 쉽게 도입한다
+           (2) 선택자 코드 안에 [ @extend 클래스명 ]형식으로 사용
+           (3) 공통코드 외에 다른 셋팅 속성은 하단에 추가로 구현
+           (4) 장점: 공통코드 적용을 위해 각 요소의 클래스를 일일히 주지 않아도 공통코드를 적용할 수 있다!
 
 ************************************************************************************/
 
@@ -63,6 +82,47 @@
 @import "./data/variables";
 //초기화 셋팅 sass 불러오기
 @import "./common/reset";
+
+//@mixin 셋팅하기
+
+//font와 text를 믹스인으로 만든다
+// (1) 타이틀 디자인 믹스인
+// [1]전달해서 변경할값 없음: 전달변수 없는 mixub 생성(@mixin title-text)
+// [2]변수는 $변수명으로 만들고 지역변수를 사용한다
+// @mixin title-text($selColor){ //selColor : 글자색 전달변수
+
+// [3]전달값을 보내지 않아도 에러나지 않도록 기본값 셋팅
+
+@mixin title-text($selColor:red){ //selColor : 글자색 전달변수
+    //글자색
+    color: $selColor;
+     //속성 접두어 묶음기법
+    font: {
+        size: 34pt;
+        family: 'Times New Roman', Times, serif;
+    }
+
+    text: {
+        align: center;
+        decoration: underline;
+        underline-offset: 4px;
+        shadow: 5px 5px 5px #00000060;
+    }
+    //폰트사이즈
+    margin-bottom: $fontSize1;
+}
+
+//2) 박스테두리 믹스인
+@mixin box-border($bdColor:red){
+
+    border: {
+        color: $bdColor;
+        style: dashed;
+        width: 7px;    
+    };
+    
+}
+
 
 
 //전체 페이지 요소
@@ -76,30 +136,130 @@
     color: $mainColor1;
 
     //네스팅 기법
+    h2{
+        @extend .box-basic;
+        font-size: $fontSize3;
+        line-height: 1.5;
+    }
     h1{
-    color: $fontColor;
+        @include title-text($fontColor);
+    // color: $fontColor;
     
     //속성 접두어 묶음기법
-    font: {
-        size: 34pt;
-        family: 'Times New Roman', Times, serif;
-    }
+    // font: {
+    //     size: 34pt;
+    //     family: 'Times New Roman', Times, serif;
+    // }
 
-    text: {
-        align: center;
-        decoration: underline;
-        underline-offset: 4px;
-        shadow: 5px 5px 5px #00000060;
-    }
- background: {
+    // text: {
+    //     align: center;
+    //     decoration: underline;
+    //     underline-offset: 4px;
+    //     shadow: 5px 5px 5px #00000060;
+    background: {
     color: $mainColor1-2;
     image: url(../images/flower.png);
     size: 90px;
     position: center;
     repeat: repeat-x;
+}
+padding: 20px;
     }
-    padding: 20px;
+ 
     }/////////////////////////////////h1
     
 
-}
+
+    /* 메인영역 */
+    .main-area{
+        section {
+            //박스 테두리 믹스인 호출
+            @include box-border(pink);
+            margin-bottom: 50px;
+            padding: 20px;
+        }
+        //메인영역타이틀 믹스인호출
+        h3{
+            @include title-text(darkblue);
+        }
+        //리스트, 문단 디자인
+        ul,ol,p{
+            padding: 0 20px;
+            line-height: 2;
+            font-size: 24px;
+            //하위 li 요소
+            li{
+                text: {
+                decoration: underline;
+                underline-offset: 10px;
+                decoration-thickness: 2px;
+                decoration-color: $mainColor2;
+                align: center;
+             }////text
+             //네스팅 이어붙이기 기법(&)
+             background-color: #ff0;
+             /* 첫번째 li 강조하기 */
+             &:first-child{
+                color: blueviolet;
+                font-size: $fontSize3;
+                text-shadow: 
+                1px 0 #000,
+                -1px 0 #000,
+                0 1px  #000,
+                0 -1px  #000;
+             }
+             /* 가상요소 블릿넣기 */
+             &::before{
+                content: '🥞';
+             }
+            }///li
+        }///list
+    }//mainarea
+
+    //버튼 기본디자인 클래스
+    .button-basic{
+        color: $mainColor1;
+        display: inline-block;
+        border: 1px solid  $mainColor1;
+        border-radius: $fontSize3;
+        padding: 10px 40px;
+        font-size: 20px;
+        cursor: pointer;
+        margin-left: 20px;
+    }
+
+    //일반박스 기본////////
+    .box-basic{
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    //기본 디자인 후 클래스를
+    //특정 클래스에 그대로 가져오고 싶을때 : @extand 클래스명
+
+    //제출하기 버튼에 기본버튼 디자인 입히기
+    .button-report{
+        //기본 버튼클래스 가져오기
+        @extend .button-basic;
+        background-color: $mainColor1;
+        color: #fff;
+    }
+
+    //기본 박스 디자인을 입혀서 버튼박스를 셋팅
+    .button-box{
+
+        //기본박스 디자인 가져오기
+        @extend .box-basic;
+
+        //다른 추가 디자인은 하단에!
+        background-image: linear-gradient(to top, $mainColor1-2,transparent);
+    }
+
+    /* 하단 타이틀 */
+    .bottom-title{
+        @include title-text;
+
+        //기본박스 디자인 적용
+        @extend .box-basic;
+    }
+    
