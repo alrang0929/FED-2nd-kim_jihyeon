@@ -198,6 +198,12 @@ img {
   font-size: 20px;
   cursor: pointer;
   margin-left: 20px;
+  /* 마우스 호버시 */
+}
+.button-basic:hover, .button-report:hover {
+  text-decoration: overline;
+  color: #fff;
+  background-color: #ff6d6d;
 }
 
 .box-basic, .bottom-title, .button-box, .top-area h2 {

@@ -226,7 +226,29 @@ padding: 20px;
         font-size: 20px;
         cursor: pointer;
         margin-left: 20px;
+        background-color: transparent;
+        /* 마우스 호버시 */
+        &:hover{
+            text: {
+                decoration: overline;
+             }////text
+            
+            color: #fff;
+            background-color: $mainColor1;
+        }
     }
+
+    
+    //class가 "my"인 경우 디자인 변경
+    &.my{
+        text: {
+           decoration: underline;
+           underline-offset: 10px;
+           decoration-thickness: 2px;
+        }
+    }
+
+    
 
     //일반박스 기본////////
     .box-basic{
