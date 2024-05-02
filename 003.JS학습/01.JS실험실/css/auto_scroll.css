@@ -17,7 +17,7 @@ h4 {
 
 /* 스크롤시 부드러운 이동 애니 설정 */
 html{
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 /* 자동스크롤 위해 스크롤바 없애기 */
 html,body{
