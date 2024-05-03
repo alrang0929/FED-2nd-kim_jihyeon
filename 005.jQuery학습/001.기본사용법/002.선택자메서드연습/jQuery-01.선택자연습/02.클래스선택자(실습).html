@@ -3,8 +3,13 @@
 <head>
 <meta charset="utf-8">
 <title> 클래스 선택자  </title>
+<!-- 제이쿼리 기본 라이브러리 -->
 <script src="../jquery-3.6.3.min.js"></script>
+<!-- 제이쿼리 UI = 색상, 드래그 등 추가모듈 -->
+<script src="../jquery-ui.min.js"></script>
+
 	<script>
+    // window.addEventListener("load", function(){});
     $(()=>{
       // 미션: 클래스가 group인 요소를 선택하여
         // li를 클릭할 경우 배경색을 lime
@@ -14,11 +19,61 @@
         // 그리고 개별적으로 적용되게할것!(this사용)
 
         // 대상: .group li
+        $(".group li").click((e)=>{
+          // 이벤트 발생요소 자신(li자신)
+          let me = e.currentTarget;
+          // 해당요소 순번
+          let idx = $(me).index()
+          console.log('나야나!',$(me).index());
+          //index = 선택요소 형제순번
 
-       
+          //메서드 체인(method chain): 선택요소 뒤에 메서드 계속 이어쓰는 방법
+          //ex) $(선택요소).text().css().animation()....
+          
+          // CSS변경하기(속성명을 변수형으로 사용가능)
+          // .css({
+          //   backgroundColor:"lime",
+          //   fontSize:"52px",
+          //   transition:".6s",
+          // }) /// css ///
+          $(me)
+            //애니메이션 주기
+            //animate({css설정},시간: 시간 안쓰면 기본셋팅 .4s,이징,콜백함수)
+            //색상변경은 제이쿼리 ul를 위에 가져온다
+            //이징가속도는 easings.net에서 골라준다
+            //이징은 이름을 정확히 적는것이 중요!!
+            .animate({
+            backgroundColor:"lime",
+            fontSize:"52px",
+            //트랜스폼은 새로나온 개별 속성을 사용한다
+            //ex)) transform: ("translateX(200px)") <<안됨
+            //translate, rotaet 등
+            translate:"200px",
+            rotate: "720deg",
+            scale: "5",
+            },
+            
+            //시간(1초/1000)
+            1000,
+            //이징: 정해진 가속도 옵션
+            "easeOutElastic",
+            //콜백함수: 애니메이션 후 작업코드
+          ()=>{
+              //바디 배경색 애니메이션
+              $("body").animate({
+              backgroundColor: 
+              idx == 0? "black" : idx == 1? "blue" : "lime",
+            },200)/////animate1
+          //텍스트 변경하기: text(내용)
+            }
+            )///ani
+            .text(idx===0?'🥞':"🍨");
+    })//////////////////////////////////////////////
+          
 
-    }); /////////// jQB /////////////////
+        }); /// click //
 
+  
 
   </script>
 	
