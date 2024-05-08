@@ -206,3 +206,53 @@ introMv.onclick = () => {
 
 // 드래그 슬라이드 태그 구성후 호출하기!
 setSlide("banbx");
+
+/************************************************************ 
+메인 페이지용 도꺠비 메뉴 스크롤 이동 제이쿼리 구현
+************************************************************/
+
+//메뉴 클릭 대상: .spart-menu a
+$(".spart-menu a").click(e=>{
+
+  //a 요소 클릭시 기본 막기
+  e.preventDefault();
+  //1. 클릭한 a요소의 글자 읽어오기
+  let txt = $(e.target).text();
+  console.log(txt);
+
+  //2. 이동할 위치값 알아내기
+  let pos;
+  // 이동할 위치에 박스 아이디 매칭하기
+  switch(txt){
+  case "미리보기" : pos="#preview-area"; break;
+  case "프로그램 소개" : pos="#intro-area"; break;
+  case "동영상" : pos="#clip-video-area"; break;
+  case "현장 포토" : pos="#real-photo-area"; break;
+  case "대표 포스터" : pos="#main-photo-area"; break;
+
+  }////스위치 케이스문
+
+  //만약 해당된 요소가 없으면 여기로 돌아가
+  //위에서 할당안되면 undefined이면 if문에서 false 처리됨
+  //!(not)연산자로 반대로 뒤집으면 false 일떄 처리함
+  if(!pos) return;
+
+  //해당 박스 아이디의 위치값 알아내기
+  //offset().top 제이쿼리 top 위치값 정보
+  pos = $(pos).offset().top;
+  console.log("위치값:",pos);
+
+  //3. 스크롤 애니메이션 이동하기
+  //제이쿼리는 이것을 정말 잘한당
+  //$("html, body").animate({scrollTop:몇px},시간,이징,함수)
+
+  $("html,body").animate({scrollTop: pos + "px"},800,easeInOutSine,()=>{
+    //이거 안하면 위치 이동 후 스크롤시 튕김현상있음
+    setScrollPos(pos);
+  })
+  //이징: https://easings.net/
+  //이동후 부드러운 스크롤 위치값 업데이트 필수
+  
+
+
+});/////도깨비 파트메뉴 클릭함수////////////////
