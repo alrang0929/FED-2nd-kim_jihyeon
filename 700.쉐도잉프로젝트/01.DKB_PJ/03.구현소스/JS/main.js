@@ -246,7 +246,7 @@ $(".spart-menu a").click(e=>{
   //제이쿼리는 이것을 정말 잘한당
   //$("html, body").animate({scrollTop:몇px},시간,이징,함수)
 
-  $("html,body").animate({scrollTop: pos + "px"},800,easeInOutSine,()=>{
+  $("html,body").animate({scrollTop: pos + "px"},800,"easeInOutSine",()=>{
     //이거 안하면 위치 이동 후 스크롤시 튕김현상있음
     setScrollPos(pos);
   })
