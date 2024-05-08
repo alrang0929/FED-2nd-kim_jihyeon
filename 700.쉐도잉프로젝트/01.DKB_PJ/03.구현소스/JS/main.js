@@ -21,15 +21,11 @@ import setSlide from "./dragslide_multi.js";
 
 /// 구현코드 파트 //////////////
 
-
-
 // 1. 부드러운 스크롤 호출
 startSS();
 
 // console.log('모듈로 메인JS호출!!!',
 // document.querySelector('.top-menu'));
-
-
 
 // 3. 인트로 동영상 파트 클릭시 동영상태그 넣기
 // 이벤트 대상 === 변경대상 : .intro-mv-img
@@ -120,13 +116,13 @@ introMv.onclick = () => {
   // liveData 배열은 총8개임. 모두 돌기를 셋팅하자!
   lvData.forEach((v) => {
     hcode += `
-              <li>
-                  <figure>
-                      <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
-                      <figcaption>${v.title}</figcaption>
-                  </figure>      
-              </li>
-          `;
+      <li>
+          <figure>
+              <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
+              <figcaption>${v.title}</figcaption>
+          </figure>      
+      </li>
+      `;
   }); /////// forEach /////////////////
 
   hcode += `</ul>`;
@@ -177,16 +173,16 @@ introMv.onclick = () => {
 
 // 5. 최신동영상 파트 데이터 태그 구성하여 화면출력하기 ///
 // 코드랩핑구역 시작 //////////////////////////
-(()=>{
+(() => {
   // 5-1. 변경대상: .clip-box
-  const clipBox = myFn.qs('.clip-box');
+  const clipBox = myFn.qs(".clip-box");
 
   // 5-2. 생성코드 변수
   let hcode = `<ul class="slide">`;
 
   // 데이터만큼 순회하여 li코드 만들기 ///
   // 데이터: dkbData.clipData
-  dkbData.clipData.forEach(v=>{
+  dkbData.clipData.forEach((v) => {
     hcode += `
     <li>
       <div class="clip-mv-box">
@@ -199,17 +195,14 @@ introMv.onclick = () => {
       <h3>${v.title}</h3>
     </li>
     `;
-
   }); /////////// forEach /////////////////
 
   hcode += `</ul>`;
 
   // 5-3. 화면출력하기 ///////
   clipBox.innerHTML = hcode;
-
-
 })();
 // 코드랩핑구역 종료 //////////////////////////
 
 // 드래그 슬라이드 태그 구성후 호출하기!
-setSlide('banbx');
+setSlide("banbx");
