@@ -8,7 +8,7 @@ setElement(); // 함수호출!!!
 import myFn from "./my_function.js";
 
 // 부드러운 스크롤 불러오기
-import { startSS, setScrollPos } from "./smoothScroll23.js";
+import SmoothScroll from "./smoothScroll23.js";
 
 // 데이터 셋팅 불러오기 //////
 import * as dkbData from "../data/dkb_data.js";
@@ -22,7 +22,9 @@ import setSlide from "./dragslide_multi.js";
 /// 구현코드 파트 //////////////
 
 // 1. 부드러운 스크롤 호출
-startSS();
+const mySmooth = new SmoothScroll(document, 60, 15)
+// 특정박스일 경우 document.querySelector(선택요소)를 씀!
+// startSS();
 
 // console.log('모듈로 메인JS호출!!!',
 // document.querySelector('.top-menu'));
@@ -246,13 +248,28 @@ $(".spart-menu a").click(e=>{
   //제이쿼리는 이것을 정말 잘한당
   //$("html, body").animate({scrollTop:몇px},시간,이징,함수)
 
-  $("html,body").animate({scrollTop: pos + "px"},800,"easeInOutSine",()=>{
+  $("html,body").animate({scrollTop: pos + "px"},800,"easeInOutSine",
+  //애니 후 호출되는 함수
+  ()=>{
+    //이동후 부드러운 스크롤 위치값 업데이트 필수
     //이거 안하면 위치 이동 후 스크롤시 튕김현상있음
-    setScrollPos(pos);
+    //생성자 함수 하위 객체변수로 등록된 함수를 호출
+    mySmooth.setScrollPos(pos);
   })
   //이징: https://easings.net/
-  //이동후 부드러운 스크롤 위치값 업데이트 필수
   
 
-
 });/////도깨비 파트메뉴 클릭함수////////////////
+
+
+//개별박스에 부드러운 스크롤 생성자함수 적용하기
+// $(".preview-box").css({
+
+//   height: "200px",
+//   overflow: "auto"
+// })
+// .on("wheel",e=>{
+//   e.stopPropagation();
+// })
+//부드러운 스크롤 개별박스 적용
+// const smallSmooth = new SmoothScroll(myFn.qs(".preview-box"),20,30)
