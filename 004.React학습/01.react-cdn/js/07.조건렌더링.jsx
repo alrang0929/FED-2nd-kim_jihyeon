@@ -21,8 +21,10 @@ function LostDeveloper({}) {
   return <h2>개발자가 먼가용?</h2>;
 } //////LostDeveloper 컴포넌트
 
-function MakeImage({ isrc, ialt, itit }) {
-  return <img src={isrc} alt={ialt} title={itit} />;
+function MakeImage({ isrc, ialt, itit, icss }) {
+  //isrc = 파일경로, ialt = 이미지 설명, itit = 이미지 타이틀, icss = 스타일
+  //만약 속성중 안보낸 것은 출력되지 않는다!
+  return <img src={isrc} alt={ialt} title={itit} style={icss} />;
 } //////MakeImage컴포넌트
 //서브컴포넌트: 컴포넌트 내부에서 호출하는 다른 컴포넌트들
 
@@ -99,23 +101,15 @@ const foods = ["스파게티", "짜파게티", "냉면", "짜장면", "마라탕
 //2-2 반복리스트를 위한 컴포넌트
 function MakeList({ foodName, movieInfo }) {
   console.log(foodName, movieInfo);
-  // 음식일경우
-  if(foodName){
-    return (
-    <li>개발자는{foodName}좋아해!</li>
-    );
-  }/////if문
-  
-  // 영화일 경우
-  else if(movieInfo){
-    return(
-      <li>{movieInfo[0]}년도 {movieInfo[1]}</li>
-    );
-  }
-
-  //일반리턴: 조건에 해당이 없을 때 출력
-  return(
-    <li>호출시 전달값을 점검하세요</li>
+  return (
+    <li>
+      {
+        // 음식 데이터가 들어온 경우
+        // undifined가 아니면 ture이므로 &&뒤가 출력
+        foodName && "개발자는 " + foodName + " 좋아해!"
+      }
+      {movieInfo && movieInfo.year + "년도" + movieInfo.mtit}
+    </li>
   );
 } ////// MakeList 컴포넌트
 
@@ -161,6 +155,11 @@ ReactDOM.render(<WishList wList={[]} />, root[3]);
 //전달할 배열변수 /////////
 const movs = [
   {
+    year:"2020",
+    mtit:"남산의 부장들",
+    poster:"https://i.namu.wiki/i/d-g1xW3vvsfh71KCQIxl2es_i0wKyMJhkwEaXKdCgDAyhJVRb4vWA_TNnRHMksw0S6pK_nFrDITK2ISIJRuRpA.webp",
+  },
+  {
     year: "2021",
     mtit: "모가디슈",
     poster:
@@ -184,6 +183,7 @@ const movs = [
     poster:
       "https://i.namu.wiki/i/EWdG2Jtlu36U1-03moAiO7Hmh1waKlbB0DIEvamksSTTzWCsqDXxUiiPSdcmpAQjh_tUFOwAGhR7LX7f6U0wXQ.webp",
   },
+
 ];
 
 /* 
@@ -198,34 +198,41 @@ const movs = [
 
 //개발자 선호 영화 리스트 컴포넌트
 //제목 컴포넌트, 리스트 컴포넌트 모두 재활용
-function MovieWishList ({wList}){
-
-  return(
+function MovieWishList({ wList }) {
+  return (
     <React.Fragment>
-    {/* 타이틀 출력하기 */}
-    <SetTitle title ="영화"/>
-    {/* 영화 리스트 출력 */}
-    {wList.length > 0 && 
-    <div>
-      <h2>개발자가 좋아하는 영화는 최근 {wList.length}년간 아래와 같습니다</h2>
+      {/* 타이틀 출력하기 */}
+      <SetTitle title="영화" />
+      {/* 영화 리스트 출력 */}
+      {wList.length > 0 && (
+        <div>
+          <h2>
+            개발자가 좋아하는 영화는 최근 {wList.length}년간 아래와 같습니다
+          </h2>
 
-      <ul>
-        {
-        wList.map((v) => 
-        (<MakeList movieInfo = {v} />
-        ))
-        }
-      </ul>
-    </div>}
-    {/* 빈배열일 경우 출력 */}
-    {wList.length == 0 && 
-    <div>
-      <h2>아직 개발자 영화리스트가 업데이트 되지 않았습니다.</h2>
-    </div>}
-  </React.Fragment>
+          <ul>
+            {wList.map((x) => (
+              <MakeList movieInfo={x} />
+            ))}
+          </ul>
+          {/*영화 포스터 이미지 순서대로 만들기  */}
+          {wList.map((x) => (
+            <MakeImage isrc={x.poster} 
+            ialt={x.mtit} 
+            icss={{width:"150px", padding:"0 5px"}}/>
+          ))}
+        </div>
+      )}
+
+      {/* 빈배열일 경우 출력 */}
+      {wList.length == 0 && (
+        <div>
+          <h2>아직 개발자 영화리스트가 업데이트 되지 않았습니다.</h2>
+        </div>
+      )}
+    </React.Fragment>
   );
-
-}//////////////MovieWishList 컴포넌트
+} //////////////MovieWishList 컴포넌트
 
 //영화
-ReactDOM.render(<MovieWishList wList={[movs]} />, root[4]);
+ReactDOM.render(<MovieWishList wList={movs} />, root[4]);
