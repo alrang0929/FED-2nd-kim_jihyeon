@@ -404,8 +404,11 @@ const updateCode = (arrData, exBox) => {
         </tr>
       </thead>
       <tbody>
-        ${arrData
-          .map(
+        ${arrData.length==0?
+          `<tr>
+          <td colspan="3">검색결과가 없습니다</td>
+        </tr>`:
+          arrData.map(
             (v) => `
               <tr>
                 <td>${v.idx}</td>
@@ -414,7 +417,8 @@ const updateCode = (arrData, exBox) => {
               </tr>
             `
           )
-          .join("")}
+          .join("")
+        }
       </tbody>
     </table>
   `;
@@ -456,6 +460,16 @@ function sortingFn(evt, cta, arrData, exBox) {
   // 1. 선택값 읽어오기(오름차순:1,내림차순:2)
   let selVal = evt.target.value;
   console.log("선택값:",selVal);
+//전달된 배열값을 변수에 그냥 할당하면 얕은 복사가 되어
+//정렬시 원본의 정렬변경을 막을 수 없음
+//따라서 깊은 복사를 하여 원본과 분리시킨다 (값 복사를 함)
+//일반적인 값의 배열 깊은 복사는 새변수=[...원본변수] 하지만
+//값이 객체일 경울 효과 x
+// 따라서 효과있는 방법은
+// 새변수 = JSON.parse(JSON.stringify(배열원본변수))
+
+const xxx = JSON.parse(JSON.stringify(arrData));
+//xxx = 원본과는 분리된 같은 배열값의 새로운 배열!
 
   // 검색기준 선택박스 값 읽어오기
   console.log("정렬기준:",cta);
@@ -463,21 +477,21 @@ function sortingFn(evt, cta, arrData, exBox) {
   // 2. 정렬분기하기 ////////////////
   // 2-1. 오름차순
   if(selVal == 1){
-    arrData.sort((a,b)=> 
+    xxx.sort((a,b)=> 
     a[cta] == b[cta] ? 0 : a[cta] > b[cta] ? 1 : -1);
     
   } /// if /////
   // 2-2. 내림차순
   else if(selVal == 2){
-    arrData.sort((a,b)=> 
+    xxx.sort((a,b)=> 
     a[cta] == b[cta] ? 0 : a[cta] > b[cta] ? -1 : 1);
 
   } /// else if /////
 
-  console.log("정렬결과:",arrData);
+  console.log("정렬결과:",xxx);
 
   //3. 정렬결과 리스트 업데이트하기
-  updateCode(arrData,exBox);
+  updateCode(xxx,exBox);
 
 } ////////////// sortingFn 함수 ////////////////
 
@@ -531,12 +545,28 @@ const searchCta4 = mFn.qs('.search-cta4');
 const btnSearch = mFn.qs('.sbtn');
 //3) 검색어 입력창
 const keyWord = mFn.qs('#stxt')
+const btnTotal = mFn.qs('.fbtn')
 // console.log(searchCta4,btnSearch,keyWord);
 
 //4-5-2 이벤트 대상에 이벤트 설정///////////
+//1. 검색버튼
 mFn.addEvt(btnSearch,"click",searchingFn);
+//2. 전체버튼 클릭시 처음 리스트로 돌아감
+mFn.addEvt(btnTotal,"click",
+()=>{
+  //처음 리스트로 다시 돌아감
+  updateCode(list2,showList4);
+  //검색어 지우기
+  keyWord.value = "";
+});
 
+//3. 입력창 키보드 입력시 엔터키 구분하여 검색
 
+mFn.addEvt(keyWord,"keypress",(e)=>{
+  if(e.keyCode == 13){
+    searchingFn();
+  }/////if문
+});
 
 //4-6 검색 함수 만들기
 function searchingFn(){
@@ -556,7 +586,7 @@ console.log(cta,kWord);
 //검색대상 데이터 배열: list2
 //사용 배열메서드: filter()
 let result = list2.filter(v=>{
-  //숫자는 에러남 왜? indexOf는 문자열만 다룸!
+//숫자는 에러남 왜? indexOf는 문자열만 다룸!
 //v= 배열값
 //만약 찾는 문자가 전체 문자에 있으믄 -1이 아님(!)
 
@@ -564,15 +594,38 @@ if(String(v[cta].indexOf(kWord))!= -1) return true;
 //이 조건의 해당값을 true로 하면 해당 데이터를
 //배열로 만들어 순서대로 변수에 할당한다
 //여기서는 result 변수가 결과배열 변수가 됨!
+// console.log(v[cta].indexOf(kWord));
 
-// console.log(v["tit"].indexOf(kWord));
 });
 //전체문자열.indexOf(문자열) => 해당문자열이 전체 문자열에서
 //몇 번쨰에 있는지 그 순번을 리턴해주는 메서드
 //만약 없으면 -1 값을 리턴한다
 console.log("결과값",result);
+console.log("원본 데이터",list2);
 
 //5. 결과 화면에 보여주기 : updateCOde함수호출
 updateCode(result,showList4);
 
 }/////////////searchingFn 함수////////////
+
+
+// 4-7. 정렬변경 이벤트 발생시 실제 정렬 변경하기 ////
+// - change 이벤트 대상 선택박스들
+// (1) 정렬종류 대상: .sel4
+const sel4 = mFn.qs(".sel4");
+// (2) 정렬기준 대상: .cta4
+const cta4 = mFn.qs(".cta4");
+
+// (3) 정렬종류 대상 선택 변경시
+// -> 실제 정렬을 적용하여 리스트를 갱신한다!
+// -> 정렬 적용시 정렬기준 대상 선택항목을 가져가야함!
+mFn.addEvt(sel4,"change",
+(e)=>sortingFn(e,cta4.value,list2,showList4));
+
+// (4) 정렬기준 대상 선택 변경시
+// -> 정렬종류 대상 초기화하기("정렬선택"으로 변경!)
+mFn.addEvt(cta4,"change",()=>{
+  //정렬종류 첫번째 값은 velue가 "0"이므로
+  //이것을 velue에 할당하면 선택박스 값이 첫번쨰로 변경된다
+  sel4.value = "0";
+})////////////////change 이벤트 함수/////////////////////
