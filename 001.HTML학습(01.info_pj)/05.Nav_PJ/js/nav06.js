@@ -4,12 +4,17 @@
 //import영역///////////////////////////////////////////////////
 import mFn from "./my_function.js";
 import dragSlide from "./dragslide.js";
+import makeMenu  from "./gnb_menu.js";
 ///////////////////////////////////////////////////////////
 
 
 /* 서브배너 리스트 설정 */
 
 //[2] 기능구현 파트
+
+//메뉴구현 호출하기
+makeMenu(mFn.qs(".gnb"));
+
 //바로실행 구역함수1
 (()=>{
 

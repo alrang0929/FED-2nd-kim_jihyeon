@@ -87,3 +87,37 @@ function updownFn(ele,idx){
     ele.style.translate =`0 ${mVal}%`;
     
 }///updownFn//////////////////////////////////////
+
+///////////////////////////////////////////////////////
+/////////메뉴 오버시 배경박스 따라다니기 구현///////////
+///////////////////////////////////////////////////////
+
+//1.대상선정
+//이벤트 대상: gnb > li
+const gnbList = mFn.qsa(".gnb li");
+// 변경대상: .nbg
+const mbg = mFn.qs(".mbg");
+
+//이벤트 설정하기
+//이벤트 종류: mouseenter , mouseleave
+gnbList.forEach(e=>{
+    mFn.addEvt(e,"mouseenter",overFn);
+    mFn.addEvt(e,"mouseleave",outFn);
+
+});//////foreach
+//3. 함수만들기
+function overFn(){
+    //1. 오버된 li의 left 위치앖 읽기 + width 크기
+    let posLeft = this.offsetLeft;
+    let boxWidth = this.offsetWidth;
+    // console.log("오버ㅣ",posLeft);
+    mbg.style.opacity = 1;
+    mbg.style.left = posLeft + "px";
+    mbg.style.width = boxWidth + "px";
+
+}/////////////overFn
+function outFn(){
+    console.log("아웃ㅣ",this);
+    mbg.style.opacity = 0;
+}/////////////overFn
+

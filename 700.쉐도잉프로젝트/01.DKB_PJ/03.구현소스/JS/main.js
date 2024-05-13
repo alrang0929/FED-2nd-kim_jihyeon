@@ -17,6 +17,12 @@ import * as dkbData from "../data/dkb_data.js";
 // 드래그 슬라이드 불러오기 ///////
 import setSlide from "./dragslide_multi.js";
 
+//서브박스 셋팅 코드
+import showSubBox from "./sub_cont.js";
+//박스 생성후 호출 => Q로 보내면 된당 / 스텍 실행 후 Q호출
+//시간을 안써도 settimeout으로 함수호출 시 Q에서 가지고 있다가 스텍 다 처리 후 호출하여 실행
+setTimeout(showSubBox);
+
 ///////////////////////////////////////////////
 
 /// 구현코드 파트 //////////////
