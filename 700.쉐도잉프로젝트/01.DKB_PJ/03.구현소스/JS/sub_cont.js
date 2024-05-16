@@ -77,6 +77,20 @@ export default function showSubBox() {
     }); ////find
     console.log("selData:", selData, db, dkbData[db]);
 
+
+    //이미지의 개수를 반영한 배열을 임의로 만들고
+    //필요한 경우 이 배열을 map()으로 돌려서 코드를 생성
+
+    //1. 우선 빈 배열을 만든다
+    let iarr = [];
+    //현장포토일떄 사용
+    if(db=="liveData"){
+      for(let i = 0; i<selData.imgName[1];i++){
+        iarr[i] = "";
+      }
+      console.log("이미지map을 위한 for문",iarr)
+    }
+
     //서브박스에 내용넣기
     //제이쿼리: innerHTML => html(``) 메서드 사용
     subContBox
@@ -99,10 +113,14 @@ export default function showSubBox() {
         <div class="sub-inbox inbox">
         <h1>현장포토 : ${selData.title}</h1>
         <div class="sub-item">
+        ${iarr.map((v,i)=>`
+
         <img 
-        src="./images/live_photo/${selData.imgName}.jpg" 
+        src="./images/live_photo/${selData.imgName[0]}/${i+1}.jpg" 
         alt="${selData.title}"
         />
+        
+        `).join("")}
       </div>
       </div>
         `
