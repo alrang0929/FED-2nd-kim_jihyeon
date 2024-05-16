@@ -28,7 +28,7 @@ setTimeout(showSubBox);
 /// 구현코드 파트 //////////////
 
 // 1. 부드러운 스크롤 호출
-const mySmooth = new SmoothScroll(document, 60, 15)
+const mySmooth = new SmoothScroll(document, 60, 15);
 // 특정박스일 경우 document.querySelector(선택요소)를 씀!
 // startSS();
 
@@ -105,14 +105,18 @@ introMv.onclick = () => {
 
   // 2. 화면출력하기 map으로 한번에 출력///////
   previewBox.innerHTML = `
-  <ul class="fx-box">
+  <ul class="fx-box" data-db="previewData">
   
-  ${pData.map(v => `
+  ${pData
+    .map(
+      (v) => `
   <li data-idx="${v.idx}">
     <h3>${v.title}</h3>
     <p>방송일: ${v.date + v.story}</p>
   </li>
-  `).join('')}
+  `
+    )
+    .join("")}
   </ul>
   `;
 })(); //// 미리보기 코드랩핑구역 종료 /////////
@@ -123,34 +127,51 @@ introMv.onclick = () => {
   // 대상: .live-box
   const liveBox = myFn.qs(".live-box");
   // 데이터: dkb_data.js 의 liveData배열
-  const lvData = dkbData.liveData;
+  const liveData = dkbData.liveData;
   // 구조: ul > li > figure > img + figcaption
 
   // 1. 8개의 데이터를 html로 구성하여 넣는다!
   // html 코드변수
-  let hcode = `<ul>`;
+  // let hcode = `<ul>`;
 
   // li구성을 hcode변수에 대입연산자로 할당함!
   // liveData 배열은 총8개임. 모두 돌기를 셋팅하자!
-  lvData.forEach((v) => {
-    hcode += `
-      <li>
-          <figure>
-              <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
-              <figcaption>${v.title}</figcaption>
-          </figure>      
-      </li>
-      `;
-  }); /////// forEach /////////////////
+  // lvData.forEach((v) => {
+  //   hcode += `
+  //     <li data-idx=>
+  //         <figure>
+  //             <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
+  //             <figcaption>${v.title}</figcaption>
+  //         </figure>
+  //     </li>
+  //     `;
+  // }); /////// forEach /////////////////
 
-  hcode += `</ul>`;
+  // hcode += `</ul>`;
 
   // 데이터 확인
   // console.log(hcode);
   //   console.log('대상:',liveBox,'현장포토 data:',lvData);
 
-  // 2. 화면출력하기 ///////
-  liveBox.innerHTML = hcode;
+  // 2. 화면출력하기 -> map으로 데이터 생성
+  liveBox.innerHTML = `
+  <ul  data-db="liveData">
+  ${liveData
+    .map(
+      (v) => `
+  
+  <li data-idx="${v.idx}">
+    <figure>
+        <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}">
+        <figcaption>${v.title}</figcaption>
+    </figure>      
+  </li>
+
+  `
+    )
+    .join("")}
+  </ul>
+  `;
 })(); //// 현장포토 코드랩핑구역 종료 /////////
 
 // 4. 대표이미지 파트 내용 넣기 //////////
@@ -164,29 +185,40 @@ introMv.onclick = () => {
 
   // 1. 8개의 데이터를 html로 구성하여 넣는다!
   // html 코드변수
-  let hcode = `<ul>`;
+  // let hcode = `<ul>`;
 
   // li구성을 hcode변수에 대입연산자로 할당함!
   // posterData 배열은 총5개임. 모두 돌기를 셋팅하자!
-  pData.forEach((v) => {
-    hcode += `
-              <li>
-                  <figure>
-                      <img src="./images/poster_img/${v.imgName}.jpg" alt="${v.title}">
-                      <figcaption>${v.title}</figcaption>
-                  </figure>      
-              </li>
-          `;
-  }); /////// forEach /////////////////
+  // pData.forEach((v) => {
+  //   hcode += `
 
-  hcode += `</ul>`;
+  //         `;
+  // }); /////// forEach /////////////////
+
+  // hcode += `</ul>`;
 
   // 데이터 확인
   // console.log(hcode);
   //   console.log('대상:',posterBox,'대표이미지 data:',pData);
 
-  // 2. 화면출력하기 ///////
-  posterBox.innerHTML = hcode;
+  // 2. 화면출력하기 - map으로 데이터 구성하기 ///////
+  posterBox.innerHTML = `
+  
+  <ul data-db="posterData">
+  ${pData
+    .map(
+      (v) => `
+    <li data-idx=${v.idx}>
+        <figure>
+            <img src="./images/poster_img/${v.imgName}.jpg" alt="${v.title}">
+            <figcaption>${v.title}</figcaption>
+        </figure>      
+    </li>
+  `
+    )
+    .join("")}
+  </ul>
+          `;
 })(); //// 대표이미지 코드랩핑구역 종료 /////////
 
 // 5. 최신동영상 파트 데이터 태그 구성하여 화면출력하기 ///
@@ -194,31 +226,52 @@ introMv.onclick = () => {
 (() => {
   // 5-1. 변경대상: .clip-box
   const clipBox = myFn.qs(".clip-box");
+  const clipData = dkbData.clipData;
 
   // 5-2. 생성코드 변수
-  let hcode = `<ul class="slide">`;
+  // let hcode = `<ul class="slide">`;
 
   // 데이터만큼 순회하여 li코드 만들기 ///
   // 데이터: dkbData.clipData
-  dkbData.clipData.forEach((v) => {
-    hcode += `
-    <li>
-      <div class="clip-mv-box">
-        <img
-          src="./images/clip_img/${v.idx}.jpg"
-          alt="${v.subtit}"
-        />
-      </div>
-      <h4>${v.subtit}</h4>
-      <h3>${v.title}</h3>
-    </li>
-    `;
-  }); /////////// forEach /////////////////
+  // dkbData.clipData.forEach((v) => {
+  //   hcode += `
+  //   <li>
+  //     <div class="clip-mv-box">
+  //       <img
+  //         src="./images/clip_img/${v.idx}.jpg"
+  //         alt="${v.subtit}"
+  //       />
+  //     </div>
+  //     <h4>${v.subtit}</h4>
+  //     <h3>${v.title}</h3>
+  //   </li>
+  //   `;
+  // }); /////////// forEach /////////////////
 
-  hcode += `</ul>`;
+  // hcode += `</ul>`;
 
   // 5-3. 화면출력하기 ///////
-  clipBox.innerHTML = hcode;
+  clipBox.innerHTML = `
+  
+  <ul class="slide" data-db="clipData">
+  ${clipData
+    .map(
+      (v) => `
+  <li data-idx = ${v.idx}>
+     <div class="clip-mv-box">
+       <img
+         src="./images/clip_img/${v.idx}.jpg"
+         alt="${v.subtit}"
+       />
+     </div>
+     <h4>${v.subtit}</h4>
+     <h3>${v.title}</h3>
+   </li>
+  `
+    )
+    .join("")}
+  </ul>
+  `;
 })();
 // 코드랩핑구역 종료 //////////////////////////
 
@@ -230,8 +283,7 @@ setSlide("banbx");
 ************************************************************/
 
 //메뉴 클릭 대상: .spart-menu a
-$(".spart-menu a").click(e=>{
-
+$(".spart-menu a").click((e) => {
   //a 요소 클릭시 기본 막기
   e.preventDefault();
   //1. 클릭한 a요소의 글자 읽어오기
@@ -241,19 +293,28 @@ $(".spart-menu a").click(e=>{
   //2. 이동할 위치값 알아내기
   let pos;
   // 이동할 위치에 박스 아이디 매칭하기
-  switch(txt){
-  case "미리보기" : pos="#preview-area"; break;
-  case "프로그램 소개" : pos="#intro-area"; break;
-  case "동영상" : pos="#clip-video-area"; break;
-  case "현장 포토" : pos="#real-photo-area"; break;
-  case "대표 포스터" : pos="#main-photo-area"; break;
-
-  }////스위치 케이스문
+  switch (txt) {
+    case "미리보기":
+      pos = "#preview-area";
+      break;
+    case "프로그램 소개":
+      pos = "#intro-area";
+      break;
+    case "동영상":
+      pos = "#clip-video-area";
+      break;
+    case "현장 포토":
+      pos = "#real-photo-area";
+      break;
+    case "대표 포스터":
+      pos = "#main-photo-area";
+      break;
+  } ////스위치 케이스문
 
   //만약 해당된 요소가 없으면 여기로 돌아가
   //위에서 할당안되면 undefined이면 if문에서 false 처리됨
   //!(not)연산자로 반대로 뒤집으면 false 일떄 처리함
-  if(!pos) return;
+  if (!pos) return;
 
   //해당 박스 아이디의 위치값 알아내기
   //offset().top 제이쿼리 top 위치값 정보
@@ -264,19 +325,20 @@ $(".spart-menu a").click(e=>{
   //제이쿼리는 이것을 정말 잘한당
   //$("html, body").animate({scrollTop:몇px},시간,이징,함수)
 
-  $("html,body").animate({scrollTop: pos + "px"},800,"easeInOutSine",
-  //애니 후 호출되는 함수
-  ()=>{
-    //이동후 부드러운 스크롤 위치값 업데이트 필수
-    //이거 안하면 위치 이동 후 스크롤시 튕김현상있음
-    //생성자 함수 하위 객체변수로 등록된 함수를 호출
-    mySmooth.setScrollPos(pos);
-  })
+  $("html,body").animate(
+    { scrollTop: pos + "px" },
+    800,
+    "easeInOutSine",
+    //애니 후 호출되는 함수
+    () => {
+      //이동후 부드러운 스크롤 위치값 업데이트 필수
+      //이거 안하면 위치 이동 후 스크롤시 튕김현상있음
+      //생성자 함수 하위 객체변수로 등록된 함수를 호출
+      mySmooth.setScrollPos(pos);
+    }
+  );
   //이징: https://easings.net/
-  
-
-});/////도깨비 파트메뉴 클릭함수////////////////
-
+}); /////도깨비 파트메뉴 클릭함수////////////////
 
 //개별박스에 부드러운 스크롤 생성자함수 적용하기
 // $(".preview-box").css({
