@@ -52,7 +52,7 @@ function makeMenu() {
   // 그래서 gnbData를 키배열로 변환해서 사용함!
   // 그리고 이 객체의 key는 상위메뉴 이기도 함!
   // Object.keys(객체) -> 해당객체의 속성명(키) 배열생성!
-  //console.log(Object.keys(gnbData));
+  // console.log(Object.keys(gnbData));
 
   mFn.qs(".gnb").innerHTML = `
   <ul>
@@ -94,15 +94,27 @@ function makeMenu() {
   </ul>
     
 `;
+
+//gnb 햄버거 버튼 클릭시 .top-area에 class 넣기
+$(".ham").click(()=>{
+  $(".top-area").toggleClass(".on");
+
+  //제이쿼리 클래스 관련 메서드
+  //addClass()
+  //removeClass()
+  //toggleClass()
+  //ㄴ> js의 classList객체 하위 메서드와 유사
+  //add() remove() toggle()
+})
+
 } ////////// makeMenu 함수 //////////
 
-
 // 콤보박스 바인딩 함수 ////////////
-function bindCombo(){
+function bindCombo() {
   // 1. 대상선정 :  #brand, #corp
   const brandBox = document.querySelector("#brand");
   const corpBox = document.querySelector("#corp");
-  //console.log("콤보바인딩!",brandBox,corpBox);
+  // console.log("콤보바인딩!", brandBox, corpBox);
 
   // 2. 데이터 바인딩하기
   // 2-1. 브랜드 바로가기 콤보박스 : 단순바인딩(option만)
@@ -110,11 +122,15 @@ function bindCombo(){
 
   // 대상요소 내부 데이터 넣기
   // 배열데이터.map().join('')
-  brandBox.innerHTML = 
-  `<option value="init">브랜드 바로가기</option> ` +
-  comboData.brand.map((v,i)=>`
-    <option value="brand${i+1}">${v}</option>  
-  `).join('');
+  brandBox.innerHTML =
+    `<option value="init">브랜드 바로가기</option>` +
+    comboData.brand
+      .map(
+        (v, i) => `
+    <option value="brand${i + 1}">${v}</option>  
+  `
+      )
+      .join("");
 
   // 2-2. 계열사 바로가기 콤보박스
   // -> 복합바인딩 : optgroup > option
@@ -125,57 +141,67 @@ function bindCombo(){
 
   // 데이터 대상 : comboData.corp
   const corpData = Object.keys(comboData.corp);
-  //console.log(corpData);
+  // console.log(corpData);
 
   // 데이터 만들어서 넣기 /////
-  corpBox.innerHTML = 
-  `<option value="init">계열사 바로가기</option> ` +
-  corpData.map((v,i)=>`
+  corpBox.innerHTML =
+    `<option value="init">계열사 바로가기</option>` +
+    corpData
+      .map(
+        (v, i) => `
     <optgroup label="${v}">
     ${
-      //해당 객체의 값은 키배열값과 매칭한다
-      //ov변수: 객체가 가지는 배열값
-      comboData.corp[v].map((ov,oi)=>`
-      <option value="corp${i+1}-${oi+1}">${ov}</option>
-      `).join('')
+      // 해당 객체의 값은 키배열값과 매칭함!
+      // ov변수는 객체가 가지는 배열값임!
+      comboData.corp[v]
+        .map(
+          (ov, oi) => `
+        <option value="corp${i + 1}-${oi + 1}">${ov}</option>      
+      `
+        )
+        .join("")
     }
     </optgroup>
-  `).join('');
+  `
+      )
+      .join("");
 
-    //3. 선택박스 선택변경시 링크 이동하기
-    //3-1. 브랜드 바로가기 링크 이동하기
-    //대상: brandBox 변수
-    //이벤트: change
-    
-    //브랜드 링크 이동하기
-    brandBox.addEventListener("change",openWindow)
-    //계열사 링크 이동하기
-    corpBox.addEventListener("change",openWindow)
-  
+  // 3. 선택박스 선택변경시 링크이동하기
+  // 3-1. 브랜드 바로가기 링크 이동하기
+  // 대상: brandBox변수
+  // 이벤트: change
+  brandBox.addEventListener("change", openWindow); 
+  // 3-2. 계열사 바로가기 링크 이동하기
+  // 대상: corpBox변수
+  // 이벤트: change
+  corpBox.addEventListener("change", openWindow); 
+
+
 } /////////// bindCombo 함수 ///////////////
 
-//링크이동함수
-
-function openWindow(){ //url을 받아서 처리
-
-  //0. option값이 init이 뜨면 돌아가기
-  // if(this.value == "init")return;
-  
-  //1. 현재 나자신의 아이디는?
+// 링크 이동함수 /////////////
+function openWindow() { 
+  // 현재 나자신의 아이디는?
   // console.log(this.id);
 
-  //1. 이동할 주소: conboData.brandLink 또는 comboData.corpBox 선택
-  //객체이름 조합을 (아이디명+Link)
-  //그 하위의 option값을 url값으로 가져옴
-  let url = comboData[this.id+"Link"][this.value];
-  //console.log('브랜드 어디?',url);
-  //=> 만약 데이터가 없으면 url변수의 값은 세팅되지 못함 (undefined 처리됨)
-  //이것을 if문으로 처리하여 아래 새창 띄우기 코드를 감싸준다
-  //url값이 셋팅되지 않으면 새창열기 코드는 실행되지 않음!
-  //-> 위의 init 코드도 별도의 처리가 불필요
-  //undifined는 if문에서 false 처리
-  //새창열기: window.open(이동할 주소)
-  if(url)window.open(url);
-  else alert("선택을 변경해주세요");
+  // 0. 옵션값이 "init"일 경우 돌아가!
+  // if(this.value == "init") return;
 
-}/////////openWindow함수
+  // 1. 이동할 주소 : 
+  // comboData.brandLink 또는 comboData.corpLink 객체선택
+  // 객체이름 조합을 (아이디명+"Link")
+  // 그 하위의 option값을 url값으로 가져옴!
+  let url = comboData[this.id+"Link"][this.value];
+  // console.log("브랜드 어디?",url);
+  // -> 만약 데이터가 없으면 url변수의 값은 셋팅되지 못하여
+  // undefined 처리된다! 이것을 if문으로 처리하여
+  // 아래 새창띄우기 코드를 감싸준다!
+  // url값이 셋팅되지 않으면 새창열기 코드는 실행되지 않음
+  // 따라서 위의 "init" 코드로 별도의 처리가 불필요함!
+  // undefined는 if문에서 false처리됨!
+
+  // 2. 선택 option값의 주소로 이동하기
+  // 새창열기 : window.open(이동할주소)
+  if(url) window.open(url);
+  else alert("선택을 변경해 주세요~!");
+} ///////////// openWindow 함수 /////////////

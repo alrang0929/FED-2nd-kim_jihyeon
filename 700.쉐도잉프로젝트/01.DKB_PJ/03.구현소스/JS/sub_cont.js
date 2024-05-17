@@ -25,6 +25,11 @@ export default function showSubBox() {
 
   //1-2) 변경대상: .sub-cont
   const subContBox = $(".sub-cont");
+  
+  // 전체 휠 이벤트 막기 때문에 서브 컨텐츠 박스도 휠이 되지 않음!
+  // 따라서 휠 이벤트 버블링 막기 해야한다! => stopPropagation()
+
+  subContBox.on("wheel",e=>e.stopPropagation());
 
   //2. 이벤트 설정 및 함수 구현하기 ///////////////
   subViewBox.click(function () {
@@ -101,7 +106,7 @@ export default function showSubBox() {
         <button class="cbtn">×</button>
     <div class="sub-inbox inbox">
       <h1>${selData.title}</h1>
-      <div class="sub-item">
+      <div class="sub-item scbar">
       ${selData.story}
     </div>
     </div>
@@ -112,7 +117,7 @@ export default function showSubBox() {
         <button class="cbtn">×</button>
         <div class="sub-inbox inbox">
         <h1>현장포토 : ${selData.title}</h1>
-        <div class="sub-item">
+        <div class="sub-item scbar">
         ${iarr.map((v,i)=>`
 
         <img 
@@ -130,9 +135,9 @@ export default function showSubBox() {
         <button class="cbtn">×</button>
         <div class="sub-inbox inbox">
         <h1>대표포스터 : ${selData.title}</h1>
-        <div class="sub-item">
+        <div class="sub-item scbar">
         <img 
-        src="./images/poster_img/${selData.imgName}.jpg" 
+        src="./images/poster_img/${selData.imgName}_big.jpg" 
         alt="${selData.title}"
         />
       </div>
@@ -147,7 +152,7 @@ export default function showSubBox() {
            <h1>클립 영상 : ${selData.title}</h1>
            <h4>${selData.subtit}</h4>
           
-           <div class="sub-item">
+           <div class="sub-item scbar">
            <iframe src="https://www.youtube.com/embed/${selData.mvid}?autoplay=1" allow="autoplay"></iframe>
            </div>
            </div>
@@ -165,7 +170,9 @@ export default function showSubBox() {
       .show();
 
     //닫기버튼 이벤트 설정하기
-    $(".cbtn").click(() => subContBox.hide());
+    $(".cbtn").click(() => {
+      subContBox.hide().html('');
+    });
     // } ////if /////////////
   });
 } //////////////////showSubbox함수/////////
