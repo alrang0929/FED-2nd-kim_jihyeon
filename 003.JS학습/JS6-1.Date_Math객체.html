@@ -45,6 +45,25 @@
                 transform: scale(1.5);
                 z-index: 1;
             }
+            /* 이미지박스 */
+            .imbx {
+                display: flex;
+                gap: 4vw 2vw;
+                width: 70vw;
+                margin: 0 auto;
+                margin-top: 100px;
+                flex-wrap: wrap;
+            }
+            .imbx div{
+                position: relative;
+                flex-basis: calc(100%/4 - 2vw);
+                aspect-ratio: 4/3;
+            }
+
+            body{
+                background-image: linear-gradient(45deg, lightgreen,lightsalmon, lightseagreen, pink);
+                background-attachment: fixed;
+            }
         </style>
         <!-- 외부JS -->
         <script type="module" src="./js/js6-1.date_math.js"></script>
