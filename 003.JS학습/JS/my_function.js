@@ -1,11 +1,11 @@
 //공통함수 JS - my_function.js
 //객체를 내보내기
+
+
+
 // export default
-
-
-
-// const myFn -> 선언과 할당후 export default 하려면 하단에서! << 여턴 받는데선 이름 지정 소용X
-export default { //직접 내보내기
+// const mFn -> 선언과 할당후 export default 하려면 하단에서! << 여턴 받는데선 이름 지정 소용X
+const mFn = { //직접 내보내기
     // 요소선택함수 ////////
     qs: (x) => document.querySelector(x),
     qsEl: (el, x) => el.querySelector(x),
@@ -21,3 +21,6 @@ export default { //직접 내보내기
     // 옵셋탑값 반환함수
     getOT: (ele) => ele.offsetTop,
   };
+
+  ///내보내기////////////
+  export default mFn
