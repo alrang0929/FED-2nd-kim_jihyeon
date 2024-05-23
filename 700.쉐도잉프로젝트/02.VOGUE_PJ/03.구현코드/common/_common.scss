@@ -8,6 +8,67 @@
 }
 
 // 1-1.상단메뉴
+/* 상단영역 겉박스 */
+#top-area {
+  position: relative;
+  /* 박스그림자 위로 */
+  z-index: 1;
+  box-shadow: 0 2px 30px #00000030;
+
+  /*************************************** 
+  상단영역 겉박스에 클래스 on 줄경우 슬림메뉴
+  ***************************************/
+  &.on {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 999;
+
+    /* 1. 상단영역 최소높이 해제 */
+    .top-area {
+      min-height: 50px;
+    }
+    /* 2. 상단메뉴 없애기 */
+    .tmenu {
+      display: none;
+    }
+
+    /* 3. 로고 박스 */
+    .logo {
+      position: absolute;
+      left: 0;
+      /* 부모는? #top-area */
+      padding: 10px;
+      height: auto;
+      margin-bottom: 0;
+
+      /* 로고 이미지 */
+      img {
+        width: 100px;
+      }
+    }
+    /* 5. GNB메뉴*/
+    .gnb {
+      min-height: 45px;
+      padding-top: 5px;
+
+      a {
+        color: #333;
+        font-size: 14px;
+
+        &:hover {
+          color: red;
+        }
+      }
+      ul {
+        gap: 0 35px;
+      }
+    }
+  }
+}
+/* 상단영역 속박스 */
 .tmenu {
   display: flex;
   max-width: 970px;
@@ -156,7 +217,7 @@
       line-height: 40px;
 
       //마지막 li 두꺼운 글자적용
-      & > i{
+      & > i {
         font-weight: bold;
         padding-top: 2px;
         cursor: pointer;
@@ -188,7 +249,80 @@
 }
 
 /****************** 3.하단영역 ******************/
+// 하단 속박스
 .footer-area {
   /* 최소높이 */
   min-height: 285px;
+  background-color: #000;
+  padding: 70px;
+  //박스 크기유지
+  box-sizing: border-box;
+  /* 글씨체 공통 */
+  font-family: "Roboto", nbg;
+
+  //3-1 하단로고
+  .blogo {
+    text-align: center;
+  }
+
+  .addr {
+    color: #bdbdbd;
+    text-align: center;
+    margin: 20px 0 10px;
+    font : {
+      size: 11px;
+      /* address 요소 기본 이탤릭해제 */
+      style: normal;
+    } ///font
+  }
+  > ul {
+    /* 플렉스박스 */
+    display: flex;
+    /* 진행방향정렬 : 중앙 */
+    justify-content: center;
+    /* 플렉스 랩핑박스 */
+    flex-wrap: wrap;
+    /* 사이간격 gap: 위아래 양쪽 */
+    gap: 0 12px;
+    padding: 20px;
+
+    > li > a {
+      color: #bdbdbd;
+      font-size: 12px;
+    }
+
+    li:last-child a {
+      font-weight: bold;
+    }
+  }
+}
+
+/* 위로가기 버튼 */
+.tbtn {
+  position: fixed;
+  bottom: -35px; /* 아랫쪽에 나가있음 */
+  right: 75px;
+  width: 48px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  background-color: #333;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  z-index: 9999;
+  font-size: 12px;
+  opacity: 0; /* 처음에 투명 */
+  /* 트랜지션 - bottom엔 적용되면 안되므로 별도지정함 */
+  transition: background-color 0.3s, opacity 0.3s;
+
+  //class on 추가시 나옴
+  &.on {
+    bottom: 0;
+    opacity: 1;
+
+    //호버시 디자인
+    &:hover {
+      background-color: red;
+    }
+  }
 }
