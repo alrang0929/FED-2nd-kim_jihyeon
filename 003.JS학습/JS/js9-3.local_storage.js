@@ -43,6 +43,9 @@ import mFn from "./my_function.js";
 
     [ JS 로컬 스토리지 / 세션 스토리지 장단점 ]
     (1) 장점: 간단한 프론트엔드 데이터를 DB없이 테스트해보는데 탁월함
+        쿠키와 같이 사용자 동의를 필요로 하는 로컬 기록 수단의 단점은 그것을 거부하면 쓸 수 없는데
+        js 스토리지는 이런 제약이 없다! 보안상 안전이 보장되므로 사용가능함!
+        
     (2) 단점: 데이터의 지속 보장이 없다!
         (그나마 로컬 스토리지는 브라우저 경로가 같고 PC가 같고
         브라우저종류가 같다면 지우기 전까지는 데이터를 유지한다!)
@@ -182,29 +185,37 @@ function bindData() {
       // 1.기본이동막기
       e.preventDefault();
 
-      // 2.지울순번속성(data-idx)읽어오기
+      // 2. 지울지 여부 확인하기(confirm대화창 사용)
+      if (!confirm("정말정말정말정말로 지우시게요?")) return;
+      // confirm(메시지) -> 확인(true)/취소(false)
+      // confirm() 앞에 Not연산자를 써서 false 일때 리턴한다!
+
+      // 3.지울순번속성(data-idx)읽어오기
       let idx = ele.getAttribute("data-idx");
 
-      // 3. 로컬쓰 읽어와서 파싱하기
+      // 4. 로컬쓰 읽어와서 파싱하기
       let localData = JSON.parse(localStorage.getItem("minfo"));
 
       console.log("지울순번:", idx, localData);
 
-      // 4. 메모리에 있는 배열값 지우기
+      // 5. 메모리에 있는 배열값 지우기
       // 배열.splice(순번,개수)
       // 1개삭제이므로 splice(순번,1)
       localData.splice(idx, 1);
 
-      // 5. 배열값 로컬쓰에 반영하기
+      // 6. 배열값 로컬쓰에 반영하기
       localStorage.setItem("minfo", JSON.stringify(localData));
 
-      // 6. 화면출력함수호출
+      // 7. 화면출력함수호출
       bindData();
+
+      // 8. 수정선택박스 업데이트하기
+      updateItemList();
     }; ///// click /////
   }); /////// forEach ////////
 } ////////////// bindData //////////////////
 
-// 게시판 최초호출 : 로컬쓰 minfo가 존재여부에 따라 처리
+// 게시판 최초호출 : 로컬쓰 minfo 존재여부에 따라 처리
 if (localStorage.getItem("minfo")) bindData();
 else makeObj();
 
@@ -218,12 +229,12 @@ mFn.qs("#sbtn").onclick = () => {
 
   console.log("입력!!!", localData);
 
-  //2. 입력값이 비었으면 돌려보내기
-  //trim() : 앞뒤공백제거 메서드
+  // 2. 입력값이 비었으면 돌려보내기!
+  // trim() - 앞뒤공백 제거 메서드
   if (mFn.qs("#tit").value.trim() == "" || mFn.qs("#cont").value.trim() == "") {
-    alert("제목과 내용을 입력은 필수입니다!");
+    alert("제목과 내용입력은 필수입니다!");
     return;
-  } /////////////if//////////////////////
+  } ////// if //////
 
   console.log(
     "idx값배열:",
@@ -233,8 +244,8 @@ mFn.qs("#sbtn").onclick = () => {
   // 3. 입력할 데이터 객체형식으로 배열에 넣기
   // 배열.push({객체})
   localData.push({
-    //순번은 배열객체 idx값 중 최대값을 구하여 1더한다
-    //apply(보낼객체, 배열) < 보낼객체 없을시 = null
+    // 순번은 배열객체 idx값중 최대값을 구하여 1더한다!
+    // apply(보낼객체,배열) -> 보낼객체가 여기서는 null
     idx:
       Math.max.apply(
         null,
@@ -249,29 +260,189 @@ mFn.qs("#sbtn").onclick = () => {
 
   // 5. 화면출력 함수 호출하기
   bindData();
+
+  // 6. 기존 입력데이터 지워주기
+  mFn.qs("#tit").value = "";
+  mFn.qs("#cont").value = "";
+
+  // 7. 수정선택박스 업데이트하기
+  updateItemList();
 }; /////// click 함수 ///////////
 
+// CRUD 크루드!!!
+// Create(만들기) / Read(읽기) / Update(수정) / Delete(삭제)
 
-//CRUD 크루드 (Creat Read Update Delete) 
-//////////수정기능 구현하기////////////////
+///////// 수정기능 구현하기 //////////////
 
-//수정항목 선택박스 함수 최초호출
-updateItemList();
-
-//수정할 항목 업데이트하는 업데이트 함수 만들기
-function updateItemList(){
-
-//대상: 수정선택박스 - #sel
+// ♣ 수정선택박스 - #sel
 const selBox = mFn.qs("#sel");
 
-//데이터의 idx를 순회하며 option만들기
-const localData = JSON.parse(localStorage.getItem("minfo"));
+// ♣ 수정항목 선택박스 업데이트함수 호출
+updateItemList();
 
-selBox.innerHTML = localData.map(v =>`
+// ♣ 수정선택박스 선택변경시 이벤트 설정하기
+mFn.addEvt(selBox, "change", (e) => {
+  // 1. 옵션값 읽어오기
+  let optVal = e.target.value;
+  console.log("선택값:", optVal);
 
-<option value=${v.idx}>${v.idx} - ${v.tit}</option>
+  // 2. 선택항목이 아닌 경우 걸러내기
+  if (optVal == "opt") {
+    alert("수정할 항목을 선택하세요!");
+    // 입력창 초기화
+    mFn.qs("#tit2").value = "";
+    mFn.qs("#cont2").value = "";
+    return; // 여기서나감!
+  } /// if ///
 
-`).join("");
+  // 3. 로컬쓰 데이터 읽어와서 배열로 변환
+  const localData = JSON.parse(localStorage.getItem("minfo"));
+
+  console.log(localData);
+
+  // 4. 배열데이터에서 읽어온 옵션값 idx와 비교하여
+  // 데이터 선택하기
+  // -> 변수 = 배열.find(v=>{if(조건){return true}})
+  let selRec = localData.find((v) => {
+    console.log(v.idx);
+    if (v.idx == optVal) return true;
+    // 선택idx와 순회하는 배열idx와 일치할 경우
+    // 이것을 저장하는 시그널은 return true다!
+  }); //// find ////
+
+  console.log("선택data:", selRec);
+
+  // 5. 선택 데이터로 수정창에 기존데이터 넣기
+  mFn.qs("#tit2").value = selRec.tit;
+  mFn.qs("#cont2").value = selRec.cont;
+}); ///////////// change ////////////
+
+// ♣ 수정버튼 클릭시 이벤트 설정하기
+mFn.qs("#mobtn").onclick = () => {    
+
+  // 1. 선택박스 선택값 읽어오기
+  let optVal = selBox.value;
+  console.log("수정해라~!", optVal);
+
+  // 2. 선택항목이 아닌 경우 걸러내기
+  if (optVal == "opt") {
+    alert("수정할 항목을 선택하세요!");
+    // 입력창 초기화
+    mFn.qs("#tit2").value = "";
+    mFn.qs("#cont2").value = "";
+    return; // 여기서나감!
+  } /// if ///
+
+  // 3. 입력값이 비었으면 돌려보내기!
+  // trim() - 앞뒤공백 제거 메서드
+  if (mFn.qs("#tit2").value.trim() == "" || 
+  mFn.qs("#cont2").value.trim() == "") {
+    alert("제목과 내용입력은 필수입니다!");
+    return;
+  } ////// if //////
+
+  // 4. 로컬쓰 데이터 읽어와서 배열로 변환
+  const localData = JSON.parse(localStorage.getItem("minfo"));
+
+  console.log(localData);
+
+  // 5. 배열데이터에서 읽어온 옵션값 idx와 비교하여
+  // 데이터 업데이트 하기
+  // -> 배열.find(v=>{if(조건){변경코드;return true}})
+  localData.find((v) => {
+    console.log(v.idx);
+    if (v.idx == optVal) {
+      // 해당항목값 업데이트 하기
+      v.tit = mFn.qs("#tit2").value;
+      v.cont = mFn.qs("#cont2").value;
+      // 변수에 find()할당시 저장하거나
+      // 여기서 순회를 끝낸다는 의미임!
+      return true;
+    }
+  }); //// find ////
+
+  console.log("변경후 배열:", localData);
+
+  // 6. 변경된 배열 로컬쓰에 저장하기!
+  localStorage.setItem("minfo", JSON.stringify(localData));
+
+  // 7. 데이터 바인딩 함수호출
+  bindData();
+
+  // 8. 선택박스 초기화
+  selBox.value = "opt";
+
+  // 9. 입력창 초기화
+  mFn.qs("#tit2").value = "";
+  mFn.qs("#cont2").value = "";
+}; //////////// click //////////////
+
+//////////////////////////////////
+// ♣ 수정할 항목 업데이트 함수 /////
+//////////////////////////////////
+function updateItemList() {
+  // 1. 대상선정 : 수정선택박스 - #sel -> selBox변수
+
+  // 2. 로컬쓰 데이터 읽어와서 배열로 변환
+  const localData = JSON.parse(localStorage.getItem("minfo"));
+
+  // 2. 데이터의 idx를 순회하며 option만들기
+  selBox.innerHTML =
+    `<option value="opt">수정항목선택</option>` +
+    localData
+      .map(
+        (v) => `
+            <option value="${v.idx}">
+                ${v.idx}-${v.tit}</option>
+        `
+      )
+      .join("");
+} //////////// updateItemList 함수 ///////////
 
 
-}////////updateItemList Fn////////
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+// [ 2. 세션 스토리지 연습 ] ////////////////////
+// 1. 버튼 기능 이벤트 대상 : .session-box button
+const btnSession = mFn.qsa(".session-box button");
+console.log("대상:", btnSession);
+
+// 2. 버튼에 이벤트 설정하기
+btnSession.forEach((ele) => mFn.addEvt(ele, "click", sessionsFn));
+
+// 3. 로컬쓰 처리 함수 만들기 ///////
+function sessionsFn() {
+  // 1. 버튼 텍스트 읽기
+  let btxt = this.innerText;
+  console.log("세션쓰~!", btxt);
+
+  // 2. 버튼별 기능 분기하기 //////
+  if (btxt == "처음") {
+    // (1) 세션 스토리지 셋팅하기
+    // -> sessionstorage.setItem(키,값)
+    sessionStorage.setItem("actor-name", "정우성");
+    sessionStorage.setItem("actor-role", "김정도역");
+    sessionStorage.setItem(
+      "actor-cat",
+      "국내팀 안기부팀장, 박평호랑 사이나쁨"
+    );
+  } /// if ////
+  else if (btxt == "보여줘") {
+    // 배우이름 출력
+    mFn.qs(".session .nm").innerText = sessionStorage.getItem("actor-name");
+    // 역할이름 출력
+    mFn.qs(".session .role").innerText = sessionStorage.getItem("actor-role");
+    // 캐릭터소개 출력
+    mFn.qs(".session .cat").innerText = sessionStorage.getItem("actor-cat");
+  } /// else if ////
+  else if (btxt == "전체삭제") {
+    // 세션스토리지 전체 삭제
+    // 해당 url 스토리지만 대상으로 모두 지움
+    sessionStorage.clear();
+
+    // 개별삭제는 removeItem(키)
+    // sessionStorage.removeItem("actor-name");
+  } //// else if ////
+} /////////// localsFn //////////
