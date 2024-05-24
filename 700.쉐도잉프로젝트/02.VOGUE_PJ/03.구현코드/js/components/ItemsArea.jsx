@@ -13,7 +13,7 @@ export default function ItemsArea() {
           <nav className="lnb"></nav>
         </header>
         {/* <!-- 2-2. 카테고리 페이지 컨텐츠영역 --> */}
-        <div className="cat-cont-area">
+        <div className="cat-cont-area living">
           <section className="pt2">
             <div className="cbx bgi bg1-1">
               <h2></h2>
