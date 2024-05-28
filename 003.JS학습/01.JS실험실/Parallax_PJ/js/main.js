@@ -59,10 +59,11 @@ mFn.addEvt(window, "scroll", scrollFn);
 // 3. 함수 만들기 ////////////////
 // 3-1. 스크롤 이벤트 함수 ////
 function scrollFn() {
-  console.log('스크롤~~~!');
+  // console.log('스크롤~~~!');
 
   // 1. 대상1 : 글자박스 패럴렉스 호출!
-  
+  txtBox.forEach(ele=>moveEl(mFn.getBCR(ele),ele,setH2))
+  icon.forEach(ele=>moveEl(mFn.getBCR(ele),ele,setH1))
 
   // 2. 대상2 : 아이콘 패럴렉스 호출!
   
@@ -72,8 +73,13 @@ function scrollFn() {
 // 윈도우 높이값
 const winH = window.innerHeight;
 // 패럴렉스 범위변수
-const setH1 = 100,
-  setH2 = 200;
+const setH1 = 200,
+  setH2 = 300;
+
+  //첫번째 패럴렉스 대상이 이미 화면에 올라와 있어서
+  //초기값 계산하여 위치 조정하기 
+  moveEl(txtBox[0], mFn.getBCR(txtBox[0]), setH2);
+  moveEl(icon[0], mFn.getBCR(icon[0]), setH1);
 
 // 3-2. 패럴렉스 이동함수 /////
 function moveEl(elPos, ele, setH) {
@@ -89,6 +95,17 @@ function moveEl(elPos, ele, setH) {
   // [ 패럴렉스 범위 : 윈도우 높이값 ~ 0 ]
   // 화면에서 완전히 사라질때 범위는 0보다 작다(약간의 마이너스값)
   
+  if(elPos < winH && elPos > -100){
+    //1. 위치이동값 계산: 실제이동값 = 위치값*정한범위 / 전체범위
+    // console.log(setH - ((elPos * setH) / winH));
+    let x = setH - ((elPos * setH) / winH);
+    // 실제 이동값 - (정한범위 - 실제 이동값) > 0부터 증가함
+    // console.log(x);
+    //실제 이동값은 정한 범위에서 뺴주고 -를 준다
+
+    //2. 해당요소의 위치값 이동 css에 반영하기
+    ele.style.transform = `translateY(${-x}px)`
+  }////////if/////
 
   /***************************** 
     [ 패럴렉스 위치계산 ]
