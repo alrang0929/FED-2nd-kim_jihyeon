@@ -12,6 +12,9 @@
     (3) npm i jquery-ui-touch-punch
     (4) npm i swiper
 
+    ★ 띄어쓰기로 연결하면 한번에 설치됨!
+    
+
 3. 설치확인
 - 파일명: package.json
 - 항목명: "dependencies"
