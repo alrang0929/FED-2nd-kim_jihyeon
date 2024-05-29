@@ -1,6 +1,12 @@
 // 회원가입 컴포넌트 ///////
+import validateFn from "../validation";
+
 
 export default function Member() {
+
+  //페이지 렌더링 후 실행구역/////////////////////////////////////////////
+  React.useEffect(validateFn,[]);
+
   //코드리턴구역
   return (
     <div id="main-area">
