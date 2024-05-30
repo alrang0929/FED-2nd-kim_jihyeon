@@ -1,9 +1,9 @@
 // 보그 PJ 로그인 페이지 CSS
 
 /* 공통 외부CSS */
-@import "./common/reset";
-@import "./common/core";
-@import "./common/common";
+@import "../common/reset";
+@import "../common/core";
+@import "../common/common";
 
 /* 컨텐츠 영역 속박스 */
 .main-area {
@@ -27,7 +27,7 @@
   max-width: 700px;
   min-height: 275px;
   margin: 0 auto;
-  border: 2px solid #737373;
+  border: 2px solid #737373; 
   border-radius: 10px; 
   /* 크기유지 */
   box-sizing: border-box; 
