@@ -1,13 +1,15 @@
-// 회원가입 컴포넌트 ///////
+// 보그 JS 회원가입 컴포넌트 //////
+
+// 유효성 검사함수 불러오기
 import validateFn from "../validation";
 
+export default function Member({changeMenu}) {
+  // changeMenu - 상태변수메서드 setMenu전달
 
-export default function Member() {
+  // 페이지 랜더링 후 실행구역 ///
+  React.useEffect(()=>validateFn(changeMenu),[]);
 
-  //페이지 렌더링 후 실행구역/////////////////////////////////////////////
-  React.useEffect(validateFn,[]);
-
-  //코드리턴구역
+  // 코드 리턴구역 /////////
   return (
     <div id="main-area">
       <main className="main-area ibx">
@@ -85,11 +87,10 @@ export default function Member() {
                 <label htmlFor="gen2">여성</label>
                 <input type="radio" name="gen" id="gen2" checked />
                 {/* <!-- 라디오버튼의 name 속성을 
-                          같은 이름으로 쓰면 그룹핑되어
-                          하나만 선택된다! 
-
-                          checked 속성 - 기본체크설정 -->
-                          */}
+                            같은 이름으로 쓰면 그룹핑되어
+                            하나만 선택된다! 
+  
+                            checked 속성 - 기본체크설정 -->*/}
               </li>
               {/* <!-- 이메일 --> */}
               <li>
@@ -136,4 +137,4 @@ export default function Member() {
       </main>
     </div>
   );
-} ///////Member 컴포넌트
+} /////////// Member 컴포넌트 /////////////

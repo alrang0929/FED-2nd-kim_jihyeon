@@ -12,10 +12,8 @@ import FooterArea from "./components/FooterArea";
 import Gallery from "./components/Gallery";
 // 로그인 모듈 불러오기
 import Login from "./components/Login";
-
 // 회원가입 모듈 불러오기
 import Member from "./components/Member";
-
 
 // [1] 메인 페이지 전체 레이아웃 로딩 컴포넌트 ///
 function Layout() {
@@ -39,6 +37,8 @@ function Layout() {
     : "./css/items.css";
     // menu값이 "home"인 경우 main.css를 로딩하고
     // menu값이 "gallery"인 경우 gallery.css를 로딩하고
+    // menu값이 "login"인 경우 login.css를 로딩하고
+    // menu값이 "member"인 경우 member.css를 로딩하고
     // 기타 메뉴인 경우 items.css를 로딩한다!
 
   },[menu]);
@@ -57,7 +57,7 @@ function Layout() {
       :menu=="login"
       ?<Login />
       :menu=="member"
-      ?<Member />
+      ?<Member changeMenu={setMenu} />
       :<ItemsArea catName={menu} />
       }
       {/* 3. 하단영역 컴포넌트 */}
