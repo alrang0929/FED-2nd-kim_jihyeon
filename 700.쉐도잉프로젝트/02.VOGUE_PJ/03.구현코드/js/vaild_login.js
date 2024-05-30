@@ -1,7 +1,7 @@
 // 로그인 페이지 유효성 검사 JS - vaild_login.js
 
-
-export default function validateLogin(){
+//상태관리변수 메서드 setmenu 전달
+export default function validateLogin(changeMenu){
 
 console.log("로그인 검사");
 
