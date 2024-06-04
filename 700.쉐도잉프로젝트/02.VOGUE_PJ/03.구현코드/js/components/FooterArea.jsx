@@ -1,4 +1,5 @@
 // 하단영역 컴포넌트 ///////
+import Logo from "../modules/Logo";
 
 export default function FooterArea() {
   // 코드 리턴구역 /////
