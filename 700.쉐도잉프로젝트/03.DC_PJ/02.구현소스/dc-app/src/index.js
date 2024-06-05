@@ -5,6 +5,12 @@ import Layout from "./components/layout/Layout";
 import Main from "./components/pages/Main";
 import Comics from "./components/pages/Comics";
 import Character from "./components/pages/Character";
+import Movies from "./components/pages/Movies";
+import Series from "./components/pages/Series";
+import Games from "./components/pages/Games";
+import News from "./components/pages/News";
+import Video from "./components/pages/Video";
+import Board from "./components/pages/Board";
 
 //전체 공통 css
 import "../src/css/index.scss";
@@ -73,7 +79,7 @@ export default function MainComponent() {
       </Routes>
     </BrowserRouter>
   );
-}
+// }
 
 /// 컴포넌트 출력 ///
 // 먼저 root 객체 만들기
