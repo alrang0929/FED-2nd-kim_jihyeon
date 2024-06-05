@@ -80,8 +80,10 @@
 
                     [ response 결과내용 종류 ]
                         1) responseText : 데이터를 문자형식 받기
-                        2) responseXML : 데이터를 XML형식 받기(JSON형식도 가능)
+                        2) responseXML : 데이터를 XML형식 받기
                         3) responseURL : 데이터 전송 URL 받기
+                        4) JSON 데이터일 경우:
+                        response로 받은 후 JSON.parse()로 변환
 
                 (4) 오픈 셋팅된 요청객체를 전송한다!
                     인스턴스변수.send()
@@ -147,7 +149,7 @@
             화면뿌려(전달변수);
           }); ///// then 메서드 /////////
         
-
+          
         // 2. 시간이 걸리는 코드를 약속객체에 넣고 처리하기
         //new promise (function(변수){코드})
         //-> 하나의 변수만 쓰면 성공처리 함수
@@ -165,7 +167,59 @@
             화면뿌려(`<img src="https://ojsfile.ohmynews.com/STD_IMG_FILE/2014/0103/IE001663873_STD.jpg" style="height:70vh" alt="약속">`);
           });
 
+          // 샘플 제이슨 (사이트제공)
+        // https://jsonplaceholder.typicode.com/comments
+
         // 3. 파일을 전송 받은 후 실행하는 약속객체 생성하기
+        const 파일약속 = new Promise((성공함수,실패함수)=>{
+          //(1) XMLHttpRequest 객체 인스턴스 만들기
+          const myAjax = new XMLHttpRequest();
+          //(2) 비동기 파일요소 열기
+          //전송기능 메모리 생성
+          myAjax.open("GET","https://jsonplaceholder.typicode.com/comments");
+
+          //(3) 결과 리턴받는 onload 이벤트 함수구역 만들기
+          myAjax.onload = function(){
+            // console.log("전송결과:",myAjax.status,myAjax.response);
+            if(myAjax.status == 200){
+              성공함수(myAjax.response);
+              // Promise 성공시 then()실행 성공함수로 호출!
+            }///////if:성공시 처리하기/////////////
+            else{
+
+              실패함수(myAjax.status);
+
+            }//////else:실패시 처리하기////////////
+          };/////onload Fn
+
+          //(4) 비동기 요청보내기 : send();
+          myAjax.send();
+
+        }); ///////promise///////////////////////////
+
+        //파일약속실행 후 then메서드 받기
+        //then(성공시 함수,실패시 함수);
+        파일약속.then(
+          //성공시
+          (v)=>{
+            //response로 보내준 jason = 문자형!
+            //jason.parse() 로 변환
+            let res = JSON.parse(v);
+            console.log("성공!!",res);
+            화면뿌려(`
+            <h2>220순번 전송데이터 찍기</h2>
+            <ol>
+              <li>이름:${res[220].name}</li>
+              <li>이메일:${res[220].email}</li>
+              <li>소개:${res[220].body}</li>
+            </ol>
+            `);
+          },
+          //실패시
+          (v)=>{
+            console.log("실패!!ㅠ=ㅠ",v);
+          }
+          );/////then//////////
         
       }); /////////////// load //////////////
     </script>
