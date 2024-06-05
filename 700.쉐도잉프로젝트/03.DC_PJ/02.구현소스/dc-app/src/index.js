@@ -79,7 +79,7 @@ export default function MainComponent() {
       </Routes>
     </BrowserRouter>
   );
-// }
+}
 
 /// 컴포넌트 출력 ///
 // 먼저 root 객체 만들기
