@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Layout from "./components/layout/Layout";
+
 import Main from "./components/pages/Main";
 import Comics from "./components/pages/Comics";
 import Character from "./components/pages/Character";
@@ -69,7 +71,7 @@ export default function MainComponent() {
           <Route path="character" element={<Character />} />
           <Route path="comics" element={<Comics />} />
           <Route path="movies" element={<Movies />} />
-          <Route path="series" element={<Series />} />
+          <Route path="movies/series" element={<Series />} />
           <Route path="games" element={<Games />} />
           <Route path="news" element={<News />} />
           <Route path="video" element={<Video />} />
