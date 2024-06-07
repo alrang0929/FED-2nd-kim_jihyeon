@@ -1,7 +1,7 @@
 //module / banner page
 import React from "react";
 //배너 슬라이드 기능함수
-import goSlide from "../func/go_slide";
+import SlideFn from "../func/go_slide";
 
 //data
 import "../../css/banner.scss";
@@ -10,6 +10,10 @@ import { banData } from "../data/banData";
 
 function Banner({ catName }) {
   //catName: banner data 카테고리 이름
+
+  //슬라이드 기능 생성자함수 인스턴스 생성하기
+  const sldFn = new SlideFn();
+
   //선택 데이터
   const selData = banData[catName];
 
@@ -38,8 +42,12 @@ function Banner({ catName }) {
         //배열.length 로 배열 개수가 1 이상일떄만 출력
         selData.length > 1 && (
           <>
-            <button className="abtn lb" onClick={goSlide}>＜</button>
-            <button className="abtn rb" onClick={goSlide}>＞</button>
+            <button className="abtn lb" onClick={sldFn.goSlide}>
+              ＜
+            </button>
+            <button className="abtn rb" onClick={sldFn.goSlide}>
+              ＞
+            </button>
           </>
         )
       }
@@ -49,7 +57,7 @@ function Banner({ catName }) {
         순번은 첫번째 블릿 li만 클래스 on 넣기
         */}
         {selData.map((v, i) => (
-          <li key={i} className={i =="0" ? "on" : ""}></li>
+          <li key={i} className={i == "0" ? "on" : ""}></li>
         ))}
       </ol>
     </div>

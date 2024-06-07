@@ -3,6 +3,16 @@ import $ from "jquery";
 import "jquery-ui-dist/jquery-ui";
 
 
+//생성자 함수로 만들어서 사용하기!!
+//=> 컴포넌트별 변수와 함수가 별도로 메모리구역 설정
+//=> 변수 함수의 지역화가 가능해짐1 > 같은 이름의 변수,함수로
+//서로 상관될 일이 없어진다!
+
+//[!!!생성자 함수 필수 요건!!!]
+// 1) 생성자함수 : 첫글자 대문자로 생성, 호출시 new키워드로 호출 ex: new Name 
+// 2) 생성자함수의 변수, 함수는 this 키워드로 노출
+
+function SlideFn(){
 
 // 1. 변수설정 //////////////////
 // (1) 애니시간
@@ -17,20 +27,24 @@ let sNum = 0;
 //// 2. 슬라이드 이동구현 함수 ///////
 //// 이벤트 설정 및 함수 호출은 리액트파트에서 처리함!!
 //-> 그래야 다중 컴포넌트 배치시 개별화를 할 수 있다!
- const goSlide = (e) => {
+
+//this.변수 = 화살표함수 : 함수인 변수를 this키워드로 등록하면
+//생성자함수를 담은 변수에서 하위 변수로 노출됨 -> 사용가능!
+ this.goSlide = (e) => {
+
   // 1. 이벤트가 발생한 요소
   const tg = e.target;
-  // console.log(tg);
+  console.log(tg);
 
   // 2. 대상선정
   // (1) 슬라이드 : 클릭된 버튼으로 부터 잡아줌!
   const sldBox = $(tg).siblings(".slider");
   // (2) 슬라이드 블릿 : 형제요소는 .indic임!
   const indic = $(tg).siblings(".indic").find("li");
-  // console.log('블릿:',indic);
+  console.log('블릿:',indic);
   // (3) 슬라이드 개수
   const sCnt = sldBox.find("li").length;
-  // console.log('슬라이드개수:',sCnt);
+  console.log('슬라이드개수:',sCnt);
 
   // 3. 기능구현
   // 0. 광클금지 /////////////
@@ -41,7 +55,7 @@ let sNum = 0;
 
   // 1. 오른쪽버튼 여부
   let isR = $(tg).is(".rb");
-  console.log("버튼클릭!", isR);
+  // console.log("버튼클릭!", isR);
 
   // 2. 버튼별분기
   // 2-1. 오른쪽버튼
@@ -75,12 +89,12 @@ let sNum = 0;
     if (sNum < 0) sNum = sCnt - 1;
   } /////// else /////////
 
-  console.log("슬순번:", sNum);
+  // console.log("슬순번:", sNum);
 
   // 블릿해당순번 클래스'on'넣기(다른li는 제거)
   indic.eq(sNum).addClass("on").siblings().removeClass("on");
 }; ////////////// goSlide함수 /////////////
-
+}//////////////SlideFn 생성자 함수////////////////////
 
 //함수 내보내기
-export default goSlide;
+export default SlideFn;
