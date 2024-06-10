@@ -33,8 +33,9 @@ function VidIntro({ catName, clsName }) {
         <div className="vb1">
           <iframe src={selData.vsrc} title={selData.btit}></iframe>
         </div>
+
         {/* 2. 타이틀 설명 파트 */}
-        <div className="vd2">
+        <div className="vb2">
           {/* 작은제목 (stit)*/}
           <h3>{selData.stit}</h3>
           {/* 큰제목 (btit)*/}
