@@ -117,6 +117,7 @@ export default function TopArea({ changeMenu }) {
             </li>
           </ul>
         </nav>
+        
       </header>
     </div>
   );
