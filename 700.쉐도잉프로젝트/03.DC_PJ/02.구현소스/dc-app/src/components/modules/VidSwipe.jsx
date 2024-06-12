@@ -1,5 +1,7 @@
 // DC PJ 비디오스와이프 컴포넌트
 import { catTit } from "../data/vid_swipe_tit";
+
+import "../../css/vid_swipe.scss";
 /* 
 [ 구조정의 ]
 Root>
@@ -10,18 +12,18 @@ section.vidswbox >
             h2.ifrtit + iframe + button.cbtn )
 */
 import React from "react";
-import { SwiperApp } from "../plugin/SwiperApp";
+import { SwiperVid } from "../plugin/SwiperVid";
 
 function VidSwipe({catName}) {
     //catName = 카테고리명
   return (
     <>
       <section className="vid-swbox">
-        <SwiperApp/>
         {/* 1. 모듈타이틀 */}
         <h2 className="tit">{catTit[catName]}</h2>
         {/* 2. 스와이퍼 컴포넌트 : SwiperVid
         -> 전달속성 cat은 데이터선택을 위한값 */}
+        <SwiperVid catName="main"/>
         {/* 3. 비디오 재생창 */}
         <section className="vid-bx">
           {/* 비디오 중앙박스 */}
