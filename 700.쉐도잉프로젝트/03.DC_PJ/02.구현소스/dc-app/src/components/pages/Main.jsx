@@ -3,6 +3,7 @@ import Banner from "../modules/Banner";
 import Secintro from "../modules/Secintro";
 import VidIntro from "../modules/VidIntro";
 import VidSwipe from "../modules/VidSwipe";
+import CatList from "../modules/CatList";
 
 ///////////import atra ////////////////////////////
 
@@ -18,8 +19,11 @@ export default function Main() {
       {/* catName : 카테고리 네임
       clsName: 배경색 넣을 클래스(on/off로 구분)
       */}
-      <VidSwipe catName="main"/>
       <VidIntro catName="main" clsName="off"/>
+      {/* 4. 비디오 컴포넌트 */}
+      <VidSwipe catName="main"/>
+      {/* 5. 캐릭터 리스트 컴포넌트 */}
+      <CatList/>
     </>
   );
 } /////////// Main /////////////////////

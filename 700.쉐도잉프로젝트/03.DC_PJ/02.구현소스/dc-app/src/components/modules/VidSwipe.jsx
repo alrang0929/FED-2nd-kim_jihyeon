@@ -1,4 +1,4 @@
-// DC PJ 비디오스와이프 컴포넌트
+// 비디오스와이프모듈 DC PJ 비디오스와이프 컴포넌트
 import { catTit } from "../data/vid_swipe_tit";
 
 import "../../css/vid_swipe.scss";
