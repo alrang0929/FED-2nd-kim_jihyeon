@@ -14,6 +14,7 @@ section.vidswbox >
 import React from "react";
 import { SwiperVid } from "../plugin/SwiperVid";
 
+
 function VidSwipe({catName}) {
     //catName = 카테고리명
   return (
