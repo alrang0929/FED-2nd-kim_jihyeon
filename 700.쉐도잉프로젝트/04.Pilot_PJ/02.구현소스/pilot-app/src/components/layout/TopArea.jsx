@@ -1,5 +1,9 @@
 //상단영역 컴포넌트 - TopArea.jsx
 import React from "react";
+//css
+import "../../css/index.scss";
+//data
+import { gnbData } from "../../js/data/gnb";
 
 //data
 
@@ -18,6 +22,13 @@ function TopArea(props) {
           <nav className="gnb">
             <ul>
               <li className="bld">배너순번 li 숨기기</li>
+              {
+                gnbData.main.map((v,i) => (
+                  <li key={i}>
+                    <a href="#">{v}</a>
+                  </li>
+                ))
+              }
             </ul>
           </nav>
           <div className="ham">
