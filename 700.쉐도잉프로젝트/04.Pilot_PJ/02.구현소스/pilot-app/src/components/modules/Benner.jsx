@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //css
 import "../../css/benner.scss";
+import { dragBanner } from "../../js/func/drag_banner";
 ///////////////////impoert area
 
 function Benner(props) {
@@ -48,6 +49,13 @@ function Benner(props) {
     // 코드리턴
     return hcode;
   }; ///////// makeList 함수 /////////
+
+
+  //화면 렌더링 실행구역
+  useEffect(()=>{
+    //배너 기능함수 호출
+    dragBanner();
+  },[]);
 
   //코드리턴구역
   return (

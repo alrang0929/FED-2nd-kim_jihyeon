@@ -7,9 +7,9 @@ import MainCont from '../pages/MainCont';
 
 function MainArea(props) {
     return (
-        <div>
+        <>
            <MainCont/>
-        </div>
+        </>
     );
 }
 
