@@ -179,7 +179,7 @@ function initSet() {
   기능: 페이지 도착후 등장 애니메이션
  *****************************************/
 function actPage() {
-  console.log("액숀~!!!", pno);
+  // console.log("액숀~!!!", pno);
 
   // pno가 0 또는 4가 아니면 작동!
   if (pno != 0 || pno != 4) {

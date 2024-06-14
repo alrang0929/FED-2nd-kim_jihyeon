@@ -1,6 +1,7 @@
 // 비디오 스와이퍼 플러그인 컴포넌트
 
-import React, { useEffect } from "react";
+import React, { useEffect, } from "react";
+import { Link } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // 제이쿼리 불러오기
@@ -58,6 +59,15 @@ export function SwiperCat() {
 
             Number(v.idx) <= 7 && (
               <SwiperSlide key={i}>
+                <Link to="/detail" 
+                //여기서 3가지 값을 state로 전달
+                state={{
+                  cname:v.cname, //캐릭터 이름
+                  cdesc:v.cdesc, //캐릭터 설명
+                  facts:v.facts //캐릭터 상세
+                }}
+                >
+                  
                 <section className="sw-inbox2">
                   {/* 캐릭터이미지영역 */}
                   <div className="cat-img2"><img src={v.tmsrc} alt={v.cname} /></div>
@@ -66,6 +76,7 @@ export function SwiperCat() {
                     <h3>{v.cname}</h3>
                   </div>
                 </section>
+                </Link>
               </SwiperSlide>
             )
         )}

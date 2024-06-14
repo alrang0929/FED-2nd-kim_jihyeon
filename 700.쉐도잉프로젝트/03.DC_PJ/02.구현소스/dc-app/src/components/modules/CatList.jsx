@@ -21,7 +21,7 @@ Root >
                 div.cat-tit2 > h3
 */
 
-function CatList(props) {
+function CatList() {
   return (
     <>
       <section className="cat-swbox">
