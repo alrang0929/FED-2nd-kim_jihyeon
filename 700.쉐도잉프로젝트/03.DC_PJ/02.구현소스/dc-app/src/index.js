@@ -17,6 +17,7 @@ import Board from "./components/pages/Board";
 //전체 공통 css
 import "../src/css/index.scss";
 import CatDetail from "./components/pages/CatDetail";
+import SearchPage from "./components/pages/SearcPage";
 
 
 /********************************************* 
@@ -78,6 +79,7 @@ export default function MainComponent() {
           <Route path="video" element={<Video />} />
           <Route path="board" element={<Board />} />
           <Route path="detail" element={<CatDetail />} />
+          <Route path="searchpage" element={<SearchPage />} />
         </Route>
         {/* Layout 루트 Route로 하위 Route를 감싼다! */}
       </Routes>

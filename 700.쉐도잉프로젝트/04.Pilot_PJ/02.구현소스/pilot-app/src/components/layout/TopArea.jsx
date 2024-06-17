@@ -4,12 +4,13 @@ import React from "react";
 import "../../css/index.scss";
 //data
 import { gnbData } from "../../js/data/gnb";
+import { TotalMenu } from "../modules/Totalmenu";
 
 //data
 
 /////////////import area////////////////////////
 
-function TopArea(props) {
+function TopArea() {
   return (
     <>
       <div id="top-area">
@@ -35,6 +36,7 @@ function TopArea(props) {
             <span></span> <span></span> <span></span>
           </div>
           {/* 전체메뉴 컴포넌트 */}
+          <TotalMenu/>
         </header>
       </div>
     </>
