@@ -48,9 +48,9 @@ export default function TopArea() {
       console.log(txt);
 
       //빈값이 아니면 검색함수 호출(검색어 전달)
-      if (txt == "") {
+      if (txt!= "") {
         //입력창 비우고 부모박스 닫기
-
+        $(e.target).val("").parent().hide();
         //검색 보내기
         goSearch(txt);
       } ///if
@@ -62,10 +62,7 @@ export default function TopArea() {
     console.log("검색하러 갑니당 ^-^");
     //라우터 이동함수로 이동하기
     //네비게이트 메서드 (라우터주소,{state:{보낼객체}})
-    goNav("/search", {
-      //검색어 전달
-      state: { keyword: txt },
-    });
+    goNav("search",{state:{keyword:txt}});
   };
 
   //// 코드 리턴구역 //////////////
