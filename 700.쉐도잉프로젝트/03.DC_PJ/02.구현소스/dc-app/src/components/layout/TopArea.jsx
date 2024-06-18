@@ -1,4 +1,5 @@
 // 상단영역 컴포넌트 ///
+import $ from "jquery";
 
 // GNB 데이터 불러오기
 import { Link, useNavigate } from "react-router-dom";
@@ -23,6 +24,49 @@ export default function TopArea() {
   // 예) goNav('/') -> 첫페이지이동
   //    ㄴ 슬래쉬 없이 or 빈값일 때도 루트로 인식
   // 이동주소는 대소문자 구분없음!
+
+  //검색관련 함수들////////////
+  //1. 검색창 보이기 함수
+  const showSearch = (e) => {
+    //기본기능 막기
+    e.preventDefault();
+    //1.검색창 보이기
+    $(".searchingGnb").show();
+    //show() -> display 보이게함
+    //2. 입력창에 포커스 보내기
+    $("#schinGnb").focus();
+  }; ////////showSearch함수
+
+  //2. 검색창에 엔터키 누르면 검색함수 호출
+  const enterkey = (e) => {
+    //e,keyCode = 숫자로 리턴
+    //e,key = 문자로 리턴
+    // console.log(e.keyCode);
+    if (e.key == "Enter") {
+      //입력창에 입력값 읽어오기 : val()사용
+      let txt = $(e.target).val().trim();
+      console.log(txt);
+
+      //빈값이 아니면 검색함수 호출(검색어 전달)
+      if (txt == "") {
+        //입력창 비우고 부모박스 닫기
+
+        //검색 보내기
+        goSearch(txt);
+      } ///if
+    } ////if
+  };
+
+  //3. 검색페이지로 검색어와 함께 이수하기함수
+  const goSearch = (txt) => {
+    console.log("검색하러 갑니당 ^-^");
+    //라우터 이동함수로 이동하기
+    //네비게이트 메서드 (라우터주소,{state:{보낼객체}})
+    goNav("/search", {
+      //검색어 전달
+      state: { keyword: txt },
+    });
+  };
 
   //// 코드 리턴구역 //////////////
   return (
@@ -87,22 +131,27 @@ export default function TopArea() {
               }}
             >
               {/* 검색입력박스 */}
-              <div className="searchingGnb" style={{display:"block",}}>
+              <div className="searchingGnb">
                 {/* 검색버튼 돋보기 아이콘 */}
                 {/* 입력창 */}
-                <FontAwesomeIcon 
-                className="schbtnGnb"
-                icon={faSearch}
-                title="Open search"
-                 />
+                <FontAwesomeIcon
+                  className="schbtnGnb"
+                  icon={faSearch}
+                  title="Open search"
+                />
                 <input
                   type="text"
                   //name: 백앤드가 가져가는 id값
                   name="schinGnb"
                   id="schinGnb"
                   placeholder="Filter by keyword"
+                  onKeyUp={enterkey}
                 />
               </div>
+              {/* 검색기능링크 - 클릭시 검색창 보이기 */}
+              <a href="#" onClick={showSearch}>
+                <FontAwesomeIcon icon={faSearch} />
+              </a>
             </li>
           </ul>
         </nav>
