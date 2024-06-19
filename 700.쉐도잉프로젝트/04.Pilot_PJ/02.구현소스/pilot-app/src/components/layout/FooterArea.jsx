@@ -1,9 +1,6 @@
-//하단영역 컴포넌트 - FooterArea.jsx
 import React from "react";
 
-/////////////import area////////////////////////
-
-function FooterArea() {
+function FooterArea(props) {
   return (
     <footer id="info" className="page">
       <address>

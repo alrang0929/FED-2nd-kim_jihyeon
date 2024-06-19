@@ -1,52 +1,51 @@
-//상단영역 컴포넌트 - TopArea.jsx
 import React from "react";
-//css
-import "../../css/index.scss";
-//data
+
+// 메뉴 데이터 불러오기
 import { gnbData } from "../../js/data/gnb";
-import { TotalMenu } from "../modules/Totalmenu";
+import { TotalMenu } from "../modules/TotalMenu";
+// 제이쿼리
 import $ from "jquery";
 
-//data
+function TopArea(props) {
 
-/////////////import area////////////////////////
+  // 전체 메뉴 열기닫기 함수 ////
+  const showHideMenu = (e)=>{
+    // console.log(e.currentTarget);
 
-function TopArea() {
+    // 전체 메뉴대상 : .mbox
+    // 1. 메뉴 보이기 숨기기 전환하기
+    $(".mbox").fadeToggle(300);
+    // fadeIn() 서서히 나타남
+    // fadeOut() 서서히 사라짐 -> display:none
+    // fadeToggle() 서서히 나타남/사라짐 전환
 
-//전체메뉴 열기 닫기 함수 
-const showhideMenu = (e) =>{
+    // 2. 햄버거 버튼에 클래스 "on"넣기/빼기
+    $(e.currentTarget).toggleClass("on");
+    // addClass() 클래스넣기
+    // removeClass() 클래스빼기
+    // toggleClass() 클래스넣기/빼기
 
-  console.log(e.currentTarget);
-  //전체매뉴대상 mbox
-  //1. 보이기 숨기기 전환하기
-  $(".mbox").fadeToggle(300);
-  //fadein() 서서히 나타남
-  //fadeout() 서서히 사라짐
-  //fadeToggle() 서서히 사라짐/나타남 전환
-  //fade ~ 시 displaye none 되버림
+    // console.log($(e.currentTarget).is(".on"));
 
-  //2. 햄버거 메뉴에 
-  // toggleClass: 클래스 on 넣기 뺴기
-  $(e.currentTarget).toggleClass("on");
-  // console.log((e.currentTarget).is(".on"));
+    // 3. 비디오 재생/멈춤하기
+    // 대상: .bgm
+    let bgm = $(".bgm");
+    // 제이쿼리의 미디어를 선택후 실제 사용할때는
+    // get(0)하고 난 후 사용한다!
 
-  //3. 비디오 재생/멈춤하기
-  //대상: .bgm
-  let bgm = $(".bgm");
-  //햄버거 버튼에 on이 있으믄 / 없으면 멈춤
-  $(e.currentTarget).is(".on")?bgm.get(0).play() : bgm.get(0).pause();
+    // 햄버거버튼에 클래스"on"있으면 재생 없으면 멈춤 
+    $(e.currentTarget).is(".on")?
+    bgm.get(0).play()
+    : bgm.get(0).pause();
+    // play()는 재생, pause()는 멈춤 메서드
 
-  //비디오 객체는 실제 사용시 
-  //제이쿼리의 미디어를 선택 후 실제 사용할때는 
-  //get(0)하고 난 후 사용 
+    // 비교해서 JS는 선택후 바로 play(), pause()를 사용함
+    // document.querySelector(".bgm").play();
+    // document.querySelector(".bgm").pause();
 
-  //비교해서 js는 선택 후 바로 play(), pause() 사용
-  // document.querySelector(".bgm").play();
-  
+  }; ////////// showHideMenu /////////////
 
-};///////////showHideMenu////////////////
-
-  ////////코드리턴구역////////////////////
+  // 코드 리턴구역 //////////////
   return (
     <>
       <div id="top-area">
@@ -59,21 +58,18 @@ const showhideMenu = (e) =>{
           <nav className="gnb">
             <ul>
               <li className="bld">배너순번 li 숨기기</li>
-              {
-                gnbData.main.map((v,i) => (
-                  <li key={i}>
-                    <a href="#">{v}</a>
-                  </li>
-                ))
-              }
+              {gnbData.main.map((v, i) => (
+                <li key={i}>
+                  <a href="#">{v}</a>
+                </li>
+              ))}
             </ul>
           </nav>
-          <div className="ham" onClick={
-            showhideMenu}>
+          <div className="ham" onClick={showHideMenu}>
             <span></span> <span></span> <span></span>
           </div>
           {/* 전체메뉴 컴포넌트 */}
-          <TotalMenu/>
+          <TotalMenu />
         </header>
       </div>
     </>
