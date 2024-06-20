@@ -10,6 +10,7 @@ function SearchingCat({dt}) {
   //dt = 검색된 배열데이터
   //total = 검색된 배열데이터 개수
 
+  //dt: Searching에서 결과값 전달받음
   const total = dt.length;
   console.log("데이터수",total);
 

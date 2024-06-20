@@ -18,6 +18,7 @@ import { useRef, useState } from "react";
 
 export function SwiperBan({ cat }) {
   // cat - 카테고리명
+console.log("배너카테고리명",cat);
 
   // 리스트만들기 함수 ////
   const makeList = (num) => {
@@ -70,13 +71,17 @@ export function SwiperBan({ cat }) {
         onSlideChange={(swp)=>{
           // swp는 내부로 전달되는 스와이퍼 자신객체
           
+
+          //style에서는 비디오 없으므로 여기서 리턴
+          if(cat=="style") return;
+
           //현재 진짜순번
           let idx = swp.realIndex;
 
           //현재 하위요소
           // let tg = swp.slides[idx];
 
-          console.log("슬라이드순번:",idx);
+          // console.log("슬라이드순번:",idx);
           // console.log("하위 슬라이드 요소:",tg);
           if(idx==0){
               document.querySelector(`.${cat}-vid`).play();
