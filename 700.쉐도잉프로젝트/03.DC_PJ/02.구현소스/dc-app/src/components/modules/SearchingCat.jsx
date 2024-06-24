@@ -13,7 +13,8 @@ function SearchingCat({dt}) {
   //dt: Searching에서 결과값 전달받음
   const total = dt.length;
   console.log("데이터수",total);
-
+  
+/////리턴코드구역/////////////////////////
   return (
     <>
       {/* 데이터가 있는 경우 */}
