@@ -2,4 +2,4 @@
 export const catTit = {
     main:"LATEST TRAILERS, CLIPS & MORE",
     movies:"TRAILERS, CLIPS AND MORE",
-}
+};

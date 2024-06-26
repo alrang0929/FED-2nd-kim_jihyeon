@@ -1,4 +1,4 @@
-// 비디오 스와이퍼 플러그인 컴포넌트
+// 비디오스와이프모듈 스와이퍼 플러그인 컴포넌트
 
 import React, { useEffect } from "react";
 // Import Swiper React components
@@ -50,16 +50,17 @@ export function SwiperVid({ catName }) {
     // 2. 변경하기
     // 2-1. 아이프레임 src경로 넣기
     ifr.attr("src", src + "?autoplay=1");
-    //2-2 비디오 타이틀 넣기
+    // 2-2. 비디오 타이틀 넣기
     itit.text(tit);
-    //2-3 박스보이기
+    // 2-3. 박스보이기
     vbx.fadeIn(300);
-    //2-4 닫기버튼 셋팅
+    // 2-4. 닫기버튼 셋팅
     cbtn.on("click", () => {
+      // 전체박스 사라지기
       vbx.fadeOut(300);
-      //기존 동영상 플레이 멈추기(src 삭제)
+      // 기존 동영상 플레이 멈추기(src값삭제)
       ifr.attr("src", "");
-    });
+    }); //// click /////
   }; /////////// showVideo함수 ////////
 
   return (
@@ -95,7 +96,9 @@ export function SwiperVid({ catName }) {
             >
               {/* 동영상이미지박스 */}
               <div className="vid-img">
-                <img src={v.isrc} alt={v.tit} />
+                <img 
+                src={process.env.PUBLIC_URL+v.isrc} 
+                alt={v.tit} />
                 {/* 폰트어썸 아이콘 */}
                 <FontAwesomeIcon
                   icon={faCirclePlay}

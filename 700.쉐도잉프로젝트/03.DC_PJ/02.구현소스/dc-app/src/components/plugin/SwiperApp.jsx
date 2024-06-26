@@ -49,7 +49,7 @@ export function SwiperApp() {
       >
         {imgArr.map((v, i) => (
           <SwiperSlide key={i}>
-            <img src={"/images/" + v + ".jpg"} alt="list image" />
+            <img src={"./images/" + v + ".jpg"} alt="list image" />
           </SwiperSlide>
         ))}
       </Swiper>

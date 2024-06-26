@@ -39,28 +39,31 @@
   margin-bottom: 8px;
   padding: 0 20px;
 }
+// 버튼박스
 .btnbx {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   bottom: 30px;
   white-space: nowrap;
-  
-    button {
-        padding: 15px 30px;
-        font-size: 15px;
-        font-weight: bold;
-        border-radius: 25px;
-        font-family: "Ubuntu Condensed", sans-serif;
-        background-color: transparent;
-        transition: 0.4s;
-        cursor: pointer;
-        
-        &:hover {
-        background-color: #0074eb;
-        color: #fff;
-        }
+
+  // 버튼
+  button {
+    padding: 15px 30px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 25px;
+    font-family: "Ubuntu Condensed", sans-serif;
+    background-color: transparent;
+    transition: 0.4s;
+    cursor: pointer;
+
+    // 버튼 오버시
+    &:hover {
+      background-color: #0074eb;
+      color: #fff;
     }
+  }
 }
 
 @media screen and (max-width: 1300px) {
