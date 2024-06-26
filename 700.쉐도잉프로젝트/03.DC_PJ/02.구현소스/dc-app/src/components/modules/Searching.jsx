@@ -57,7 +57,7 @@ function Searching({ kword }) {
     
   } //////if
 
-  // 검색경가 있는 데이터 필터하기
+  // 검색결과 있는 데이터 필터하기
   // filter()는 검색결과가 항상 배열로 나옴!
   const newList = catListData.filter((v) => {
     // 속성중 캐릭터 이름 중 검색(v.cname)
