@@ -1,7 +1,7 @@
-////하단 콤보박스 바인딩 데이터 = combo_data.js
+// 하단 콤보박스 바인딩 데이터 - combo_data.js
 
-const combo_Data = {
-  //브랜드 바로가기
+const comboData = {
+  // 브랜드 바로가기
   brand: [
     "MNET",
     "MWAVE",
@@ -16,8 +16,7 @@ const combo_Data = {
     "CATCHON",
     "Tooniverse",
   ],
-
-  //브랜드 바로가기 링크
+  // 브랜드 바로가기 링크
   brandLink: {
     brand1: "https://www.mnetplus.world/ko/",
     brand2: "https://www.mwave.me/kr",
@@ -32,8 +31,7 @@ const combo_Data = {
     brand11: "https://catchon.cjenm.com/ko/",
     brand12: "https://catchon.cjenm.com/ko/",
   },
-
-  //계열사 바로가기
+  // 계열사 바로가기
   corp: {
     "CJ 그룹": ["CJ주식회사"],
     "엔터테인먼트 & 미디어": ["CJ ENM 엔터테인먼트부문", "TVING", "CJ CGV"],
@@ -48,8 +46,7 @@ const combo_Data = {
       "CJ텔레닉스",
     ],
   },
-  
-  //계열사 바로가기 링크
+  // 계열사 바로가기 링크
   corpLink: {
     "corp1-1": "https://www.cj.net/",
     "corp2-1": "https://www.cjenm.com/ko/",
@@ -69,6 +66,5 @@ const combo_Data = {
   },
 };
 
-//데이터 내보내기
-
-export default combo_Data;
+// 데이터 내보내기
+export default comboData;
