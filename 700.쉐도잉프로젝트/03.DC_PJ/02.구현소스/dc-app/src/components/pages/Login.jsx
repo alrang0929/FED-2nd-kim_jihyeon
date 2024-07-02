@@ -1,14 +1,21 @@
 // 로그인 페이지 컴포넌트 - Login.jsx
-import React, { useState } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
 // CSS 불러오기 (회원가입과 동일)
 import "../../css/member.scss";
 
 // 로컬 스토리지 셋팅 함수 호출!
 import { initData } from "../func/memFn";
 
+import { dCon } from "../modules/dCon";
+///////////import area
+
+
 function Login(props) {
-  // [ 상태관리변수 ] /////////////
+
+    const myCon = useContext(dCon);
+    console.log(myCon.loginSts);
+
+    // [ 상태관리변수 ] /////////////
   // [1] 입력요소 상태변수
   // 1. 아이디변수
   const [userId, setUserId] = useState("");
@@ -45,16 +52,16 @@ function Login(props) {
     // 입력된 값읽기
     let val = e.target.value;
 
-    // 1. 빈값 체크 : 
+    // 1. 빈값 체크 :
     // 1-1.빈값아니면 에러아님(false)
-    if(val !== "") setUserIdError(false);
+    if (val !== "") setUserIdError(false);
     // 1-2.빈값이면 에러임(true)
-    else{
-        // (1) 메시지 띄우기(필수입력메시지)
-        setIdMsg(msgId[0]);
-        // (2) 에러상태값 변경하기
-        setUserIdError(true);
-    } /////// else ///////////    
+    else {
+      // (1) 메시지 띄우기(필수입력메시지)
+      setIdMsg(msgId[0]);
+      // (2) 에러상태값 변경하기
+      setUserIdError(true);
+    } /////// else ///////////
 
     // 실제 userId 상태변수값이 업데이트 돼야만
     // 화면에 출력된다!
@@ -66,20 +73,20 @@ function Login(props) {
     // 입력된 값읽기
     let val = e.target.value;
 
-    // 1. 빈값 체크 : 
+    // 1. 빈값 체크 :
     // 1-1.빈값아니면 에러아님(false)
-    if(val !== "") setPwdError(false);
+    if (val !== "") setPwdError(false);
     // 1-2.빈값이면 에러임(true)
-    else{
-        // (1) 메시지 띄우기(필수입력메시지)
-        setPwdMsg(msgPwd[0]);
-        // (2) 에러상태값 변경하기
-        setPwdError(true);
+    else {
+      // (1) 메시지 띄우기(필수입력메시지)
+      setPwdMsg(msgPwd[0]);
+      // (2) 에러상태값 변경하기
+      setPwdError(true);
     } /////// else ///////////
 
     // 4. 기존입력값 반영하기
     setPwd(val);
-  }; ///////// changePwd 함수 //////////  
+  }; ///////// changePwd 함수 //////////
 
   // [ 전체 유효성검사 체크함수 ] ///////////
   const totalValid = () => {
@@ -89,13 +96,7 @@ function Login(props) {
 
     // 2. 통과시 true, 불통과시 false 리턴처리
     // 통과조건 : 빈값아님 + 에러후크변수가 모두 false
-    if (
-      userId &&
-      pwd &&
-      !userIdError &&
-      !pwdError
-    )
-      return true;
+    if (userId && pwd && !userIdError && !pwdError) return true;
     // 하나라도 false이면 false를 리턴함!
     else return false;
   }; /////////// totalValid 함수 ///////////
@@ -116,7 +117,6 @@ function Login(props) {
       // 1. 로컬스 체크함수호출(없으면 생성!)
       initData();
 
-
       // 2. 로컬스 변수할당
       let memData = localStorage.getItem("mem-data");
       // 3. 로컬스 객체변환
@@ -124,48 +124,53 @@ function Login(props) {
       console.log(memData);
       // 4. 아이디 존재 여부 검사하기
 
-        let result = memData.find(v=>{
-            if(v.uid===userId)return true
-        })////find
-        console.log("결과",result);
+      let result = memData.find((v) => {
+        if (v.uid === userId) return true;
+      }); ////find
+      console.log("결과", result);
 
-        //4-1 결과값이 없으면 메세지 보이기!
-        if(!result){
-            //(1) 에러메세지 보이기
-            setIdMsg(msgId[1]);
-            //(2) 에러메세지 선택하기
-            setUserIdError(true);
-        }
-        else{
-            //(1) 아이디 에러메시지 숨기기
-            setUserIdError(false);
-            //(2) 비밀번호검사 입력비번==결과비번
-        }
-        if(pwd == result.pwd){
-            //같을 경우 로그인 성공
-            alert("Login Success!");
-        }
-        else{
-            //로그인 실패시 메시지 출력!
-            //(1)비밀번호 에러 메시지 선택하기
-            setPwdMsg(msgPwd[1]);
-            //(2)비밀번호 에러메세지 보이기
-            setPwdError(true);
-        }//else
-        //-> 원래 비밀번호는 암호화 되어있으므로 
-        //백앤드 비밀번호 검사 모듈로 대부분 검사
+      //4-1 결과값이 없으면 메세지 보이기!
+      if (!result) {
+        //(1) 에러메세지 보이기
+        setIdMsg(msgId[1]);
+        //(2) 에러메세지 선택하기
+        setUserIdError(true);
+      } else {
+        //(1) 아이디 에러메시지 숨기기
+        setUserIdError(false);
+        //(2) 비밀번호검사 입력비번==결과비번
+      }
+      if (pwd == result.pwd) {
+        //같을 경우 로그인 성공
+        alert("Login Success!");
+
+      } /////if
+      
+      else {
+        //로그인 실패시 메시지 출력!
+        //(1)비밀번호 에러 메시지 선택하기
+        setPwdMsg(msgPwd[1]);
+        //(2)비밀번호 에러메세지 보이기
+        setPwdError(true);
+      } //else
+      //-> 원래 비밀번호는 암호화 되어있으므로
+      //백앤드 비밀번호 검사 모듈로 대부분 검사
 
       // 배열.find() => 있을경우 레코드 저장
       // find는 filter와 달리 배열로 저장하지 않음! 값만 저장
       // 따라서 결과값이 없으면 아무값을 저장하지 않음 -> undefined 리턴
-
-      
     } ///////// if /////////
     // 3. 불통과시 /////
     else {
       alert("Change your input!");
     } //// else ///////////
   }; /////////// onSubmit 함수 //////////
+
+  //화면랜더링 구역 //////////////////////////
+  useEffect(() => {
+    //아이디 입력 포커스
+    document.querySelector("#user-id").focus();
+  }, []);
 
   // 코드 리턴구역 ////////////////////////
   return (
@@ -177,6 +182,7 @@ function Login(props) {
             <li>
               <label>ID : </label>
               <input
+                id="user-id"
                 type="text"
                 maxLength="20"
                 placeholder="Please enter your ID"
@@ -227,10 +233,9 @@ function Login(props) {
               }
             </li>
             <li style={{ overflow: "hidden" }}>
-              <button 
-              className="sbtn"
-              onClick={onSubmit}
-              >Submit</button>
+              <button className="sbtn" onClick={onSubmit}>
+                Submit
+              </button>
             </li>
           </ul>
         </form>
