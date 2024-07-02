@@ -166,7 +166,7 @@ export default function TopArea() {
             </li>
             <li>
               <Link to="/login">LOGIN</Link>
-            </li>
+            </li> 
           </ul>
         </nav>
       </header>

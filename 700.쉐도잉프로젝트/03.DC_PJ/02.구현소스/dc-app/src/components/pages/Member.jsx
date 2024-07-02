@@ -1,5 +1,7 @@
+/////회원가입 페이지 컴포넌트
+
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // 로컬스토리지 생성 JS
 import { initData } from "../func/memFn";
@@ -7,7 +9,11 @@ import { initData } from "../func/memFn";
 // 회원가입 CSS 불러오기
 import "../../css/member.scss";
 
-function Member(props) {
+function Member() {
+//라우터 이동 네비게이트
+const goNav = useNavigate();
+//goNav(라우터주소,state변수);
+
   // [ 회원가입 페이지 요구사항 ]
   // 1. 각 입력항목별로 유효성검사를 실행함
   // 2. 상태체크를 통하여 적절한 유효성검사시
@@ -287,6 +293,15 @@ function Member(props) {
       // 6. 로컬스에 반영하기 : 문자화해서 넣어야함!
       localStorage.setItem(
         "mem-data",JSON.stringify(memData));
+
+        //7. 회원가입 환영 메시지 + 로그인 페이지 이동
+        //버튼 텍스트에 환영메시지
+        document.querySelector(".sbtn").innerText = "Thank you for joining us!";
+        //1초후 페이지 이동
+        setTimeout(() => {
+          goNav("/login");
+          //주의: 경로앞에 슬레쉬 안쓰면 현재 멤버 경로 하위로 불러옴..
+        }, 1000);
     } ///////// if /////////
     // 3. 불통과시 /////
     else {
@@ -326,9 +341,7 @@ function Member(props) {
               {
                 //   에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                // 조건추가 : userId가 입력전일때 안보임처리
-                // userId가 입력전엔 false로 리턴됨!
-                userIdError && userId && (
+                userIdError && (
                   <div className="msg">
                     <small
                       style={{
@@ -372,9 +385,7 @@ function Member(props) {
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                // 조건추가 : pwd가 입력전일때 안보임처리
-                // pwd가 입력전엔 false로 리턴됨!
-                pwdError && pwd && (
+                pwdError && (
                   <div className="msg">
                     <small
                       style={{
@@ -400,9 +411,7 @@ function Member(props) {
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                // 조건추가 : chkPwd가 입력전일때 안보임처리
-                // chkPwd가 입력전엔 false로 리턴됨!
-                chkPwdError && chkPwd && (
+                chkPwdError&& (
                   <div className="msg">
                     <small
                       style={{
@@ -428,9 +437,7 @@ function Member(props) {
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                // 조건추가 : userName가 입력전일때 안보임처리
-                // userName가 입력전엔 false로 리턴됨!
-                userNameError && userName && (
+                userNameError&& (
                   <div className="msg">
                     <small
                       style={{
@@ -456,9 +463,7 @@ function Member(props) {
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                // 조건추가 : email가 입력전일때 안보임처리
-                // email가 입력전엔 false로 리턴됨!
-                emailError && email && (
+                emailError && (
                   <div className="msg">
                     <small
                       style={{
