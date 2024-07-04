@@ -1,21 +1,20 @@
 // 로그인 페이지 컴포넌트 - Login.jsx
 import React, { useContext, useEffect, useState } from "react";
+
 // CSS 불러오기 (회원가입과 동일)
 import "../../css/member.scss";
 
 // 로컬 스토리지 셋팅 함수 호출!
 import { initData } from "../func/memFn";
-
 import { dCon } from "../modules/dCon";
-///////////import area
-
 
 function Login(props) {
-
+    // 컨텍스트 사용
     const myCon = useContext(dCon);
     console.log(myCon.loginSts);
 
-    // [ 상태관리변수 ] /////////////
+
+  // [ 상태관리변수 ] /////////////
   // [1] 입력요소 상태변수
   // 1. 아이디변수
   const [userId, setUserId] = useState("");
@@ -119,46 +118,85 @@ function Login(props) {
 
       // 2. 로컬스 변수할당
       let memData = localStorage.getItem("mem-data");
+
       // 3. 로컬스 객체변환
       memData = JSON.parse(memData);
       console.log(memData);
-      // 4. 아이디 존재 여부 검사하기
 
+      // 4. 아이디 존재 여부 검사하기
       let result = memData.find((v) => {
         if (v.uid === userId) return true;
-      }); ////find
-      console.log("결과", result);
+      }); /////// find ///////
+      console.log("결과:", result);
 
-      //4-1 결과값이 없으면 메세지 보이기!
-      if (!result) {
-        //(1) 에러메세지 보이기
+      // 4-1. 결과값이 없으면 메시지 보이기
+      if(!result){
+
+        // (1) 에러메시지 선택하기
         setIdMsg(msgId[1]);
-        //(2) 에러메세지 선택하기
+
+        // (2) 에러메시지 보이기
         setUserIdError(true);
-      } else {
-        //(1) 아이디 에러메시지 숨기기
+
+      } ////////// if ////////
+      // 4-2. 결과값이 있으면 비밀번호검사
+      else{
+        // (1) 아이디 에러메시지 숨기기
         setUserIdError(false);
-        //(2) 비밀번호검사 입력비번==결과비번
-      }
-      if (pwd == result.pwd) {
-        //같을 경우 로그인 성공
-        alert("Login Success!");
+        // (2) 비밀번호 검사 : 입력비번 == 결과비번
+        if(pwd === result.pwd){
+            // 같을 경우 로그인 성공처리
+            // alert("Login Success!");
 
-      } /////if
-      
-      else {
-        //로그인 실패시 메시지 출력!
-        //(1)비밀번호 에러 메시지 선택하기
-        setPwdMsg(msgPwd[1]);
-        //(2)비밀번호 에러메세지 보이기
-        setPwdError(true);
-      } //else
-      //-> 원래 비밀번호는 암호화 되어있으므로
-      //백앤드 비밀번호 검사 모듈로 대부분 검사
+            // ****** [ 로그인 후 셋팅작업 ] ****** //
+            // 1. 로그인한 회원정보를 세션스에 셋팅!
+            // -> 서버 세션을 대신하여 사용함!
+            // -> 결과가 result에 배열로 담김
+            // -> 넣을때는 JSON.stringify()
+            sessionStorage.setItem("minfo",
+            JSON.stringify(result));
 
-      // 배열.find() => 있을경우 레코드 저장
-      // find는 filter와 달리 배열로 저장하지 않음! 값만 저장
-      // 따라서 결과값이 없으면 아무값을 저장하지 않음 -> undefined 리턴
+            // 2. 컨텍스트 API의 로그인상태 업데이트
+            myCon.setLoginSts(
+                sessionStorage.getItem("minfo"));
+            // -> 업데이트된 minfo 세션스값을 넣음!
+
+            // 3. 로그인 환영메시지 셋팅함수 호출
+            myCon.makeMsg(result.unm);
+
+            // 4. 로그인 성공 메시지 버튼에 출력하기
+            document.querySelector(".sbtn").innerText =
+            "넌 로그인 된거야~!";
+
+            // 5. 라우팅 페이지 이동
+            // 1초후 메인 페이지로 이동
+            setTimeout(() => {
+                myCon.goPage("/");
+            }, 1000);
+
+
+
+        } //// if /////
+        // 로그인 실패시 메시지 출력!
+        else{
+            // (1) 비밀번호 에러메시지 선택하기
+            setPwdMsg(msgPwd[1]);
+            // (2) 비밀번호 에러메시지 보이기
+            setPwdError(true);
+        } ////// else //////
+
+
+        // -> 원래 비밀번호는 암호화 되어 있으므로
+        // 백엔드 비밀번호 검사 모듈로 대부분 검사한다!
+
+      } ////// else //////
+
+
+
+      // 배열.find() -> 있을 경우 레코드 저장
+      // find는 filter와 달리 배열로 저장하지 않고
+      // 값만 저장함. 그래서 결과값이 없으면
+      // undefined 를 리턴함!
     } ///////// if /////////
     // 3. 불통과시 /////
     else {
@@ -166,11 +204,11 @@ function Login(props) {
     } //// else ///////////
   }; /////////// onSubmit 함수 //////////
 
-  //화면랜더링 구역 //////////////////////////
-  useEffect(() => {
-    //아이디 입력 포커스
+  // 화면랜더링 구역 /////////
+  useEffect(()=>{
+    // 아이디입력창 포커스
     document.querySelector("#user-id").focus();
-  }, []);
+  },[]);
 
   // 코드 리턴구역 ////////////////////////
   return (
@@ -190,7 +228,7 @@ function Login(props) {
                 onChange={changeUserId}
               />
               {
-                //   에러일 경우 메시지 출력
+                // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
                 userIdError && (
                   <div className="msg">
