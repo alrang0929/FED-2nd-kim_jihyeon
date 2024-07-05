@@ -1,40 +1,79 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { addComma } from "../../js/func/common_fn";
+
 import $ from "jquery";
 
 function ItemDetail({ cat, ginfo, dt, setGinfo }) {
   // cat - 카테고리
   // ginfo - 상품정보
-  // dt - 상품 데이터
-  // setGinfo - ginfo값 변경 메서드
+  // dt - 상품데이터
+  // setGinfo - ginfo값 변경메서드
+  console.log(cat, ginfo);
 
-  console.log(cat, ginfo,);
-
-  // 배열 생성 테스트
-  //1. 배열변수 = [] -> 배열 리터널(리터널: 확정된 코드를 화면에 뿌리는 것)
-  //-> 생성된 배열을 for문을 돌려 값을 할당함
-  //2. 배열객체로 만들기
-  //-> new Array(개수) => 개수만큼 배열생성(빈배열)
-  // -> new 생략하여 인스턴스 생성 가능! (정적 객체)
-  // ㄴ Array(개수)
-  // 그러나 빈 배열은 map을 돌릴 수 없음! ㅠ=ㅠ
-  //3. 배열에 값을 넣어주는 매서드 =>>> 배열.fill(값, 시작번호,끝번호)
-  //fill(값) : 모든배열 다 같은 값 채우기
-  //fill(값, 시작번호) : 0부터 시작하는 번호중 특정 배열부터 끝까지 채움
-  //fill(값,시작번호,끝번호) : 시작번호부터 끝 번호까찌 다 채움
-  // Array(10).fill()
+  // [ 배열 생성 테스트 ]
+  // 1. 배열변수 = [] -> 배열리터럴
+  // -> 생성된 배열을 for문을 돌려서 값을 할당함
+  // 2. 배열객체로 만들기
+  // -> new Array(개수) -> 개수만큼 배열생성(빈배열)
+  // -> new생략하여 인스턴스 생성가능! (정적객체)
+  // -> Array(개수) -> 그.러.나... 빈배열은 map() 못돌림!ㅠ.ㅠ
+  // 3. 배열에 값을 넣어주는 메서드
+  // ->>> 배열.fill(값,시작번호,끝번호)
+  // fill(값) : 모든배열 다 같은 값 채우기
+  // fill(값,시작번호) : 0부터 시작하는 번호중 특정배열부터 끝까지 채움
+  // fill(값,시작번호,끝번호) : 시작번호부터 끝번호까지 채움
   // console.log(Array(10));
   // console.log(Array(10).fill(8));
-  // console.log(Array(10).fill(7,2));
-  // console.log(Array(10).fill(7,2,5));
+  // console.log(Array(10).fill(7, 2));
+  // console.log(Array(10).fill(7, 2, 5));
 
+  ////화면 렌더링 구역: 한번만 실행 /////////////////////////////////
+  useEffect(() => {
+    //[수량증가 버튼 클릭시 증감기능 구현]
+
+    //1. 대상요소////////////
+    //(1)숫자출력 input
+    const sum = $("#sum");
+    //(2)수량증가 이미지 버튼
+    const numBtn = $(".chg_num img");
+    // console.log(sum, numBtn);
+    //(3) 총합계 요소
+    const total = $("#total");
+
+    //1. 수량증잠 이벤트 함수
+    numBtn.on("click", (e) => {
+      //(1) 이미지 순번(구분하려고)
+      let seq = $(e.target).index();
+      // console.log("버튼순번",seq);
+      // 0 = 증가, 1 = 감소
+      // (2) 기존 숫자값 읽기
+      let num = Number(sum.val());
+      // console.log("현재숫자", num);
+
+      //(3)증감 반영하기(0= false, 1= true)
+      sum.val(!seq ? ++num : num == 1 ? 1 : --num);
+      // seq가 0이냐? 그럼 증가! : num이 1이냐? 1로 두고(최소값 고정), 1이 아님? 그럼 뺴라
+
+      //(4) 총합계 반영하기
+      //원가격은 컴포넌트 전달변수: ginfo[3]
+      total.text(addComma(ginfo[3] * num)+"원");
+      console.log(ginfo[3]);
+
+      //증감기호가 변수 앞에 있어야 먼저 증감하고 할당함!
+    }); ////click
+    //이벤트 제거: numBtn.off("click");
+  }, []);
+
+  ////코드 리턴구역 ////////////////////////////////
   return (
     <>
       <a
         href="#"
         className="cbtn"
         onClick={(e) => {
+          // 기본이동막기
           e.preventDefault();
+          // 창닫기
           $(".bgbx").hide();
         }}
       >
@@ -42,47 +81,60 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
       </a>
       <div id="imbx">
         <div className="inx">
-          {/* 선택한 상품 큰이미지 */}
           <section className="gimg">
+            {/* 선택한 상품 큰이미지 */}
             <img
               src={
                 process.env.PUBLIC_URL + `/images/goods/${cat}/${ginfo[0]}.png`
               }
               alt="큰 이미지"
             />
-            {/* 
-              [작은 상품 이미지] 
-              - 본 상품을 제외한 5개의 상품 리스트 생성 + 클릭시 본 화면에 상품 변경 노출, 
-              단! 같은 카테고리 상품 상위 5개
-
-              =>  배열을 임의로 만들고 값도 임의로 넣어 map을 사용하여 코드 만들어보자
-
-              */}
+            {/* [작은 상품이미지]
+            - 본 상품을 제외한 5개의 상품이 나열되고
+            클릭시 본 화면에 상품을 변경해 준다!
+            단, 같은 카테고리 상품 상위 5개임 
+            -> 배열을 임의로 만들고 값도 임의로 넣고
+            map을 사용하여 코드를 만들어보자!!!
+            */}
             <div className="small">
+              {}
               {Array(5)
-                .fill(``)
+                .fill("")
                 .map((v, i) => {
+                  //한줄리스트와 같은 번호면 6번 나오게 함
+                  // 1~5까지니까!
+                  let num = ginfo[0].substr(1) <= i + 1 ? i + 5 : i + 1;
+                  //현재상품번호 1~5중 같은게 있으면 6번!
+                  //아니면 기존번호!
+                  //substr(시작순번, 개수) => 개수 없으면 순번부터 전부 가져옴
+                  console.log("검사할 번호", ginfo[0].substr(1));
+                  console.log("변경 번호", num);
+
                   return (
-                    <a 
-                    href="#" 
-                    key={i}
-                    onClick={(e)=>{
-                      e.preventDefault();
-                      //선택 데이터 찾기
-                      //-> cat항목값 + gInfo[0]
-                      let res = dt.find(v=>{
-                        if(v.cat == cat && v.gInfo[0] == "m"+(i+1))
-                        return true;
-                      });////find
-                      // console.log(res)
-                      //상품상세모듈 전달 상태변수 변경
-                      setGinfo(res.ginfo);
-                    }}
+                    <a
+                      href="#"
+                      key={i}
+                      onClick={(e) => {
+                        // 기본이동막기
+                        e.preventDefault();
+                        // 선택 데이터 찾기
+                        // -> cat항목값 + ginfo[0]항목
+                        let res = dt.find((v) => {
+                          if (v.cat == cat && v.ginfo[0] == "m" + num)
+                            return true;
+                        }); //// find /////
+                        console.log(res);
+                        // 상품상세모듈 전달 상태변수 변경
+                        //find에서 받은 값은? 객체값
+                        //그중 gInfo 속성값만 필요
+                        setGinfo(res.ginfo);
+                        //카테고리값은 바꿀필요 X
+                      }}
                     >
                       <img
                         src={
                           process.env.PUBLIC_URL +
-                          `/images/goods/${cat}/m${i+1}.png`
+                          `/images/goods/${cat}/m${num}.png`
                         }
                         alt="썸네일 이미지"
                       />
