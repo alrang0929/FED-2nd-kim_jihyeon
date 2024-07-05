@@ -5,6 +5,7 @@ import $ from "jquery";
 
 // 상품에 오버시 상품정보를 보여주는 함수 /////
 const showInfo = (e,selData) => {
+  // console.log(selData);
   e.preventDefault();
   // 대상
   const tg = $(e.currentTarget);
@@ -52,7 +53,7 @@ const removeInfo = (e) => {
 // [ 신상품 리스트 이동함수 ] //////
 const flowList = (ele,lpos,callSts) => {
   // ele-움직일대상
-  // console.log(ele);
+  console.log(callSts.current);
   // 대상의 left값을 1씩 감소함
   lpos.current--;
 
@@ -68,6 +69,7 @@ const flowList = (ele,lpos,callSts) => {
   ele.css({ left: lpos.current + "px" });
 
   // 재귀호출
+  console.log("재귀:",callSts.current);
   if (callSts.current) 
   setTimeout(() => flowList(ele,lpos,callSts), 40);
 }; ////////// flowList ////////////

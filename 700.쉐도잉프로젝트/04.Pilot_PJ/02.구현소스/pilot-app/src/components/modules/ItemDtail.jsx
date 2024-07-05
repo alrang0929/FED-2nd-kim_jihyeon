@@ -1,16 +1,33 @@
-//파일럿pj 아이템 상세보기 모듈
 import React from "react";
-import $ from "jquery";
 import { addComma } from "../../js/func/common_fn";
-import itemListData from "../../js/data/item_list";
-//////import area////////////////////////////////////
+import $ from "jquery";
 
-function ItemDtail({ cat, ginfo }) {
-  //cat: 카테고리명
-  //ginfo: 상품 상세정보
-  console.log(cat, ginfo);
+function ItemDetail({ cat, ginfo, dt, setGinfo }) {
+  // cat - 카테고리
+  // ginfo - 상품정보
+  // dt - 상품 데이터
+  // setGinfo - ginfo값 변경 메서드
 
-  //////코드 리턴구역/////////////////////////////////////////////
+  console.log(cat, ginfo,);
+
+  // 배열 생성 테스트
+  //1. 배열변수 = [] -> 배열 리터널(리터널: 확정된 코드를 화면에 뿌리는 것)
+  //-> 생성된 배열을 for문을 돌려 값을 할당함
+  //2. 배열객체로 만들기
+  //-> new Array(개수) => 개수만큼 배열생성(빈배열)
+  // -> new 생략하여 인스턴스 생성 가능! (정적 객체)
+  // ㄴ Array(개수)
+  // 그러나 빈 배열은 map을 돌릴 수 없음! ㅠ=ㅠ
+  //3. 배열에 값을 넣어주는 매서드 =>>> 배열.fill(값, 시작번호,끝번호)
+  //fill(값) : 모든배열 다 같은 값 채우기
+  //fill(값, 시작번호) : 0부터 시작하는 번호중 특정 배열부터 끝까지 채움
+  //fill(값,시작번호,끝번호) : 시작번호부터 끝 번호까찌 다 채움
+  // Array(10).fill()
+  // console.log(Array(10));
+  // console.log(Array(10).fill(8));
+  // console.log(Array(10).fill(7,2));
+  // console.log(Array(10).fill(7,2,5));
+
   return (
     <>
       <a
@@ -25,24 +42,57 @@ function ItemDtail({ cat, ginfo }) {
       </a>
       <div id="imbx">
         <div className="inx">
-          <section className="gim/g">
+          {/* 선택한 상품 큰이미지 */}
+          <section className="gimg">
             <img
-              src={process.env.PUBLIC_URL + "/images/goods/men/m1.png"}
+              src={
+                process.env.PUBLIC_URL + `/images/goods/${cat}/${ginfo[0]}.png`
+              }
               alt="큰 이미지"
             />
+            {/* 
+              [작은 상품 이미지] 
+              - 본 상품을 제외한 5개의 상품 리스트 생성 + 클릭시 본 화면에 상품 변경 노출, 
+              단! 같은 카테고리 상품 상위 5개
+
+              =>  배열을 임의로 만들고 값도 임의로 넣어 map을 사용하여 코드 만들어보자
+
+              */}
             <div className="small">
-              <a href="#">
-                <img
-                  src={process.env.PUBLIC_URL + `/images/goods/${itemListData[0].
-                    cat}/${itemListData[0].ginfo[0]}.png`}
-                  alt="썸네일 이미지"
-                />
-             
-              </a>
+              {Array(5)
+                .fill(``)
+                .map((v, i) => {
+                  return (
+                    <a 
+                    href="#" 
+                    key={i}
+                    onClick={(e)=>{
+                      e.preventDefault();
+                      //선택 데이터 찾기
+                      //-> cat항목값 + gInfo[0]
+                      let res = dt.find(v=>{
+                        if(v.cat == cat && v.gInfo[0] == "m"+(i+1))
+                        return true;
+                      });////find
+                      // console.log(res)
+                      //상품상세모듈 전달 상태변수 변경
+                      setGinfo(res.ginfo);
+                    }}
+                    >
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          `/images/goods/${cat}/m${i+1}.png`
+                        }
+                        alt="썸네일 이미지"
+                      />
+                    </a>
+                  );
+                })}
             </div>
           </section>
           <section className="gdesc scbar">
-            <h1>HOME &gt; {cat}</h1>
+            <h1>HOME &gt; {cat.toUpperCase()}</h1>
             <div>
               <ol>
                 <li>
@@ -135,7 +185,7 @@ function ItemDtail({ cat, ginfo }) {
                 </li>
                 <li className="tot">
                   <span>총합계</span>
-                  <span id="total">{addComma(99000)}원</span>
+                  <span id="total">{addComma(ginfo[3])}원</span>
                 </li>
               </ol>
             </div>
@@ -151,4 +201,4 @@ function ItemDtail({ cat, ginfo }) {
   );
 }
 
-export default ItemDtail;
+export default ItemDetail;
