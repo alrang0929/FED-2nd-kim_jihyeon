@@ -1,33 +1,34 @@
 // Pilot PJ 전체메뉴 컴포넌트
 
-//컨텍스트 API호출
+// 컨텍스트 API호출
 import { useContext } from "react";
 import { pCon } from "./pCon";
-///////////////import area
 
 export function TotalMenu() {
-  //서브페이지 이동 함수
-  const goSub = (e) => {
-    //1.기본이동막기
-    e.preventDefault();
-    //2. 이동할 서브페이지명: a요소의 글자를 소문자로
-    let pgName = e.target.innerText.toLowerCase();
-    // console.log("서브로 고고씽~!",pgName);
-    //3. 서브페이지 이동 위해 상태변수 업데이트
-    myCon.setPgName(pgName);
-    //4. 이동 후 햄버거 버튼 클릭이벤트 발생하여 전체메뉴 닫기
-    document.querySelector(".ham").click();
-  }; //////goSub
-
-  //컨텍스트 사용하기
+  // 컨텍스트 사용하기
   const myCon = useContext(pCon);
+
+  // 서브페이지 이동함수 ///
+  const goSub = (e) => {
+    // 1.기본이동막기
+    e.preventDefault();
+    // 2.이동할 서브 페이지명 : a요소의 글자를 소문자로!
+    let pgName = e.target.innerText.toLowerCase();
+    // -> 아이템리스트 페이지는 중간 공백은 데쉬로 변경
+    pgName = pgName.replace(" ","-");
+    console.log("이동할 페이지:", pgName);
+    // 3.서브페이지 이동위해 상태변수업데이트
+    myCon.setPgName(pgName);
+    // 4.햄버거버튼 클릭이벤트 발생하여 전체메뉴 닫기
+    document.querySelector(".ham").click();
+  }; ///////// goSub ///////////////
 
   // 코드 리턴 //////////////////////
   return (
     <>
       <div className="mbox">
         <video
-          src="./images/disc2018.mp4"
+          src={process.env.PUBLIC_URL+`/images/disc2018.mp4`}
           loop="loop"
           muted="muted"
           className="bgm"
@@ -54,7 +55,9 @@ export function TotalMenu() {
           </dl>
           <dl>
             <dt>
-              <a href="#" onClick={goSub}>WOMEN</a>
+              <a href="#" onClick={goSub}>
+                WOMEN
+              </a>
             </dt>
             <dd>
               <a href="#">T-SHIRT</a>
@@ -71,7 +74,9 @@ export function TotalMenu() {
           </dl>
           <dl>
             <dt>
-              <a href="#">STYLE</a>
+              <a href="#" onClick={goSub}>
+                STYLE
+              </a>
             </dt>
             <dd>
               <a href="#">COLLECTION</a>
@@ -85,6 +90,14 @@ export function TotalMenu() {
             <dd>
               <a href="#">MAIN ITEM</a>
             </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="#" onClick={goSub}>
+                ITEM LIST
+              </a>
+            </dt>
+            <dd></dd>
           </dl>
         </nav>
       </div>

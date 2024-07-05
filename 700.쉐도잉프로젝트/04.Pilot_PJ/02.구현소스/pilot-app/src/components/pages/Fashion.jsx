@@ -11,12 +11,8 @@ import $ from "jquery";
 
 // CSS불러오기
 import "../../css/fashion.scss";
-
-//module
 import { SwiperBan } from "../plugin/SwiperBan";
 import SinSang from "../modules/SinSang";
-
-////////////////import area////////////////////////////////////////////////////////////////////////////
 
 function Fashion({subCat}) {
     // subCat - 서브 카테고리명
@@ -79,8 +75,10 @@ function Fashion({subCat}) {
     }); ////////// click ////////////
   }, []);
 
-    // 후크 상태변수
-    const [item, setItem] = useState("m1");
+  
+
+  // 후크 상태변수
+  const [item, setItem] = useState("m1");
 
   // 신상컴포넌트에서 상세컴포넌트로 값을 전하기 위한
   // 상태변수를 셋팅하여 함수로 이것을 변경하게 해준다!

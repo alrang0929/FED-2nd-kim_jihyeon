@@ -14,7 +14,6 @@ import * as wFn from "../../js/func/auto_wheel";
 function MainCont(props) {
   // 화면 랜더링 실행구역 ///////
   useEffect(() => {
-
     console.log("useEffect");
 
     // document / body / window 이 세가지는
@@ -28,7 +27,7 @@ function MainCont(props) {
     // 3. 등장요소 CSS초기화 함수호출
     wFn.initSet();
 
-    // 4. 페이지 번호 초기화 함수호출
+    // 4. 페이지번호 초기화 함수호출
     wFn.zeroPno();
 
     // 컴포넌트 소멸시 이벤트삭제하기
