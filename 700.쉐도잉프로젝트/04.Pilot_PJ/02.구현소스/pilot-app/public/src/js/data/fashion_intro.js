@@ -46,7 +46,7 @@ export const fsData = {
       },
       {
         isrc: [
-         "./images/sub/women/04.disc.png",
+          "/images/sub/women/04.disc.png",
           "/images/sub/women/05.disc.png",
         ],
         ialt: ["여자스타일1", "여자스타일2"],
@@ -65,7 +65,7 @@ export const fsData = {
       },
       {
         isrc: [
-         "/images/sub/style/04.disc.png",
+          "/images/sub/style/04.disc.png",
           "/images/sub/style/05.disc.png",
         ],
         ialt: ["스타일1", "스타일2"],

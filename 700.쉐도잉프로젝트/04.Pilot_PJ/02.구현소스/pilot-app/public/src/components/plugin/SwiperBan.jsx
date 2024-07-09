@@ -15,7 +15,6 @@ import "./css/swiper_ban.scss";
 // (여기서는 페이지네이션,네비게이션,자동넘김)
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
-////////////////////import area
 
 export function SwiperBan({ cat }) {
   // cat - 카테고리명
@@ -24,7 +23,7 @@ export function SwiperBan({ cat }) {
   // 스와이퍼 객체를 담기위한 참조변수
   const swpObj = useRef(null);
 
-  //스와이프 슬라이드의 동영상 변수
+  // 스와이퍼 슬라이드의 동영상변수
   let mvEle;
 
   // 화면 랜더링구역 ///////////
@@ -88,52 +87,55 @@ export function SwiperBan({ cat }) {
     return temp;
   }; ///////////// makeList 함수 //////////
 
-  //소멸자(죽기전에 한마디..) 코드//////////////////////////////////////////////////
-  //화면 랜더링 구역: 한번만
-  useEffect(() => {
-    //스와이퍼 객체 : ref로 외부에 노출한 스와이퍼 객체
+  // 화면랜더링 구역 : 한번만 /////////////
+  useEffect(()=>{
+
+    // 스와이퍼 객체 : ref로 외부에 노출한 스와이퍼객체
     let objSwp = swpObj.current.swiper;
-    
-    // 화면 절반크기 기준값
+
+    // 화면절반크기 기준값
     const winCta = window.innerHeight / 2;
-    //스크롤시 호출 함수
+    // 스크롤시 호출함수
     const scrollFn = () => {
-      if (window.scrollY > winCta) {
-        // 영상플레이시 자동넘김 끄기
-        objSwp.autoplay.stop();
-        objSwp.autoplay.running = false;
-        // 영상멈추기
-        mvEle.pause();
-      } else {
-        // 자동넘김 시작
-        objSwp.autoplay.start();
-        // 자동넘김 속성 true전환!
-        objSwp.autoplay.running = true;
-        // 영상재생
-        mvEle.play();
-      }
-    };
-    
-    //스크롤 이동시 기준값에 따라 동영상 재생/멈춤
+        if (window.scrollY > winCta) {
+            // 영상플레이시 자동넘김 끄기
+            objSwp.autoplay.stop();
+            objSwp.autoplay.running = false;
+            // 영상멈추기
+            mvEle.pause();
+        } else {
+            // 자동넘김 시작
+            objSwp.autoplay.start();
+            // 자동넘김 속성 true전환!
+            objSwp.autoplay.running = true;
+            // 영상재생
+            mvEle.play();
+        }
+    }; ////////////// scrollFn ////////////
+
+    // 스크롤 이동시 기준값에 따라 동영상 재생/멈춤
+    // 단, 동영상객체가 있을때만 걸어준다!
+    if(mvEle)
     window.addEventListener("scroll", scrollFn);
-    
-    //소멸자(죽기전에 한마디..) 코드//////////////////////////////////////////////////
-    return () => {
-      //동영상 변수가 null이 아닐 때만 이벤트 삭제
-      //스크롤 이동시 기준값에 따라 동영상 재생/멈춤
-      //단, 동영상 객체가 있을 때 만 실행
-      if (mvEle)
-        //동영상 시간 업데이트 이벤트 설정제거
-        mvEle.removeEventListener("timeupdate", actionVideo);
 
-      //스크롤 이벤트 이벤트 설정제거
-      window.removeEventListener("scroll", scrollFn);
-      console.log("난 스와이퍼 소멸자");
-    }; //return
-  }, []); /////useEffect
 
-  //동영상 재생시 작동 함수/////////////////
+    // [ 소멸자 만들기 ] ////////////
+    return(()=>{
+      // 동영상변수가 null이 아닐때만 이벤트삭제
+      if(mvEle){
+        // 동영상 시간업데이트 이벤트 설정제거
+        mvEle.removeEventListener("timeupdate", actionVideo); 
+        // 스크롤 이벤트 설정제거
+        window.removeEventListener("scroll", scrollFn);
+      } /// if /////
+
+      console.log("난 스와이퍼 소멸자!!!");
+    });
+  },[]); /////// useEffect //////////
+
+  // 동영상 재생시 작동 함수 ////////
   const actionVideo = (e) => {
+    // 스와이퍼 객체
     let swp = swpObj.current.swiper;
     // 비디오가 멈추면 멈춤속성값이 true임
     // 멈춤속성 -> paused
@@ -147,7 +149,9 @@ export function SwiperBan({ cat }) {
       // 자동넘김 속성 true전환!
       swp.autoplay.running = true;
     } ///// if ////////
-  }; ////////////actionVideo///////////
+  }; ///////// actionVideo //////////
+
+
 
   // 리턴코드 ///////////////////
   return (
@@ -157,7 +161,7 @@ export function SwiperBan({ cat }) {
         /* ref 속성에 useRef 할당변수를 넣어서 
         외부에 연결함 */
         onInit={(swp) => {
-          // console.log("스와이퍼 처음셋팅!", swp);
+          console.log("스와이퍼 처음셋팅!", swp);
         }}
         slidesPerView={1}
         spaceBetween={0}
@@ -190,7 +194,7 @@ export function SwiperBan({ cat }) {
             return;
           } ///// if ////
 
-          // 선택 동영상: 상단 전역변수로 선언 //
+          // 선택 동영상 : 상단 전역변수로 선언 //
           mvEle = document.querySelector(`.${cat}-vid`);
 
           // 현재 진짜순번
@@ -208,19 +212,18 @@ export function SwiperBan({ cat }) {
 
             // 비디오가 재생시 발생이벤트 체크
             // timeupdate : 비디오재생 이벤트
-            mvEle.addEventListener("timeupdate", actionVideo);
+            mvEle.addEventListener("timeupdate", actionVideo); 
             ///////// timeupdate /////////
           } /// if ///
           // 기타 페이지는 영상멈춤
           else {
+            // mvEle.pause(); // -> 에러남
             let playPromise = mvEle.play();
             if (playPromise !== undefined)
               playPromise.then(() => mvEle.pause());
-
-            //then() << ~하고 난 후에: 프로미스 객체를 만든 후 사용
-            //play() 메서드가 기본적으로 promise를 구성하고 있음 => then() 사용 가능
-
-            // mvEle.pause(); => play()와 충돌남
+            // 원래 then() 메서드는 Promise객체를 만들고 쓰는것!
+            // 플레이 메서드가 기본적으로 프라미스를 구성하고 있음!
+            // 그래서 then()메서드 사용가능!
           } /// else ///
         }}
       >

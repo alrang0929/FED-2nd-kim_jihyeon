@@ -70,7 +70,7 @@ function FashionIntro({ catName, subCat, opt }) {
           catName == "style" && (
             <li className="imgc">
               <img 
-                src={selData.isrc[1]} 
+                src={process.env.PUBLIC_URL+selData.isrc[1]} 
                 alt={selData.ialt[1]} />
             </li>
           )
