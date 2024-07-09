@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-
-//라우터 호출
 import Character from "./components/pages/Character";
 import Movies from "./components/pages/Movies";
 import Series from "./components/pages/Series";
@@ -13,14 +11,13 @@ import News from "./components/pages/News";
 import Main from "./components/pages/Main";
 import Comics from "./components/pages/Comics";
 import Board from "./components/pages/Board";
-import Member from "./components/pages/Member";
-import Login from "./components/pages/Login";
-
-import CatDetail from "./components/pages/CatDetail";
-import SearchPage from "./components/pages/SearchPage";
 
 // 전체 공통 CSS 불러오기
 import "../src/css/index.scss";
+import CatDetail from "./components/pages/CatDetail";
+import SearchPage from "./components/pages/SearchPage";
+import Member from "./components/pages/Member";
+import Login from "./components/pages/Login";
 
 /********************************************* 
     [ 리액트 라우터 ]

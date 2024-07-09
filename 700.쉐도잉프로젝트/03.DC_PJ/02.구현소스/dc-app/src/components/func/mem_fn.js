@@ -21,22 +21,24 @@ const clearData = () => {
       localStorage.setItem(
         "mem-data",
         `
-          [{
-                  "idx": "1",
-                  "uid":"admin",
-                  "pwd":"1111",
-                  "unm":"Administrator",
-                  "eml":"admin@dc.com"
-              },
-              {
-                  "idx": "2",
-                  "uid":"tomtom",
-                  "pwd":"1111",
-                  "unm":"Tom",
-                  "eml":"tom@gmail.com"
-              }
-            ]
-              `)
+        [
+            {
+                "idx": "1",
+                "uid":"admin",
+                "pwd":"1111",
+                "unm":"Administrator",
+                "eml":"admin@dc.com"
+            },
+            {
+                "idx": "2",
+                "uid":"tomtom",
+                "pwd":"1111",
+                "unm":"Tom",
+                "eml":"tom@gmail.com"
+            }
+        ]
+    `
+      );
     }
   }; ///////////// initData /////////////////
   

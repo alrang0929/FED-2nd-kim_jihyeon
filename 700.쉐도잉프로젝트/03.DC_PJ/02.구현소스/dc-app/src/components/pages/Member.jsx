@@ -1,18 +1,17 @@
-/////회원가입 페이지 컴포넌트
-
+// 회원가입 페이지 컴포넌트 - Member.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // 로컬스토리지 생성 JS
-import { initData } from "../func/memFn";
+import { initData } from "../func/mem_fn";
 
 // 회원가입 CSS 불러오기
 import "../../css/member.scss";
 
 function Member() {
-//라우터 이동 네비게이트
-const goNav = useNavigate();
-//goNav(라우터주소,state변수);
+  // 라우터 이동 네비게이트
+  const goNav = useNavigate();
+  // goNav(라이터주소,state변수)
 
   // [ 회원가입 페이지 요구사항 ]
   // 1. 각 입력항목별로 유효성검사를 실행함
@@ -274,13 +273,13 @@ const goNav = useNavigate();
       memData = JSON.parse(memData);
 
       // 최대수를 위한 배열값 뽑기 (idx항목)
-      let temp = memData.map(v=>v.idx);
+      let temp = memData.map((v) => v.idx);
       // 다음 번호는 항상 최대수+1이다!
-      console.log("다음번호:",Math.max(...temp)+1);
+      console.log("다음번호:", Math.max(...temp) + 1);
 
       // 4. 새로운 데이터 구성하기
       let newData = {
-        idx: Math.max(...temp)+1,
+        idx: Math.max(...temp) + 1,
         uid: userId,
         pwd: pwd,
         unm: userName,
@@ -291,17 +290,20 @@ const goNav = useNavigate();
       memData.push(newData);
 
       // 6. 로컬스에 반영하기 : 문자화해서 넣어야함!
-      localStorage.setItem(
-        "mem-data",JSON.stringify(memData));
+      localStorage.setItem("mem-data", 
+      JSON.stringify(memData));
 
-        //7. 회원가입 환영 메시지 + 로그인 페이지 이동
-        //버튼 텍스트에 환영메시지
-        document.querySelector(".sbtn").innerText = "Thank you for joining us!";
-        //1초후 페이지 이동
-        setTimeout(() => {
-          goNav("/login");
-          //주의: 경로앞에 슬레쉬 안쓰면 현재 멤버 경로 하위로 불러옴..
-        }, 1000);
+      // 7. 회원가입 환영메시지 + 로그인 페이지 이동
+      // 버튼 텍스트에 환영메시지
+      document.querySelector(".sbtn").innerText = 
+      "Thank you for joining us!";
+      // 1초후 페이지 이동 : 라우터 Navigate로 이동함
+      setTimeout(()=>{
+        goNav("/login");
+        // 주의: 경로앞에 슬래쉬(/) 안쓰면
+        // 현재 Memeber 경로 하위 경로를 불러옴
+      },1000);
+      
     } ///////// if /////////
     // 3. 불통과시 /////
     else {
@@ -310,16 +312,15 @@ const goNav = useNavigate();
   }; /////////// onSubmit 함수 //////////
 
   // 최대수 테스트
-//   const arr = [{"idx":"100"}, {"idx":"77"}, {"idx":"3"}, {"idx":"44"}, {"idx":"5"}];
-//   const newArr = arr.map(v=>v.idx);
-//   // ...배열변수 -> 스프레드 연산자로 배열값만 가져온다!
-//   const maxValue = Math.max(...newArr);
-//   const minValue = Math.min(...newArr);
-// //   const maxValue = Math.max("77","55","33");
-//   console.log(newArr);
-//   console.log("최대수:",maxValue);
-//   console.log("최소수:",minValue);
-
+  //   const arr = [{"idx":"100"}, {"idx":"77"}, {"idx":"3"}, {"idx":"44"}, {"idx":"5"}];
+  //   const newArr = arr.map(v=>v.idx);
+  //   // ...배열변수 -> 스프레드 연산자로 배열값만 가져온다!
+  //   const maxValue = Math.max(...newArr);
+  //   const minValue = Math.min(...newArr);
+  // //   const maxValue = Math.max("77","55","33");
+  //   console.log(newArr);
+  //   console.log("최대수:",maxValue);
+  //   console.log("최소수:",minValue);
 
   // 코드리턴 구역 //////////////////
   return (
@@ -335,6 +336,7 @@ const goNav = useNavigate();
                 type="text"
                 maxLength="20"
                 placeholder="Please enter your ID"
+                // defaultValue="ㅎㅎㅎ"
                 value={userId}
                 onChange={changeUserId}
               />
@@ -411,7 +413,7 @@ const goNav = useNavigate();
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                chkPwdError&& (
+                chkPwdError && (
                   <div className="msg">
                     <small
                       style={{
@@ -437,7 +439,7 @@ const goNav = useNavigate();
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
-                userNameError&& (
+                userNameError && (
                   <div className="msg">
                     <small
                       style={{

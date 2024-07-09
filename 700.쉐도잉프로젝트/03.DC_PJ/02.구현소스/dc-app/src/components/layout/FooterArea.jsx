@@ -8,13 +8,11 @@ import { bmData } from "../data/bmenu";
 // 하단영역 CSS 불러오기
 import "../../css/footer_area.scss";
 import { memo } from "react";
-//////////////import area
 
-//React.memo()를 사용한 컴포넌트 메모이제이션
-//->콤포넌트를 할당형으로 변경한다
+// React.memo()를 사용한 컴포넌트 메모이제이션
+// -> 컴포넌트를 할당형을 변경한다!
 export const FooterArea = memo(() => {
-  console.log("하단영역");
-
+  console.log("하단영역!!!");
   //// 코드 리턴구역 //////////////
   return (
     <footer className="info">
