@@ -7,6 +7,7 @@ import VidIntro from "../modules/VidIntro";
 import VidSwipe from "../modules/VidSwipe";
 
 export default function Main() {
+  
   //// 코드 리턴구역 //////////////
   return (
     <>
