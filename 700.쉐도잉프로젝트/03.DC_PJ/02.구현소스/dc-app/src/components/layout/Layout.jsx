@@ -13,6 +13,7 @@ export default function Layout() {
   // [ 상태관리 변수 ] //////////////
   // 1. 로그인 상태관리변수
   const [loginSts, setLoginSts] = useState(sessionStorage.getItem("minfo"));
+  console.log("minfo 뭐임",minfo);
 
   // 상태관리변수 변경함수도 전달시 콜백처리해야 메모이제이션됨!
   // const 콜백처리함수 = useCallback((x)=>{setLoginSts(x)},[loginSts])
