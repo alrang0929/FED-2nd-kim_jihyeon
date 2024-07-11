@@ -1,7 +1,5 @@
 // 오피니언 페이지 컴포넌트 ///
 import { Fragment, useContext, useRef, useState } from "react";
-//module
-import { dCon } from "../modules/dCon";
 
 // 사용자 기본정보 생성 함수
 import { initData } from "../func/mem_fn";
@@ -20,15 +18,14 @@ import "../../css/board_file.scss";
 
 // 로컬스토리지 확인 JS
 import { initBoardData } from "../func/board_fn";
-
-///////////////////////importarea///////////////////////////////////
+import { dCon } from "../modules/dCon";
 
 export default function Board() {
-  //컨텍스트 사용하기
+  // 컨텍스트 사용하기
   const myCon = useContext(dCon);
-  //전역로그인 상태 변수 확인하기(변수할당)
+  // 전역 로그인 상태 변수 확인(변수할당!)
   const sts = myCon.loginSts;
-  // console.log("로그인 상태:", sts);
+  console.log("로그인상태:", sts);
 
   // 로컬스토리지 게시판 데이터 정보확인! //
   initBoardData();
@@ -49,7 +46,7 @@ export default function Board() {
   // [ 참조변수 ] ///
   // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로!
   const totalCount = useRef(baseData.length);
-  //console.log("전체개수:", totalCount);
+  // console.log("전체개수:", totalCount);
   // [2] 선택 데이터 저장
   const selRecord = useRef(null);
   // -> 특정리스트 글 제목 클릭시 데이터 저장함!
@@ -62,7 +59,7 @@ export default function Board() {
         기능 : 페이지별 리스트를 생성하여 바인딩함
   **********************************************/
   const bindList = () => {
-    // //console.log(baseData);
+    // // console.log(baseData);
 
     // 1. 전체 원본데이터 선택
     let orgData = baseData;
@@ -82,20 +79,20 @@ export default function Board() {
     let sNum = (pageNum - 1) * unitSize;
     // 끝번호 = 페이지번호*단위수
     let eNum = pageNum * unitSize;
-    //console.log("첫번호:", sNum, "/끝번호:", eNum);
+    // console.log("첫번호:", sNum, "/끝번호:", eNum);
     // 결과배열
     const selData = [];
 
     // for문으로 배열 만들기
     for (let i = sNum; i < eNum; i++) {
-      //console.log(i);
+      // console.log(i);
       // 끝번호가 전체 개수보다 크면 나가라!
       if (i >= totalCount.current) break;
       // 대상배열값 추가
       selData.push(orgData[i]);
     } ///// for //////
 
-    //console.log("일부데이터:", selData);
+    // console.log("일부데이터:", selData);
 
     return selData.map((v, i) => (
       <tr key={i}>
@@ -139,7 +136,7 @@ export default function Board() {
       pagingCount++;
     }
 
-    //console.log(
+    // console.log(
     //   "페이징개수:",
     //   pagingCount,
     //   "나머지개수:",
@@ -184,7 +181,7 @@ export default function Board() {
   const clickButton = (e) => {
     // 버튼글자 읽기
     let btnText = e.target.innerText;
-    //console.log(btnText);
+    // console.log(btnText);
     // 버튼별 분기
     switch (btnText) {
       // 글쓰기 모드로 변경
@@ -195,79 +192,80 @@ export default function Board() {
       case "List":
         setMode("L");
         break;
-      // 서브밋일 경우 함수호출
+      // 서브밋일 경우 함수호출!
       case "Submit":
         submitFn();
-        // console.log("서브밋",mode);
         break;
     }
   }; ////////// clickButton //////////
 
-  //서브밋 처리함수 /////////////////////////
+  // 서브밋 처리함수 //////////////
   const submitFn = () => {
-    //1. 공통 유효성검사
-    //제목입력항목
+    // 제목입력항목
     let title = $(".subject").val().trim();
-    //내용입력항목
+    // 내용입력항목
     let cont = $(".content").val().trim();
-    //trim : 앞뒤공백 제거후 검사!
+    // trim()으로 앞뒤공백 제거후 검사!
 
+    // 1. 공통 유효성검사
     // 제목,내용 모두 비었으면 리턴!
     if (title == "" || cont == "") {
       alert("Insert title or content!");
-      return; //서브밋 없이 함수 나가기
-    } /////////if
+      return; // 서브밋없이 함수나가기!
+    } ////// if ////
 
-    //2. 글쓰기 서브밋(mode=="W")
+    // 2. 글쓰기 서브밋 (mode=="W")
     if (mode == "W") {
-      //현재 로그인 사용자 정보 파싱하기
+      // 0.현재 로그인 사용자 정보 파싱하기
       let person = JSON.parse(sts);
 
-      //1. 오늘날짜 생성하기
+      // 1. 오늘날짜 생성하기 /////
       let today = new Date();
-      //yy-mm-dd 형식으로 구하기
-      //제이슨 날짜 형식 : toJSON()
-      //ISO표순형식 : toISOString()
-      // ㄴ>둘다 시간까지 다 나오므로 앞의 10자리만 가져옴!
-      // 10자리만 가져오는 방법: 문자열.substr(0,10)
+      // yy-mm-dd 형식으로 구하기
+      // 제이슨 날짜형식 : toJSON()
+      // ISO 표준형식 : toISOString()
+      // 시간까지 나오므로 앞에 10자리만 가져감!
+      // 문자열.substr(0,10)
 
-      //2. 글번호 만들기
-      //(1)전체 데이터중 idx만 모아서 배열생성
+      // 2. 글번호 만들기 /////
+      // 전체 데이터중 idx 만 모아서 배열만들기
       let arrIdx = baseData.map((v) => parseInt(v.idx));
-
-      //(2)최대값 찾기 : 스프레드 연산자(...)로 배열값만 넣음!
+      // console.log(arrIdx);
+      // 최대값 찾기 : 스프레드 연산자로 배열값만 넣음!
       let maxNum = Math.max(...arrIdx);
       // console.log(maxNum);
 
-      //3. 입력데이터 구성기기
+      // 3. 입력 데이터 객체형식으로 구성하기 ////
       let data = {
         idx: maxNum + 1,
         tit: title,
         cont: cont,
         att: "",
-        date: today.toJSON().substr(0, 10), //오늘 날짜 생성하기
+        date: today.toJSON().substr(0, 10),
         uid: person.uid,
         unm: person.unm,
         cnt: "0",
       };
-      console.log("글쓰기 서브밋:", data);
-      //[4. 로컬스에 입력하기]
-      //(1). 로컬스 파싱
+      // console.log("글쓰기 서브밋:",data);
+
+      // 4. 로컬스에 입력하기 //////
+      // (1) 로컬스 파싱
       let locals = localStorage.getItem("board-data");
       locals = JSON.parse(locals);
-      //(2). 파싱배열에 push
+      // (2) 파싱배열에 push
       locals.push(data);
-      //(3). 새배열을 문자화 하여 로컬쓰에 넣기
+      // (3) 새배열을 문자화하여 로컬스에 넣기
       localStorage.setItem("board-data", JSON.stringify(locals));
-      // console.log("로컬스토리지 확인",localStorage.getItem("board-data"));
 
-      //5. 리스트로 돌아가기 => 모드 변경 "L"
+      // 로컬스 확인!
+      // console.log(localStorage.getItem("board-data"));
+
+      // 5. 리스트로 돌아가기 /////
+      // -> 모드변경! "L"
       setMode("L");
-
-    } //////if///////////////////
-
-    //3. 수정모드 서브밋(mode=="W")
-  }; ////////submitFn//////////////////////
+    } /// if ///
+    // 3. 수정모드 서브밋 (mode=="M")
+  }; ////////// submitFn //////////////
 
   //// 코드 리턴구역 //////////////
   return (
@@ -283,7 +281,7 @@ export default function Board() {
       }
       {
         // 3. 쓰기 모드일 경우 로그인 정보 보내기
-        //sts값 = 문자열, 따라서 파싱하여 객체로 보냄
+        // sts값은 문자열이므로 파싱하여 객체로 보냄
         mode == "W" && <WriteMode sts={JSON.parse(sts)} />
       }
       <br />
@@ -368,7 +366,7 @@ const ReadMode = ({ selRecord }) => {
   // 읽기 모드가 호출되었다는 것은
   // 리스트의 제목이 클릭되었다는 것을 의미!
   // 따라서 현재 레코드 값도 저장되었다는 의미!
-  //console.log("전달된 참조변수:", selRecord.current);
+  // console.log("전달된 참조변수:", selRecord.current);
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
 
@@ -422,13 +420,14 @@ const ReadMode = ({ selRecord }) => {
     </>
   );
 }; ///////////// ReadMode //////////////////
+
 /****************************************** 
-        쓰기모드 모드 서브 컴포넌트
+        쓰기 모드 서브 컴포넌트
 ******************************************/
 const WriteMode = ({ sts }) => {
-  console.log("write모드", sts);
-  //sts - 로그인 상태정보(문자값으로 들어옴 => 파싱 필요)
-  // 로그인한 사람만 글쓰기 가능
+  // sts - 로그인 상태정보
+  // 로그인한 사람만 글쓰기 가능!
+  console.log(sts);
 
   return (
     <>
@@ -443,7 +442,7 @@ const WriteMode = ({ sts }) => {
                 className="name"
                 size="20"
                 readOnly
-                //로그인한 사람 이름
+                // 로그인한 사람이름
                 value={sts.unm}
               />
             </td>
@@ -456,7 +455,7 @@ const WriteMode = ({ sts }) => {
                 className="email"
                 size="40"
                 readOnly
-                //로그인한 사람 이메일
+                // 로그인한 사람이메일
                 value={sts.eml}
               />
             </td>
@@ -481,4 +480,4 @@ const WriteMode = ({ sts }) => {
       </table>
     </>
   );
-}; ///////////// ReadMode //////////////////
+}; ///////////// WriteMode //////////////////
