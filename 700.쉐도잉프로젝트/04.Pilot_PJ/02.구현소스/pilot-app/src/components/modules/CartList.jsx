@@ -13,7 +13,7 @@ function CartList(props) {
   //상태 리렌더링을 위한 상태변수
   const [force, setForce] = useState(false);
   //불림값을 넣어놓고 강제 리렌더링이 필요한 경우
-  //setForce(Math.random) => 기존 불림값을 반대로 넣어준다
+  //setForce(!force) => 기존 불림값을 반대로 넣어준다
 
   // 컨텍스트 사용
   const myCon = useContext(pCon);
@@ -43,7 +43,7 @@ function CartList(props) {
     return result;
   }; ////////// totalFn ///////////
 
-  // 화면랜더링 구역 : dataCnt의존성 /////////
+  // 화면랜더링 구역 : dataCnt의존성, 의존성 추가! 강제 리렌더링 상태변수(force) 등록/////////
   useEffect(() => {
     console.log("dataCnt의존성");
     // 카트버튼 나타나기
@@ -57,7 +57,7 @@ function CartList(props) {
 
     // 총합계 찍기 : 3자리마다 콤마함수호출도함
     $(".total-num").text(addComma(totalFn()));
-  }, [dataCnt]); //-> 숫자값은 값할당이므로 변함없음!
+  }, [dataCnt, force]); //-> 숫자값은 값할당이므로 변함없음!
   // },[selData]); //-> 리랜더링시 객체주소값이 변경되어
   // 매번 새로운값이 업데이트 되기때문에 부적격임!
 
@@ -182,7 +182,9 @@ function CartList(props) {
                                     // i는 배열순번임!(map 돌때 i가 들어옴)
                                     selData[i].cnt = $(e.currentTarget)
                                       .siblings(".item-cnt")
-                                      .val();
+                                      .val()
+                                      
+                                      ;
                                     console.log("수량업데이트:", selData);
                                     // 2. 데이터 문자화하기 : 변경된 원본을 문자화
                                     let res = JSON.stringify(selData);
@@ -193,17 +195,15 @@ function CartList(props) {
                                     // 4. 카트리스트 전역상태변수 변경
                                     myCon.setLocalsCart(res);
 
-                                    //-> 아래 5, 6번은 리렌더링 하면 해결됨!
+                                    // 5. 반영버튼 숨기기
+                                    // $(e.currentTarget).css({width:"0"});
+                                    //-> 아래 6번은 리렌더링 하면 해결됨!
                                     // 데이터변경 sync가 맞지 많는 경우가 생기게됨
                                     //데이터값 변경에도 리렌더링이 안되는 이유:
                                     //배열의 객체값이 변경되거나 배열 순서를 변경한 경우
                                     //배열이 변경되었다고 체크되지 않음!
                                     //따라서 이때 강제 리렌더링이 필요함
-
-                                    setForce(Math.random());
-
-                                    // 5. 반영버튼 숨기기
-                                    // $(e.currentTarget).css({width:"0"});
+                                    setForce(!force);
 
                                     //6. 전체합계 다시 계산하기
                                     // $(".total-num").text(addComma(totalFn()));
@@ -211,6 +211,23 @@ function CartList(props) {
                                 >
                                   반영
                                 </button>
+                                <button 
+                                className="btn-cancel"
+                                onClick={(e)=>{
+                                  $(e.currentTarget)
+                                  // .css({width:"0"})
+                                  .hide()
+                                  .prev()//반영버튼
+                                  
+                                  // .css({width:"0"})
+                                  .hide()
+                                  .siblings("input")
+                                  .val(v.cnt);
+                                  //취소버튼 자신의 css를 변경하고(안보이게)
+                                  //이전버튼인 반영버튼도 안보이게 함, 형제요소중 input을 찾아
+                                  //기존값인 v.cnt를 넣는다!
+                                }}
+                                >취소</button>
                                 <b
                                   className="btn-cnt"
                                   onClick={(e) => {
@@ -248,7 +265,9 @@ function CartList(props) {
                                     // 클릭시 반영버튼 나타나기
                                     $(e.currentTarget)
                                       .siblings(".btn-insert")
-                                      .css({ width: "auto" });
+                                      .show()
+                                      .next()
+                                      .show();
                                   }}
                                 >
                                   <img
