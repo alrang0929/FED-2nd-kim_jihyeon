@@ -11,7 +11,7 @@ import { pCon } from './components/modules/pCon';
 import "./css/index.scss";
 import CartList from './components/modules/CartList';
 
-function MainComponent(props) {
+function MainComponent() {
 
   // 로컬스 카트 존재여부변수
   let cartTemp = false;
@@ -58,7 +58,7 @@ function MainComponent(props) {
       setLocalsCart,
       localsCart,
       }}>
-      <TopArea />
+      <TopArea pgName={pgName}/>
       <MainArea page={pgName} />
       <FooterArea />
       {/* 카트리스트 : 카트상태값 true 출력 */}
