@@ -17,7 +17,7 @@ import ItemDetail from "../modules/ItemDetail";
 function ItemList() {
   // 상태변수 만들기 //////
   // 상품토탈정보
-  const [tot, setTot] = useState(itemListData[0]);
+  const [tot, setTot] = useState(itemListData[0]); 
 
 
 
@@ -43,24 +43,19 @@ function ItemList() {
         <div className="grid">
           {itemListData.map((v, i) => (
             <div key={i}>
-              <a
-                href="#"
-                onClick={(e) => {
-                  // 기본이동막기
-                  e.preventDefault();
-                  //상품 토탈정보 업데이트
-                  setTot(v);
-                  // 상세상품정보 박스 보이기
-                  $(".bgbx").show();
-                  // console.log("data:", v);
-                }}
-              >
-                [{i + 1}]
+              <a href="#"
+              onClick={(e)=>{
+                // 기본이동막기
+                e.preventDefault();
+                // 상품토탈정보 업데이트
+                setTot(v);
+                // 상세상품정보 박스 보이기
+                $(".bgbx").show();
+                // console.log("data:",v);
+              }}>
+                [{i+1}]
                 <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    `/images/goods/${v.cat}/${v.ginfo[0]}.png`
-                  }
+                  src={process.env.PUBLIC_URL + `/images/goods/${v.cat}/${v.ginfo[0]}.png`}
                   alt="dress"
                 />
                 <aside>
@@ -91,11 +86,11 @@ function ItemList() {
           cat - 카테고리, ginfo - 상품정보, 
           dt - 상품데이터, setGinfo - ginfo값 변경메서드
         */}
-        <ItemDetail
+        <ItemDetail 
           // 상품토탈정보
           tot={tot}
           // dt 전체데이터(한줄리스트때문)
-          dt={itemListData}
+          dt={itemListData} 
           // setTot - 한줄리스트 클릭시 변경
           setTot={setTot}
         />
