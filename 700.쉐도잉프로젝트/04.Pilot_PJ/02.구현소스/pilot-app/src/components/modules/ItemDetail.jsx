@@ -5,13 +5,29 @@ import $ from "jquery";
 import { pCon } from "./pCon";
 /////////////////////////////////////////////////////////////
 
-function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
+function ItemDetail({ tot, setTot, dt }) {
+  //tot - 상품토탈정보
+  //setTot = 상품토탈정보 업데이트 함수
+  //dt- 상품데이터
+
+  //데이터 정리하는 방법
+  //1. 흩어질 데이터 묶는 값 받아옴 (ex: tot)
+  //2. 넘겨받음
+  //3. 개별 셋업 후 정리 전 데이터 삭제
+
+  //t상품정보 개별셋업
+  //상품개별정보
+  let cat = tot.cat;
+  let ginfo = tot.ginfo;
+  //상품고유정보전달
+  let gIdx = tot.idx;
+
   // cat - 카테고리
   // ginfo - 상품정보
   // dt - 상품데이터
   // setGinfo - ginfo값 변경메서드
   // gIdx - 상품고유번호
-  console.log(cat, ginfo, gIdx);
+  // console.log(cat, ginfo, gIdx);
 
   // 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
   const myCon = useContext(pCon);
@@ -103,6 +119,10 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
           e.preventDefault();
           // 창닫기
           $(".bgbx").hide();
+          //창닫을 때 초기화
+          $("#sum").val(1);
+          // 총합계 초기화
+          $("#total").text(addComma(ginfo[3]) + "원");
         }}
       >
         <span className="ir">닫기버튼</span>
@@ -130,7 +150,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                 .map((v, i) => {
                   // 한줄리스트와 같은번호면 6번오게함!
                   // 1~5까지니까!
-                  let num = ginfo[0].substr(1) == i + 1 ? 6 : i + 1;
+                  let num = ginfo[0].substr(1) == i + 1 ? i + 5 : i + 1;
                   // 현재상품번호가 1~5중 같은게 있으면 6번
                   // substr(시작순번,개수)->개수없으면 순번부터 전부다가져옴
                   // console.log("검사번호:",ginfo[0].substr(1));
@@ -149,12 +169,11 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                           if (v.cat == cat && v.ginfo[0] == "m" + num)
                             return true;
                         }); //// find /////
-                        console.log(res);
+                        // console.log(res);
                         // 상품상세모듈 전달 상태변수 변경
                         // find에서 받은값은 객체값
-                        // 그중 ginfo속성값만 필요함!
-                        setGinfo(res.ginfo);
-                        // 카테고리값은 바꿀필요없음!
+                        // 상품토탈정보로 모든 객체값을 업데이트
+                        setTot(res);
                       }}
                     >
                       <img
@@ -283,11 +302,20 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
 
                   //로컬스에 객체 데이터 추가하기
                   locals.push({
-                    num: "1",
+                    // num: locals.length + 1,
                     idx: gIdx,
                     cat: cat,
                     ginfo: ginfo,
+                    cnt: $("#sum").val(),
                   });
+                  /********************************************************** 
+                   [데이터 구조정의]
+                    1. idx : 상품고유번호
+                    2. cat : 카테고리
+                    3. ginfo : 상품정보
+                    4. cnt : 상품개수
+                  **********************************************************/
+
                   //로컬스에 문자화하여 입력하기
                   localStorage.setItem("cart-data", JSON.stringify(locals));
 
