@@ -40,7 +40,7 @@ export const TopArea = memo(({ loginMsg, loginSts, logoutFn, goPage }) => {
   // 2. loginSts - 로그인 상태변수
   // 3. logoutFn - 로그아웃 함수!!!
 
-  // console.log("상단영역!!!");
+  console.log("상단영역!!!");
   // 컨텍스트 사용하기 -> 메모이제이션을 위해 사용안함!
   // const myCon = useContext(dCon);
 
