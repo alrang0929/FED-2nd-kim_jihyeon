@@ -1,17 +1,16 @@
 // 회원가입 페이지 컴포넌트 - Member.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import DaumPostcode from 'react-daum-postcode';
-import AddressInput from "../modules/AddresInput";
+import DaumPostcode from 'react-daum-postcode';
+
 
 // 로컬스토리지 생성 JS
 import { initData } from "../func/mem_fn";
 
-import $ from "jquery";
-
 // 회원가입 CSS 불러오기
 import "../../css/member.scss";
-import AddressInput from "../modules/AddressInput";
+
+////////////////////////////////////////////////////////////////////////////
 
 function Member() {
   // 라우터 이동 네비게이트
@@ -39,10 +38,6 @@ function Member() {
   const [userName, setUserName] = useState("");
   // 5. 이메일변수
   const [email, setEmail] = useState("");
-  // 6. 주소변수
-  const [addr, setAddr] = useState("");
-  // 7. 우편번호변수
-  const [zipcode, setZipcode] = useState("");
 
   // [2] 에러상태관리 변수
   // -> 에러상태값 초기값은 에러아님(false)
@@ -56,10 +51,8 @@ function Member() {
   const [userNameError, setUserNameError] = useState(false);
   // 5. 이메일변수
   const [emailError, setEmailError] = useState(false);
-  // 6. 주소변수
-  const [addrError, setAddrError] = useState("");
 
-  // console.log(">>>>", userIdError);
+  console.log(">>>>", userIdError);
 
   // [ 아이디관련 메시지 프리셋 ] ////
   const msgId = [
@@ -233,29 +226,6 @@ function Member() {
     setEmail(val);
   }; ///////// changeEmail 함수 //////////
 
-  // 6. 주소 유효성 검사 ///////////
-  const changeAddr = () => {
-    // 입력된 값읽기
-    // 앞주소(자동입력)
-    let address1 = $(".addr1").val();
-    // 뒷주소(직접입력)
-    let address2 = $(".addr2").val();
-    // 우편번호(자동입력)
-    let zc = $(".zipcode").val();
-
-    // 2. 빈값체크: 세 값 모두가 빈값이 아니면 에러 아님!
-    if (address1 !== "" && address2 !== "" && zc !== "") setAddrError(false);
-    else setAddrError(true);
-
-    // 3. 기존입력값 반영하기 : 상태변수에 반영
-    // (1) 전체주소값 저장 (앞수소+뒷주소)
-    setAddr(address1 + " " + address2);
-    console.log(addr);
-    // (2) 우편번호 저장
-    setZipcode(zc);
-    console.log(zipcode);
-  }; ///////// changeUserName 함수 //////////
-
   // [ 전체 유효성검사 체크함수 ] ///////////
   const totalValid = () => {
     // 1. 모든 상태변수에 빈값일때 에러상태값 업데이트!
@@ -264,11 +234,6 @@ function Member() {
     if (!chkPwd) setChkPwdError(true);
     if (!userName) setUserNameError(true);
     if (!email) setEmailError(true);
-    //[추가] 주소체크 추가
-    if (!addr) setAddrError(true);
-    //[추가] 우편번호 체크 추가
-    //-> 주소에러로 등록 (우편번호검사 따로 없음!)
-    if (!zipcode) setAddrError(true);
 
     // 2. 통과시 true, 불통과시 false 리턴처리
     // 통과조건 : 빈값아님 + 에러후크변수가 모두 false
@@ -278,14 +243,11 @@ function Member() {
       chkPwd &&
       userName &&
       email &&
-      addr &&
       !userIdError &&
       !pwdError &&
       !chkPwdError &&
       !userNameError &&
-      !emailError &&
-      //주소에러 항목 추가
-      !addrError
+      !emailError
     )
       return true;
     // 하나라도 false이면 false를 리턴함!
@@ -326,31 +288,29 @@ function Member() {
         pwd: pwd,
         unm: userName,
         eml: email,
-        //[추가항목] 1. 우편번호
-        zcode: zipcode,
-        //[추가항목] 2. 주소
-        addr: addr,
       };
 
       // 5. 데이터 추가하기 : 배열에 데이터 추가 push()
       memData.push(newData);
 
       // 6. 로컬스에 반영하기 : 문자화해서 넣어야함!
-      localStorage.setItem("mem-data", JSON.stringify(memData));
+      localStorage.setItem("mem-data", 
+      JSON.stringify(memData));
 
       // 7. 회원가입 환영메시지 + 로그인 페이지 이동
       // 버튼 텍스트에 환영메시지
-      document.querySelector(".sbtn").innerText = "Thank you for joining us!";
+      document.querySelector(".sbtn").innerText = 
+      "Thank you for joining us!";
       // 1초후 페이지 이동 : 라우터 Navigate로 이동함
-      setTimeout(() => {
+      setTimeout(()=>{
         goNav("/login");
         // 주의: 경로앞에 슬래쉬(/) 안쓰면
         // 현재 Memeber 경로 하위 경로를 불러옴
-      }, 1000);
+      },1000);
+      
     } ///////// if /////////
     // 3. 불통과시 /////
     else {
-      console.log($(".msg").eq(0).text());
       alert("Change your input!");
     } //// else ///////////
   }; /////////// onSubmit 함수 //////////
@@ -383,7 +343,6 @@ function Member() {
                 // defaultValue="ㅎㅎㅎ"
                 value={userId}
                 onChange={changeUserId}
-                onBlur={changeUserId}
               />
               {
                 //   에러일 경우 메시지 출력
@@ -428,7 +387,6 @@ function Member() {
                 placeholder="Please enter your Password"
                 value={pwd}
                 onChange={changePwd}
-                onBlur={changePwd}
               />
               {
                 // 에러일 경우 메시지 출력
@@ -455,7 +413,6 @@ function Member() {
                 placeholder="Please enter your Confirm Password"
                 value={chkPwd}
                 onChange={changeChkPwd}
-                onBlur={changeChkPwd}
               />
               {
                 // 에러일 경우 메시지 출력
@@ -482,36 +439,11 @@ function Member() {
                 placeholder="Please enter your Name"
                 value={userName}
                 onChange={changeUserName}
-                onBlur={changeUserName}
               />
               {
                 // 에러일 경우 메시지 출력
                 // 조건문 && 출력요소
                 userNameError && (
-                  <div className="msg">
-                    <small
-                      style={{
-                        color: "red",
-                        fontSize: "10px",
-                      }}
-                    >
-                      {msgEtc.req}
-                    </small>
-                  </div>
-                )
-              }
-            </li>
-            <li>
-              <label>Address</label>
-              {/* 다음 우편번호 모듈 
-              - 보내줄 값은 본인이 정해야함
-              - 변경체크 함수(changeAddr) 프롭스다운
-              */}
-              <AddressInput changeAddr={changeAddr} />
-              {
-                // 에러일 경우 메시지 출력
-                // 조건문 && 출력요소
-                addrError && (
                   <div className="msg">
                     <small
                       style={{
@@ -533,7 +465,6 @@ function Member() {
                 placeholder="Please enter your Email"
                 value={email}
                 onChange={changeEmail}
-                onBlur={changeEmail}
               />
               {
                 // 에러일 경우 메시지 출력
