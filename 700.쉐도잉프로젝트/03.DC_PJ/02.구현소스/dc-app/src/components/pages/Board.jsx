@@ -25,7 +25,7 @@ export default function Board() {
   const myCon = useContext(dCon);
   // 전역 로그인 상태 변수 확인(변수할당!)
   const sts = myCon.loginSts;
-  console.log("로그인상태:", sts);
+  // console.log("로그인상태:", sts);
 
   // 로컬스토리지 게시판 데이터 정보확인! //
   initBoardData();
@@ -59,7 +59,7 @@ export default function Board() {
         기능 : 페이지별 리스트를 생성하여 바인딩함
   **********************************************/
   const bindList = () => {
-    // // console.log(baseData);
+    // console.log(baseData);
 
     // 1. 전체 원본데이터 선택
     let orgData = baseData;
@@ -196,6 +196,10 @@ export default function Board() {
       case "Submit":
         submitFn();
         break;
+      // 수정일 경우 수정모드로 변경
+      case "Modify":
+        setMode("M");
+        break;
     }
   }; ////////// clickButton //////////
 
@@ -284,6 +288,10 @@ export default function Board() {
         // sts값은 문자열이므로 파싱하여 객체로 보냄
         mode == "W" && <WriteMode sts={JSON.parse(sts)} />
       }
+      {
+        // 4. 수정 모드일 경우 상세보기 출력하기
+        mode == "M" && <ModifyMode selRecord={selRecord} />
+      }
       <br />
       {/* 모드별 버튼출력 박스 */}
       <table className="dtbl btngrp">
@@ -298,13 +306,43 @@ export default function Board() {
               }
               {
                 // 2. 읽기상태 "R" 일 경우
-                mode == "R" && <button onClick={clickButton}>List</button>
+                <>
+                {mode == "R" && 
+                <button onClick={clickButton}>List</button>}
+
+                {
+                  // console.log("비교:",
+                  // JSON.parse(sts).uid,
+                  // "==?",
+                  // selRecord.current.uid)
+                }
+                
+                { // 로그인한 상태이고 글쓴이와 일치할때
+                // 수정보드 이동버튼이 노출됨!
+                // 현재글은 selRecord 참조변수에 저장됨
+                // 글정보 항목중 uid 가 사용자 아이디임!
+                // 로그인 상태정보하위의 sts.uid와 비교함
+                (mode == "R" && sts && 
+                JSON.parse(sts).uid==selRecord.current.uid) && 
+                <button onClick={clickButton}>Modify</button>
+                }
+                </>
               }
               {
                 // 3. 쓰기상태 "W" 일 경우
                 mode == "W" && (
                   <>
                     <button onClick={clickButton}>Submit</button>
+                    <button onClick={clickButton}>List</button>
+                  </>
+                )
+              }
+              {
+                // 4. 수정상태 "M" 일 경우
+                mode == "M" && (
+                  <>
+                    <button onClick={clickButton}>Submit</button>
+                    <button onClick={clickButton}>Delete</button>
                     <button onClick={clickButton}>List</button>
                   </>
                 )
@@ -427,7 +465,7 @@ const ReadMode = ({ selRecord }) => {
 const WriteMode = ({ sts }) => {
   // sts - 로그인 상태정보
   // 로그인한 사람만 글쓰기 가능!
-  console.log(sts);
+  // console.log(sts);
 
   return (
     <>
@@ -481,3 +519,63 @@ const WriteMode = ({ sts }) => {
     </>
   );
 }; ///////////// WriteMode //////////////////
+
+/****************************************** 
+        수정 모드 서브 컴포넌트
+******************************************/
+const ModifyMode = ({ selRecord }) => {
+  // 읽기 모드가 호출되었다는 것은
+  // 리스트의 제목이 클릭되었다는 것을 의미!
+  // 따라서 현재 레코드 값도 저장되었다는 의미!
+  // console.log("전달된 참조변수:", selRecord.current);
+  // 전달된 데이터 객체를 변수에 할당
+  const data = selRecord.current;
+
+  return (
+    <>
+      <table className="dtblview readone">
+        <caption>OPINION : Modify</caption>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>
+              <input
+                type="text"
+                className="name"
+                size="20"
+                readOnly
+                value={data.unm}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td>
+              <input
+                type="text"
+                className="subject"
+                size="60"
+                defaultValue={data.tit}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Content</td>
+            <td>
+              <textarea
+                className="content"
+                cols="60"
+                rows="10"
+                defaultValue={data.cont}
+              ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>Attachment</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  );
+}; ///////////// ModifyMode //////////////////
