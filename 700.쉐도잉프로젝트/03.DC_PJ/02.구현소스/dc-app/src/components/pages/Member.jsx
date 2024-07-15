@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import DaumPostcode from 'react-daum-postcode';
-import AddressInput from "../modules/AddresInput";
+
 
 // 로컬스토리지 생성 JS
 import { initData } from "../func/mem_fn";
@@ -11,7 +11,8 @@ import $ from "jquery";
 
 // 회원가입 CSS 불러오기
 import "../../css/member.scss";
-import AddressInput from "../modules/AddressInput";
+import AddressInput from "../modules/AddresInput";
+// import AddressInput from "../modules/AddressInput";
 
 function Member() {
   // 라우터 이동 네비게이트
