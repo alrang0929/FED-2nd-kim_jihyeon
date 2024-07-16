@@ -87,7 +87,12 @@ export default function Layout() {
       }}
     >
       {/* 1.상단영역 : 메모이제이션을 위해 직접값전달! */}
-      <TopArea loginMsg={loginMsg} loginSts={loginSts} logoutFn={logoutFn} goPage={goPage} />
+      <TopArea 
+      loginMsg={loginMsg} 
+      loginSts={loginSts} 
+      logoutFn={logoutFn} 
+      goPage={goPage}
+       />
       {/* 2.메인영역 */}
       <MainArea />
       {/* 3.하단영역 */}
