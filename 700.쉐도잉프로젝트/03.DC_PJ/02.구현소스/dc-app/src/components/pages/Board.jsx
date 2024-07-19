@@ -861,7 +861,7 @@ const PagingList = ({
               e.preventDefault();
               goPaging(-1, false);
             }}
-            title="move next"
+            title="move preve"
             style={{ marginLeft: "10px" }}
           >
             ≪
@@ -872,7 +872,7 @@ const PagingList = ({
               e.preventDefault();
               goPaging(-1, true);
             }}
-            title="move next"
+            title="move preve"
             style={{ marginLeft: "10px" }}
           >
             ◀
@@ -892,7 +892,7 @@ const PagingList = ({
       ) : (
         //for문으로 만들 리스트에 추가하는 것 > 따라서 key값 필요! 단, 중복되면 안됨
         //중복안되는 수의 마이너스로 셋팅한다
-        <Fragment key={-2}>
+        <Fragment key={-1}>
           &nbsp;&nbsp;
           <a
             href="#"
@@ -905,6 +905,7 @@ const PagingList = ({
           >
             ▶
           </a>
+          
           <a
             href="#"
             onClick={(e) => {
@@ -932,9 +933,12 @@ const PagingList = ({
     let newpgPgNum;
     // 1. opt 옵션에 따라 페이징의 페이지 이동번호 만들기
     // (1) 일반 페이징 이동은 현재 페이징 번호에 증가
+
     if (opt) newpgPgNum = pgPgNum.current + dir;
     //(2) 끝 페이징 이동은?
-    else newpgPgNum = dir;
+    //오른쪽 1 일 경우 맨끝 페이지번호로 이동 (pgPgCount)
+    //왼쪽 -1 일 경우 맨앞 페이징 번호로 이동 1
+    else newpgPgNum = dir==1?pgPgCount:1;
     // 2. 페이징의 페이징 번호 업데이트
     pgPgNum.current = newpgPgNum;
 
