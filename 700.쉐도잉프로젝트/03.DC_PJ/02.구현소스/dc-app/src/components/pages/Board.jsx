@@ -1,8 +1,8 @@
 // 오피니언 페이지 컴포넌트 ///
-import { Fragment, useContext, useEffect, useRef, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 
 // 사용자 기본정보 생성 함수
-import { initData } from "../func/mem_fn";
+// import { initData } from "../func/mem_fn";
 
 // 로컬스토리지 게시판 기본데이터 제이슨 -> 로컬쓰로 대체!!!
 // import baseData from "../data/board.json";
@@ -19,8 +19,6 @@ import "../../css/board_file.scss";
 // 로컬스토리지 확인 JS
 import { initBoardData } from "../func/board_fn";
 import { dCon } from "../modules/dCon";
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default function Board() {
   // 컨텍스트 사용하기
@@ -40,8 +38,7 @@ export default function Board() {
     Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
   );
 
-  // [ 상태관리 변수 ] ///
-
+  ///////// [ 상태관리 변수 ] //////////////
   // [1] 페이지 번호
   const [pageNum, setPageNum] = useState(1);
   // [2] 기능모드
@@ -50,6 +47,9 @@ export default function Board() {
   // (2) 글보기 모드(R) : Read Mode
   // (3) 글쓰기 모드(W) : Write Mode
   // (4) 수정 모드(M) : Modify Mode (삭제포함)
+  // [3] 검색어 저장변수 : 배열 [기준,검색어]
+  const [keyword, setKeyword] = useState(["", ""]);
+  console.log("[기준,키워드]", keyword);
 
   // [ 참조변수 ] ///
   // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로!
@@ -58,14 +58,14 @@ export default function Board() {
   // [2] 선택 데이터 저장
   const selRecord = useRef(null);
   // -> 특정리스트 글 제목 클릭시 데이터 저장함!
-  //[3] 페이징의 페이징 번호
+  // [3] 페이징의 페이징 번호
   const pgPgNum = useRef(1);
 
-  //[일반 변수로 매번 같은 값을 유지하면 되수 변수]
-  // 페이지당 개수: 페이지 당 레코드 수
+  // [ 일반 변수로 매번 같은값을 유지하면 되는 변수 ]
+  // 페이지당 개수 : 페이지당 레코드수
   const unitSize = 4;
-  //페이징의 페이징 개수 : 한번에 보여줄 페이징 개수
-  const pgPgSize = 4;
+  // 페이징의 페이징 개수 : 한번에 보여줄 페이징개수
+  const pgPgSize = 3;
 
   /********************************************** 
         함수명: bindList
@@ -75,7 +75,30 @@ export default function Board() {
     // console.log(baseData);
 
     // 1. 전체 원본데이터 선택
-    let orgData = baseData;
+    let orgData;
+
+    // 1-1.검색어가 있는경우 필터하기
+    // keyword[0] : 검색기준 / keyword[1] : 검색어
+    if (keyword[1] != "") {
+      orgData = baseData.filter((v) => {
+        // 1. 소문자 처리하기
+        // (1) 검색원본 데이터
+        let orgTxt = v[keyword[0]].toLowerCase();
+        // (2) 검색어 데이터
+        let txt = keyword[1].toLowerCase();
+
+        // console.log(v[keyword[0]].indexOf(keyword[1]));
+        // 2. 필터 검색조건에 맞는 데이터 수집하기
+        if (orgTxt.indexOf(txt) != -1) return true;
+      });
+    } /////// if //////////
+    // 1-2.검색어가 없는경우 전체넣기
+    else {
+      orgData = baseData;
+    } //////// else ///////
+
+    // 1-3. 새로 데이터를 담은 후 바로 전체개수 업데이트 필수!
+    totalCount.current = orgData.length;
 
     // 2. 정렬 적용하기 : 내림차순
     orgData.sort((a, b) =>
@@ -105,31 +128,43 @@ export default function Board() {
       selData.push(orgData[i]);
     } ///// for //////
 
-    // console.log("일부데이터:", selData);
+    console.log("일부데이터:", selData);
+    console.log("여기:", selData.length);
+    if (selData.length == 0) setPageNum(pageNum - 1);
 
-    return selData.map((v, i) => (
-      <tr key={i}>
-        {/* 시작번호를 더하여 페이지별 순번을 변경 */}
-        <td>{i + 1 + sNum}</td>
-        <td>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              // 읽기모드로 변경!
-              setMode("R");
-              // 해당 데이터 저장하기
-              selRecord.current = v;
-            }}
-          >
-            {v.tit}
-          </a>
-        </td>
-        <td>{v.unm}</td>
-        <td>{v.date}</td>
-        <td>{v.cnt}</td>
-      </tr>
-    ));
+    return (
+      // 전체 데이터 개수가 0 초과일 경우 출력
+      // 0초과 ? map돌기코드 : 없음코드
+      totalCount.current > 0 ? (
+        selData.map((v, i) => (
+          <tr key={i}>
+            {/* 시작번호를 더하여 페이지별 순번을 변경 */}
+            <td>{i + 1 + sNum}</td>
+            <td>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  // 읽기모드로 변경!
+                  setMode("R");
+                  // 해당 데이터 저장하기
+                  selRecord.current = v;
+                }}
+              >
+                {v.tit}
+              </a>
+            </td>
+            <td>{v.unm}</td>
+            <td>{v.date}</td>
+            <td>{v.cnt}</td>
+          </tr>
+        ))
+      ) : (// 데이터가 없을 때 출력 /////////
+        <tr>
+          <td colSpan="5">There is no data.</td>
+        </tr>
+      )
+    ); //// return /////
   }; /////////// bindList 함수 /////////////////
 
   // 버튼 클릭시 변경함수 ////////
@@ -146,6 +181,8 @@ export default function Board() {
       // 리스트모드로 변경
       case "List":
         setMode("L");
+        // 검색시에도 전체 데이터나오게 함
+        setKeyword(['','']);
         break;
       // 서브밋일 경우 함수호출!
       case "Submit":
@@ -192,7 +229,7 @@ export default function Board() {
       // 4. 리스트로 돌아가기 -> 리랜더링 /////
       // -> 모드변경! "L"
       setMode("L");
-      //-> 삭제후 첫페이지로 이동
+      // -> 삭제후 첫페이지로 이동!
       setPageNum(1);
     } ///////// if ///////////////
   }; //////// deleteFn ///////////////
@@ -260,12 +297,13 @@ export default function Board() {
 
       // 4. 추가후 리스트 리랜더링시 리스트 불일치로 인한
       // 에러를 방지하기 위하여 전체 개수를 바로 업데이트한다!
-      totalCount.current = baseData.length;
+      // 이때 실제로 업데이트된 locals 배열객체의 개수를 센다!
+      totalCount.current = locals.length;
 
       // 5. 리스트로 돌아가기 -> 리랜더링 /////
       // -> 모드변경! "L"
       setMode("L");
-      //->추가후 첫페이지로 이동
+      // -> 추가후 첫페이지로 이동!
       setPageNum(1);
     } /// if ///
 
@@ -336,8 +374,9 @@ export default function Board() {
             unitSize={unitSize}
             pageNum={pageNum}
             setPageNum={setPageNum}
-            pgPgSize={pgPgSize}
             pgPgNum={pgPgNum}
+            pgPgSize={pgPgSize}
+            setKeyword={setKeyword}
           />
         )
       }
@@ -430,22 +469,18 @@ const ListMode = ({
   setPageNum,
   pgPgNum,
   pgPgSize,
+  setKeyword,
 }) => {
-  /*************************************************** 
-   
-  [전달변수]
-  // 2 ~ 5: paging전달변수
+  /******************************************* 
+    [ 전달변수 ] - 2~5까지 4개는 페이징전달변수
+    1. bindList : 리스트 결과 요소
+    2. totalCount : 전체 레코드 개수
+    3. unitSize : 게시판 리스트 당 레코드 개수
+    4. pageNum : 현재 페이지번호
+    5. setPageNum : 현재 페이지번호 변경 메서드
+  *******************************************/
 
-  1. bindList: 리스트 결과 요소
-
-  2. totalCount: 전체 레코드 개수
-  3. unitSize: 게시판 리스트 당 레코드 개수
-  4. pageNum: 현재 페이지 번호
-  5. setPageNum: 현재 페이지 번호 변경 메서드
-
-  ***************************************************/
-
-  //코드 리턴구역///////////////////////////////////////////////
+  // 코드리턴구역 //////////////////////
   return (
     <>
       <div className="selbx">
@@ -459,7 +494,33 @@ const ListMode = ({
           <option value="1">Ascending</option>
         </select>
         <input id="stxt" type="text" maxLength="50" />
-        <button className="sbtn">Search</button>
+        <button
+          className="sbtn"
+          onClick={(e) => {
+            // 검색기준값 읽어오기
+            let creteria = $(e.target).siblings(".cta").val();
+            console.log("기준값:", creteria);
+            // 검색어 읽어오기
+            let txt = $(e.target).prev().val();
+            console.log(typeof txt, "/검색어:", txt);
+            // input값은 안쓰면 빈스트링이 넘어옴!
+            if (txt != "") {
+              console.log("검색해!");
+              // [검색기준,검색어] -> setKeyword 업데이트
+              setKeyword([creteria, txt]);
+              setPageNum(1);
+              //페이징의 페이지 번호 초기화
+              pgPgNum.current=1;
+
+            }
+            // 빈값일 경우
+            else {
+              alert("Please enter a keyword!");
+            }
+          }}
+        >
+          Search
+        </button>
       </div>
       <table className="dtbl" id="board">
         <thead>
@@ -481,8 +542,8 @@ const ListMode = ({
                   unitSize={unitSize}
                   pageNum={pageNum}
                   setPageNum={setPageNum}
-                  pgPgSize={pgPgSize}
                   pgPgNum={pgPgNum}
+                  pgPgSize={pgPgSize}
                 />
               }
             </td>
@@ -497,9 +558,7 @@ const ListMode = ({
         읽기 모드 서브 컴포넌트
 ******************************************/
 const ReadMode = ({ selRecord, sts }) => {
-  //selRecord - 현재 글정보 / sts - 로그인 사용자정보
-  //전역 게시판 조회글 저장 변수 불러오기
-
+  // selRecord - 현재글정보 / sts - 로그인 사용자정보
   // 읽기 모드가 호출되었다는 것은
   // 리스트의 제목이 클릭되었다는 것을 의미!
   // 따라서 현재 레코드 값도 저장되었다는 의미!
@@ -507,70 +566,74 @@ const ReadMode = ({ selRecord, sts }) => {
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
 
-  //[조회수 증가하기]
-  //규칙1: 자신의 글은 증가하지 않는다
-  //규칙2: 타인의 글은 증가
-  //규칙3: 로그인한 상태에서 한번만 증가
+  // [ 조회수 증가하기 ]
+  // 규칙1 : 자신의 글은 증가하지 않는다!
+  // 규칙2 : 타인의 글은 증가한다!
+  // 규칙3 : 로그인한 상태에서 한번만 증가한다!
 
-  //((조회된 글 저장방법))
-  // 세션스토리지는 적합! >창을 닫으면 사라지니까!
-  //참조변수 > 새로고침하면 초기화됨
-  //쿠키 > 삭제방법이 즉각적이지 못하므로 제외
+  // ((조회된 글 저장방법))
+  // -> 세션스토리지는 적합! 창을 닫으면 사라지니까!
+  // -> 쿠키는 삭제방법이 즉각적이지 못하므로 제외!
+  // -> 참조변수는 새로고침하면 초기화 되므로 제외!
 
-  //2. 세션스 없으면 세션스 만들기
+  // 1.세션스 없으면 세션스 만들기
   if (!sessionStorage.getItem("bd-rec")) {
     sessionStorage.setItem("bd-rec", "[]");
   }
-  //1) 세션스 파싱하여 변수할당
+  // 2.세션스에 글번호 저장하기
+
+  // (1) 세션스 파싱하여 변수할당
   let rec = JSON.parse(sessionStorage.getItem("bd-rec"));
 
-  //2) 기존 배열값에 현재글번호 존재여부 검사하기
+  // (2) 기존 배열값에 현재글번호 존재여부검사하기
   // 결과가 true이면 조회수를 증가하지 않는다!
   let isRec = rec.includes(data.idx);
-  console.log("이미 있나?", isRec);
+  console.log("이미있니?", isRec);
 
-  //3) 로그인한 사용자의 글이면 true처리
-  //sts가 true면? 즉, 로그인한 사용자면 처리
+  // (3) 로그인한 사용자의 글이면 isRec값을 true처리
+  // sts가 true이면 즉, 로그인한 사용자이면 처리
   if (sts) {
     console.log(
       "선택글 아이디:",
       data.uid,
-      "로그인 사용자 아이디",
+      "로그인사용자 아이디:",
       JSON.parse(sts).uid
     );
-    //글쓴이 아이디와 로그인사용자 아이디가 같은가? isRec값을 true 처리
+    // 글쓴이 아이디와 로그인사용자 아이디가 같은가?
     if (data.uid == JSON.parse(sts).uid) {
-      //글번호 저장과 조회수 증가를 하지 않도록 isRec 값을 true로 변경한다
+      // 글번호저장과 조회수증가를 하지 않도록 isRec값을
+      // true로 변경한다!
       isRec = true;
-    } ///if
-  } ///if//////////
+    } //// if ///
+  } /// if ///
 
-  //4) 배열에 값 추가 : 기존값에 없으면 넣기!
+  // (4) 배열에 값 추가하기 : 기존값에 없으면 넣기!
   if (!isRec) rec.push(data.idx);
 
-  //5) 다시 세션스에 저장
+  // (5) 다시 세션스에 저장하기
   sessionStorage.setItem("bd-rec", JSON.stringify(rec));
 
-  //3. 글번호 증가하기
-  //->게시판 원본 데이터에 조회수 업데이트하기
+  // 3. 글번호 증가하기
+  // -> 게시판 원본 데이터에 조회수 업데이트하기
   if (!isRec) {
-    //조건: isRec 값이 false일때
-    //(1) 게시판 해당데이터 cnt값 증가
-    //(2) 게시판 로컬스 데이터 파싱
+    // (1) 게시판 로컬스 데이터 파싱
     let bdData = JSON.parse(localStorage.getItem("board-data"));
+
+    // (2) 게시판 해당데이터 cnt값 증가
+    // 조건: isRec값이 false일때
     bdData.some((v) => {
       if (v.idx == data.idx) {
-        //기존값에 1증가하여 넣기
+        // 기존값에 1증가하여 넣기
         v.cnt = Number(v.cnt) + 1;
         return true;
-      } ///if
-    }); //some
+      } /// if ///
+    }); /// some ////
 
-    //(3)다시 로컬스에 저장하기
+    // (3) 다시 로컬스에 저장하기
     localStorage.setItem("board-data", JSON.stringify(bdData));
-  } //if
+  } /// if : (!isRec) ///
 
-  ///////////코드리턴 구역////////////////////////////////
+  /////// 코드리턴 구역 ///////////
   return (
     <>
       <table className="dtblview readone">
@@ -745,25 +808,22 @@ const ModifyMode = ({ selRecord }) => {
 
 /****************************************** 
     PagingList : 페이징 기능 컴포넌트
-  ******************************************/
+******************************************/
 const PagingList = ({
   totalCount,
   unitSize,
   pageNum,
   setPageNum,
-  pgPgSize,
   pgPgNum,
+  pgPgSize,
 }) => {
-  /*************************************************** 
-   
-  [전달변수]
-  1. totalCount: 전체 레코드 개수
-  2. unitSize: 게시판 리스트 당 레코드 개수
-  3. pageNum: 현재 페이지 번호
-  4. setPageNum: 현재 페이지 번호 변경 메서드
-
-  ***************************************************/
-
+  /******************************************* 
+    [ 전달변수 ]
+    1. totalCount : 전체 레코드 개수
+    2. unitSize : 게시판 리스트 당 레코드 개수
+    3. pageNum : 현재 페이지번호
+    4. setPageNum : 현재 페이지번호 변경 메서드
+  *******************************************/
   // 전체 페이징 개수 : 전체레코드수 / 페이지당개수
   // 유의점: 나머지가 있는지 검사해서 있으면 +1
 
@@ -784,40 +844,45 @@ const PagingList = ({
   // );
 
   // [ 페이징의 페이징 하기 ]
-  // [1] 페이징 블록 - 한 페이징블록수 : pgPgSize 변수(4)
-  // [2] 페이징의 페이징 현재번호 : pgPgNum 변수(기본값1)
+  // [1] 페이징 블록
+  // - 한 페이징블록수 : pgPgSize 변수(4개)
+  // [2] 페이징의 페이징 현재번호
+  // - pgPgNum 변수(기본값1)
 
-  //페이징의 페이징 한계수 구하기
-  //1) 페이징의 페인지 개수
-  //전체 페이징 개수 / 페이징의 페이징 단위 수
+  // 2. 페이지의 페이징 한계수 구하기
+  // (1) 페이징의 페이징 개수
+  // 전체 페이징 개수 / 페이징의 페이징 단위수
   let pgPgCount = Math.floor(pagingCount / pgPgSize);
 
-  // 페이징의 개수를 페이징의 페이징 단위수로 나눈 나머지가 있으면?
-  // 다음 페이징 번호가 필요함! 나머지가 0 이상이면? 페이징의 페이징 +1
+  // 페이징 개수를 페이징의 페이징 단위수로
+  // 나눈 나머지가 있으면 다음 페이징의 번호가 필요함!
+  // 나머지가 0이 아니면 1더하기
   if (pagingCount % pgPgSize > 0) {
     pgPgCount++;
-  } // if ////////////////
-  console.log("페이징에 페이징 개수", pgPgCount);
+  } /// if ////
 
-  //2) 리스트 시작값 / 끝값 구하기
-  // 시작값 : (페페넘 - 1) *페페단
+  console.log("페이징의 페이징개수:", pgPgCount);
+
+  //검색시 페이징 번호 초기화 필요
+  // (2) 리스트 시작값 / 한계값 구하기
+  // 시작값 : (페페넘-1)*페페단
   let initNum = (pgPgNum.current - 1) * pgPgSize;
-  // 한계값 : 페페넘 * 페페단
+  // 한계값 : 페페넘*페페단
   let limitNum = pgPgNum.current * pgPgSize;
 
-  console.log("시작값", initNum, "한계값", limitNum);
+  console.log("시작값:", initNum, "/한계값:", limitNum);
 
-  // [링크코드 만들기] //////////////////////////////////////////////////////////
+  ///// [ 링크코드 만들기 ] /////////////////
   const pgCode = [];
 
-  // 페이징의 페이징에 맞게 돌면서 코드만들기
-  // 계산된 시작값, 한계값을 기준으로 코드를 생성
-
-  //[1]for :  페이징 리스트 출력 시작 ///////////////
+  // [ 페이징의 페이징에 맞게 돌면서 코드만들기 ]
+  // 계산된 시작값, 한계값을 기준으로 코드를 생성!
+  // [1] for : 페이징 리스트 출력 시작 ///////////
   for (let i = initNum; i < limitNum; i++) {
-    //전체 페이징 번호를 만드는 i가 페이징 전체개수 보다
-    //클 경우 나가야함!
+    // 전체 페이징 번호를 만드는 i가 페이징 전체개수보다
+    // 클 경우 나가야함!
     if (i >= pagingCount) break;
+
     pgCode.push(
       <Fragment key={i}>
         {
@@ -838,22 +903,23 @@ const PagingList = ({
           )
         }
         {/* 사이에 바넣기 */}
-
         {i + 1 !== limitNum && i + 1 < pagingCount && " | "}
       </Fragment>
     );
-  } //////[1] for : 페이징 리스트 출력 끝 /////
+  } ////// [1] for : 페이징 리스트 출력 끝 /////
+
   {
-    //[2] 페이징 이전 블록 이동버튼 만들기
-    //기준: 1pg 가 아니면 보여라
-    //배열 맨 앞 추가: unshift
+    // [2] 페이징 이전블록 이동버튼 만들기
+    // 기준: 1페이지가 아니면 보여라!
+    // 배열 맨앞추가는 unshift()
     pgCode.unshift(
-      pgPgNum.current === pgPgCount ? (
+      pgPgNum.current === 1 ? (
         ""
       ) : (
-        //for문으로 만들 리스트에 추가하는 것 > 따라서 key값 필요! 단, 중복되면 안됨
-        //중복안되는 수의 마이너스로 셋팅한다
-        <Fragment key={-2}>
+        // for문으로 만든 리스트에 추가하는 것이므로
+        // key 값이 있어야함! 단, 중복되면 안됨!
+        // 중복안되는 수인 마이너스로 셋팅한다!
+        <Fragment key={-1}>
           &nbsp;&nbsp;
           <a
             href="#"
@@ -861,10 +927,10 @@ const PagingList = ({
               e.preventDefault();
               goPaging(-1, false);
             }}
-            title="move preve"
+            title="move previous end"
             style={{ marginLeft: "10px" }}
           >
-            ≪
+            «
           </a>
           <a
             href="#"
@@ -872,28 +938,28 @@ const PagingList = ({
               e.preventDefault();
               goPaging(-1, true);
             }}
-            title="move preve"
+            title="move previous"
             style={{ marginLeft: "10px" }}
           >
             ◀
           </a>
-          
+          &nbsp;&nbsp;
         </Fragment>
       )
     );
   }
   {
-    //[3] 페이징 다음 블록 이동버튼 만들기
-    //기준: 끝 페이지가 아니면 보여라
-    //배열 맨 뒤 추가 : push
+    // [3] 페이징 다음블록 이동버튼 만들기
+    // 기준: 끝페이지가 아니면 보여라!
+    // 배열 맨뒤추가는 push()
     pgCode.push(
       pgPgNum.current === pgPgCount ? (
         ""
       ) : (
-        //for문으로 만들 리스트에 추가하는 것 > 따라서 key값 필요! 단, 중복되면 안됨
-        //중복안되는 수의 마이너스로 셋팅한다
-        <Fragment key={-1}>
-          &nbsp;&nbsp;
+        // for문으로 만든 리스트에 추가하는 것이므로
+        // key 값이 있어야함! 단, 중복되면 안됨!
+        // 중복안되는 수인 마이너스로 셋팅한다!
+        <Fragment key={-2}>
           <a
             href="#"
             onClick={(e) => {
@@ -905,52 +971,52 @@ const PagingList = ({
           >
             ▶
           </a>
-          
           <a
             href="#"
             onClick={(e) => {
               e.preventDefault();
               goPaging(1, false);
             }}
-            title="move next"
+            title="move next end"
             style={{ marginLeft: "10px" }}
           >
-            ≫
+            »
           </a>
         </Fragment>
       )
     );
   }
 
-  // [블록이동함수]
-
+  // [ 블록이동함수 ] //////
   const goPaging = (dir, opt) => {
-    //dir: 이동방향 (오 : +1, 왼 : -1)
-    //opt: 일반이동(true), 끝이동(false)
-    console.log("방향", dir, "/옵션", opt);
+    // dir - 이동방향(오른쪽:+1, 왼쪽:-1)
+    // opt - 일반이동(true), 끝이동(false)
+    console.log("방향:", dir, "/옵션:", opt);
 
-    // 새 페이징의 페이징 번호
-    let newpgPgNum;
-    // 1. opt 옵션에 따라 페이징의 페이지 이동번호 만들기
-    // (1) 일반 페이징 이동은 현재 페이징 번호에 증가
+    // 새 페이징의 페이징번호
+    let newPgPgNum;
 
-    if (opt) newpgPgNum = pgPgNum.current + dir;
-    //(2) 끝 페이징 이동은?
-    //오른쪽 1 일 경우 맨끝 페이지번호로 이동 (pgPgCount)
-    //왼쪽 -1 일 경우 맨앞 페이징 번호로 이동 1
-    else newpgPgNum = dir==1?pgPgCount:1;
-    // 2. 페이징의 페이징 번호 업데이트
-    pgPgNum.current = newpgPgNum;
+    // 1. opt 옵션에 따라 페이징의 페이징이동번호 만들기
+    // (1) 일반 페이징이동은 현재페이징번호에 증감
+    if (opt) newPgPgNum = pgPgNum.current + dir;
+    // (2) 끝 페이징이동은
+    // 오른쪽(1)일 경우 맨끝 페이징번호로 이동(pgPgCount)
+    // 왼쪽(-1)일 경우 맨앞 페이징번호로 이동(1)
+    else newPgPgNum = dir == 1 ? pgPgCount : 1;
 
-    //(3) 새로운 페이징의 페이징 구역의 첫번째 페이지 번호 업데이트 하기
-    // ㄴ> 항상 이전 블록의 마지막 번호 +1 = 다음 페이징 첫번호
-    // 이동할 페이지 번호
-    let landingPage = pgPgNum.current - 1 * pgPgSize + 1;
-    console.log("도착페이지 번호", landingPage);
-    //페이지번호 상태변수 업데이트로 전체 리렌더링
+    // 2.페이징의 페이징 번호 업데이트하기
+    pgPgNum.current = newPgPgNum;
+
+    // 3. 새로운 페이지의 페이징 구역의
+    // 첫번째 페이지번호 업데이트하기
+    // -> 항상 이전블록의 마지막번호 + 1 이 다음페이지 첫번호임!
+    // 이동할 페이지번호
+    let landingPage = (pgPgNum.current - 1) * pgPgSize + 1;
+    console.log("도착페이지번호:", landingPage);
+    // 페이지번호 상태변수 업데이트로 전체 리랜더링!!!
     setPageNum(landingPage);
-  }; /////goPaging
+  }; //////////// goPaging /////////////
 
   // 코드리턴
   return pgCode;
-};
+}; ////////// pagingList 함수 //////////////
