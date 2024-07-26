@@ -47,9 +47,17 @@ export default function Board() {
   // (2) 글보기 모드(R) : Read Mode
   // (3) 글쓰기 모드(W) : Write Mode
   // (4) 수정 모드(M) : Modify Mode (삭제포함)
+
   // [3] 검색어 저장변수 : 배열 [기준,검색어]
   const [keyword, setKeyword] = useState(["", ""]);
   console.log("[기준,키워드]", keyword);
+
+  // [4] 정렬기준값 상태변수 : 값(asc(1) / desc(-1))
+  const [sort, setSort] = useState(1);
+  //ㄴ> 기존 셋팅값에 1을 곱하면 원래값, -1을 곱하면 반대값 셋팅
+
+  // [5] 정렬 항목값 상태변수 : 값 idx / tit)
+  const [sortCta, setSortCta] = useState("idx");
 
   // [ 참조변수 ] ///
   // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로!
@@ -101,8 +109,21 @@ export default function Board() {
     totalCount.current = orgData.length;
 
     // 2. 정렬 적용하기 : 내림차순
+    // sort값 = 1이냐? desc(현재상태유지)
+    // sort값 = -1 이냐? asc(부호반대변경)
+    // 정렬항목은 sortCta 값을 따름 (idx /tit))
+
+    //idx 정렬항목일 경우만 Number()처리함수 
+const chgVal = x => sortCta == "idx" 
+//idx => 숫자형으로 넘겨라
+? Number(x[sortCta]):
+//"tit" => 문자형이고 소문자로 비교
+x[sortCta].toLowerCase();
+
     orgData.sort((a, b) =>
-      Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
+     chgVal(a) >chgVal(b) ?
+       -1 * sort :chgVal(a)
+       <chgVal(b) ? 1 * sort : 0
     );
 
     // 3. 일부 데이터만 선택
@@ -377,6 +398,11 @@ export default function Board() {
             pgPgNum={pgPgNum}
             pgPgSize={pgPgSize}
             setKeyword={setKeyword}
+            sort = {sort}
+            setSort = {setSort}
+            sortCta = {sortCta}
+            setSortCta = {setSortCta}
+            keyword = {keyword}
           />
         )
       }
@@ -469,7 +495,13 @@ const ListMode = ({
   setPageNum,
   pgPgNum,
   pgPgSize,
+  keyword,
   setKeyword,
+  sort,
+  setSort,
+  sortCta,
+  setSortCta
+
 }) => {
   /******************************************* 
     [ 전달변수 ] - 2~5까지 4개는 페이징전달변수
@@ -478,6 +510,13 @@ const ListMode = ({
     3. unitSize : 게시판 리스트 당 레코드 개수
     4. pageNum : 현재 페이지번호
     5. setPageNum : 현재 페이지번호 변경 메서드
+    6.  pgPgSize: 페이징의 페이지 크기
+    7.  setKeyword: 검색어
+    8. keyword : 검색어
+    9.  sort: 정렬기준
+    10.  setSort: 정렬기준 셋팅
+    11.  sortCta : 정렬항목
+    12.  setSortCt: 정렬항목 셋팅
   *******************************************/
 
   // 코드리턴구역 //////////////////////
@@ -489,16 +528,28 @@ const ListMode = ({
           <option value="cont">Contents</option>
           <option value="unm">Writer</option>
         </select>
-        <select name="sel" id="sel" className="sel">
-          <option value="0">Descending</option>
-          <option value="1">Ascending</option>
+        
+        <select name="sel" id="sel" className="sel"
+        onChange={()=>setSort(sort*-1)}
+        >
+          <option value="0" selected={sort==1?true:false}>
+            Descending</option>
+          <option value="1" selected={sort== -1?false:true}>
+            Ascending</option>
         </select>
-        <input id="stxt" type="text" maxLength="50" />
+        <input id="stxt" type="text" maxLength="50"
+        onKeyUp={(e)=>{
+          // console.log(e.key,e.keyCode)
+          //e.keycode = 번호, 13번이 enter
+          //e.key = 문자로 Enter가 엔터
+          if(e.key == "Enter")$(e.currentTarget).next().trigger("click")}}
+        />
+ 
         <button
           className="sbtn"
           onClick={(e) => {
-            // 검색기준값 읽어오기
-            let creteria = $(e.target).siblings(".cta").val();
+            // 검색기준값 읽어오기 input이니까 val("")
+            let creteria = $(e.target).siblings(".cta").val("");
             console.log("기준값:", creteria);
             // 검색어 읽어오기
             let txt = $(e.target).prev().val();
@@ -521,6 +572,37 @@ const ListMode = ({
         >
           Search
         </button>
+        {
+          //검색결과가 있는 경우 전체 리스트 돌아가기 버튼
+
+          keyword[0] !== '' && 
+          <button className="back-total-list"
+          onClick={(e)=>{
+            //검색어 초기화
+            setKeyword(['','']);
+            //검색어 삭제
+            $(e.currentTarget).siblings("#stxt").empty();
+            //검색항목 초기화
+            $(e.currentTarget).siblings("#cta").val("tit");
+            //정렬초기화
+            setSort(1);
+            //정렬항목 초기화
+            setSortCta("idx");
+            //첫페이지 번호 변경
+            setPageNum(1);
+          }}
+          >
+            back to total list
+          </button>
+        }
+        {/* 정렬 기준 선택박스 */}
+        <select name="sort_cta" id="sort_cta" className="sort_cta"
+        style={{float: 'right', translate: "0 5px"}}
+        onChange={(e)=>{setSortCta(e.currentTarget.value)}}
+        >
+          <option value="idx" selected={sortCta=="idx"?true:false}>Recent</option>
+          <option value="tit" selected={sortCta=="tit"?true:false}>Title</option>
+        </select>
       </div>
       <table className="dtbl" id="board">
         <thead>
