@@ -537,6 +537,8 @@ const ListMode = ({
           <tr>
             <td colSpan="5" className="paging">
               {
+
+                totalCount.current > 0 &&
                 <PagingList
                   totalCount={totalCount}
                   unitSize={unitSize}
