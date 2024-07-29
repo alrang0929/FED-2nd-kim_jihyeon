@@ -129,7 +129,7 @@ __________________________________________________
 1. Wrap with Abbribiation (약어로 태그 감싸기)
 -> ctrl+alt+A (A는 Abbribiation 약어)
 
-2. Upate Tag (기존태그 변경하기)
+2. Update Tag (기존태그 변경하기)
 -> ctrl+alt+U (U는 Update)
 
 3. Remove Tag(감싼태그 지우기)
