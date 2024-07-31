@@ -1,5 +1,5 @@
 // 오피니언 페이지 컴포넌트 ///
-import { Fragment, useContext, useReducer, useRef, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 
 // 사용자 기본정보 생성 함수
 // import { initData } from "../func/mem_fn";
@@ -20,8 +20,9 @@ import "../../css/board_file.scss";
 import { initBoardData } from "../func/board_fn";
 import { dCon } from "../modules/dCon";
 
-// 엑시오스 가져오기 : 파일전송 요청용
+//엑시오스 가져오기 : 파일 전송 요청용
 import axios from "axios";
+/////////////////////import /////////////////////////////////////////////////////
 
 export default function Board() {
   // 컨텍스트 사용하기
@@ -83,105 +84,6 @@ export default function Board() {
   const unitSize = 4;
   // 페이징의 페이징 개수 : 한번에 보여줄 페이징개수
   const pgPgSize = 3;
-
-
-  // 검색 기능을 위한 리듀서 함수 ////
-  const reducerFn = (gval, action) => {
-    // gval - 지가 벨류레...의 줄임말...
-    // -> 리듀서변수가 들어옴 (왜 들어와???)
-    // 기존값을 활용하여 업데이트 하기 위해 들어옴!
-    console.log("지발:",gval);
-
-    // 1. 구조분해 할당으로 객체의 배열값 받기
-    const [ key, ele ] = action.type;
-    // 배열값 구조 : [구분문자열, 이벤트발생대상요소]
-    // action.type은 리듀서 호출시 보낸 객체값(배열임!)
-    console.log("key:",key, "\nele:",ele);
-    // 2. key값에 따라 분기하기 
-    switch (key) {
-      // (1) 검색일 경우 실행코드
-      case "search":
-        {
-          // 검색기준값 읽어오기
-          let creteria = $(ele).siblings(".cta").val();
-          console.log("기준값:", creteria);
-          // 검색어 읽어오기
-          let txt = $(ele).prev().val();
-          console.log(typeof txt, "/검색어:", txt);
-          // input값은 안쓰면 빈스트링이 넘어옴!
-          if (txt != "") {
-            console.log("검색해!");
-            // [검색기준,검색어] -> setKeyword 업데이트
-            setKeyword([creteria, txt]);
-            // 검색후엔 첫페이지로 보내기
-            setPageNum(1);
-            // 검색후엔 페이지의 페이징 번호 초기화(1)
-            pgPgNum.current = 1;
-          }
-          // 빈값일 경우
-          else {
-            alert("Please enter a keyword!");
-          }
-          // 리턴코드값은 리듀서 변수에 할당!
-          return gval+(gval!=''?"*":"")+txt;
-        }
-        // (2) 전체리스트 돌아기기 실행코드
-        case "back" : 
-        {
-          // 검색어 초기화
-          setKeyword(["", ""]);
-          // 검색어삭제(input이니까 val())
-          $(ele).siblings("#stxt").val("");
-          // 검색항목초기화
-          $(ele).siblings("#cta").val("tit");
-          // 정렬초기화
-          setSort(1);
-          // 정렬항목초기화
-          setSortCta("idx");
-          // 첫페이지번호변경
-          setPageNum(1);
-        }
-        // 리턴코드값은 리듀서 변수에 할당!
-        return gval;
-    }
-
-  };
-
-  // 검색기능 지원 후크 리듀서 : useReducer
-  const [memory, dispach] = useReducer(reducerFn, '');
-
-  /*********************************************** 
- * [ 리듀서 후크 : useReducer ]
- * 복잡한 리액트 변수값/코드 처리를 해주는 후크
- *******************************************
-function 리듀서함수(리듀서변수, 호출때보낸객체) {
-  switch (호출때보낸객체.type) {
-    case 값1:
-      처리코드;
-      return 처리값;
-    case 값2:
-      처리코드;
-      return 처리값;
-    default:
-      처리코드;
-      return 처리값;
-  }
-}
-
-function 컴포넌트() {
-  const [리듀서변수, 호출메서드] = 
-  useReducer(리듀서함수, 리듀서변수초기값);
-
-  return(
-    <요소 on이벤트={()=>{
-      호출메서드({ type: 값 });      
-    } />
-  );
-} ///// 컴포넌트끝 ///////
-
-
-
-
 
   /********************************************** 
         함수명: bindList
@@ -404,7 +306,7 @@ function 컴포넌트() {
       let maxNum = Math.max(...arrIdx);
       // console.log(maxNum);
 
-      // 파일업데이트 정보찍기
+      //파일 업데이트 정보 찍기
       console.log(uploadFile.current);
 
       // 3. 입력 데이터 객체형식으로 구성하기 ////
@@ -420,7 +322,7 @@ function 컴포넌트() {
       };
       // console.log("글쓰기 서브밋:",data);
 
-      // 파일전송 실패상태변수
+      //파일전송 실패상태변수
       let isFail = false;
 
       // [선택파일 서버전송]
@@ -440,7 +342,8 @@ function 컴포넌트() {
         // server.js에 서버에서 post방식으로 전송받는
         // 셋팅이 익스프레스에서 되어 있어야함!
         // 첫번째 셋팅값 전송url에는 서버에 셋팅된
-        // 포스트 방식 전송명인 /xxx를 하위경로에 써준다!
+        // path값과 같은 upload라는 하위 경로를 써준다!
+        // 포스트 형식 정송명인 /xxx를 하위경로로 써준다!
         axios
           .post("http://localhost:8080/xxx", formData)
           .then((res) => {
@@ -451,7 +354,7 @@ function 컴포넌트() {
           .catch((err) => {
             // err은 에러발생시 에러정보 변수
             console.log("에러발생:", err);
-            // 실패 했으므로 업로드 실패상태 변수업데이트
+            //실패했으므로 업로드 실패상태 변수 업데이트
             isFail = true;
           });
 
@@ -459,12 +362,15 @@ function 컴포넌트() {
         uploadFile.current = null;
       } ///////////////// if ///////////////
 
-      // 파일업로드 실패시 아래 코드는 실행하지 않음!
-      // 즉, DB 에 입력하지 않는다!
+      //상단 if 문에서 에러가 났으면 isFail을 true값으로 변경
+      //ㄴ> isFail = ture 값이 리턴 > 아래 단독 if 문에서 조건문에 걸려 에러처리
+
+      //파일 업로드 실패시 아래 코드는 실행하지 않음
+      //즉 DB에 입력하지 않는다!
       if (isFail) {
-        alert("파일전송에 실패하였습니다~!!!");
+        alert("파일 전송에 실패하였습니다!");
         return;
-      } /////// if //////////
+      } /////////if
 
       // 4. 로컬스에 입력하기 //////
       // (1) 로컬스 파싱
@@ -565,8 +471,6 @@ function 컴포넌트() {
             setSort={setSort}
             sortCta={sortCta}
             setSortCta={setSortCta}
-            dispach={dispach}
-            memory={memory}
           />
         )
       }
@@ -667,8 +571,6 @@ const ListMode = ({
   setSort,
   sortCta,
   setSortCta,
-  dispach,
-  memory,
 }) => {
   /******************************************* 
     [ 전달변수 ] - 2~5까지 4개는 페이징전달변수
@@ -702,7 +604,7 @@ const ListMode = ({
           id="sel"
           className="sel"
           onChange={() => setSort(sort * -1)}
-          value={sort == 1 ? "0" : "1"}
+          value={sort == 1 ? 0 : 1}
         >
           <option value="0">Descending</option>
           <option value="1">Ascending</option>
@@ -723,10 +625,26 @@ const ListMode = ({
         <button
           className="sbtn"
           onClick={(e) => {
-            // 리듀서 메서드 호출
-            dispach({type:["search",e.target]});
-            // 보낼값구성 : [구분문자열, 이벤트발생요소]
-
+            // 검색기준값 읽어오기
+            let creteria = $(e.target).siblings(".cta").val();
+            console.log("기준값:", creteria);
+            // 검색어 읽어오기
+            let txt = $(e.target).prev().val();
+            console.log(typeof txt, "/검색어:", txt);
+            // input값은 안쓰면 빈스트링이 넘어옴!
+            if (txt != "") {
+              console.log("검색해!");
+              // [검색기준,검색어] -> setKeyword 업데이트
+              setKeyword([creteria, txt]);
+              // 검색후엔 첫페이지로 보내기
+              setPageNum(1);
+              // 검색후엔 페이지의 페이징 번호 초기화(1)
+              pgPgNum.current = 1;
+            }
+            // 빈값일 경우
+            else {
+              alert("Please enter a keyword!");
+            }
           }}
         >
           Search
@@ -737,9 +655,18 @@ const ListMode = ({
             <button
               className="back-total-list"
               onClick={(e) => {
-                // 리듀서 메서드 호출
-                dispach({type:["back",e.target]});
-                // 보낼값구성 : [구분문자열, 이벤트발생요소]
+                // 검색어 초기화
+                setKeyword(["", ""]);
+                // 검색어삭제(input이니까 val())
+                $(e.currentTarget).siblings("#stxt").val("");
+                // 검색항목초기화
+                $(e.currentTarget).siblings("#cta").val("tit");
+                // 정렬초기화
+                setSort(1);
+                // 정렬항목초기화
+                setSortCta("idx");
+                // 첫페이지번호변경
+                setPageNum(1);
               }}
             >
               Back to Total List
@@ -759,7 +686,6 @@ const ListMode = ({
           <option value="idx">Recent</option>
           <option value="tit">Title</option>
         </select>
-        <b>{memory}</b>
       </div>
       <table className="dtbl" id="board">
         <thead>
@@ -875,7 +801,7 @@ const ReadMode = ({ selRecord, sts }) => {
     localStorage.setItem("board-data", JSON.stringify(bdData));
   } /// if : (!isRec) ///
 
-  // 이미지 미리보기 대상 이미지 확장자 배열변수
+  // 이미지 미리보기 확장자 배수변수
   const imgExt = ["jpg", "png", "gif"];
 
   /////// 코드리턴 구역 ///////////
@@ -924,7 +850,7 @@ const ReadMode = ({ selRecord, sts }) => {
             <td>Attachment</td>
             <td>
               {
-                // 첨부파일 데이터가 빈값이 아닐때만 출력!
+                //첨부파일 데이터가 빈값이 아닐 경우만 출력
                 data.att != "" && (
                   <>
                     <a
@@ -1030,7 +956,7 @@ const ModifyMode = ({ selRecord }) => {
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
 
-  // 이미지 미리보기 대상 이미지 확장자 배열변수
+  //이미지 파일이름 확장자
   const imgExt = ["jpg", "png", "gif"];
 
   return (
@@ -1076,7 +1002,7 @@ const ModifyMode = ({ selRecord }) => {
             <td>Attachment</td>
             <td>
               {
-                // 첨부파일 데이터가 빈값이 아닐때만 출력!
+                //첨부파일 데이터가 빈값이 아닐 경우만 출력
                 data.att != "" && (
                   <>
                     <a
