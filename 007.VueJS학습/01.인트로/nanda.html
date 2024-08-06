@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue JS 기본구현 연습 : NANDA STYLE</title>
-
+    <title>뷰JS 기본구현 연습</title>
     <!-- 메인 CSS -->
     <link rel="stylesheet" href="./css/nanda.css" />
     <!-- 뷰JS 스탠드얼론 버전 가져오기! -->
@@ -20,28 +19,44 @@
     <script src="./js/nanda.js" defer></script>
   </head>
   <body>
-    <!-- vue js 대상 요소는 하나! -->
+    <!-- 뷰JS 대상요소는 하나! -->
     <div id="vue-app">
-      <!-- 원래는 컴포넌트 구성 해야됨! 여기선 연습용으로 태그 구성1 -->
-      <!-- 1. 타이틀 로그 파트 -->
+      <!-- 원래는 컴포넌트 구성하지만
+        여기서는 연습용으로 태그를 직접구성함! -->
+
+      <!-- 1. 타이틀 로고 파트 -->
       <section class="part">
-        <!-- 1-1. 샵명 -->
-        <!-- v-text : 텍스트 출력 속성 -->
+        <!-- 1-1.샵명 -->
         <h1 class="tit" v-text="bigTit"></h1>
-        <!-- 1-2. 로고 -->
-        <!-- v-html 디렉티브 : xorm cnffurthrtjd -->
+        <!-- v-text 디렉티브 : 텍스트출력속성 -->
+
+        <!-- 1-2.로고 -->
         <div class="logo" v-html="logo"></div>
+        <!-- v-html 디렉티브 : 태그출력속성 -->
       </section>
+
       <!-- 2. 배너파트 -->
-      <section class="part"></section>
-      <!-- 3. 상품 리스트 파트 -->
-      <section class="part"></section>
+      <section class="part">
+        <p class="banner" v-html="content"></p>
+        <!-- v-html 디렉티브 : 태그출력속성 -->
+      </section>
+
+      <!-- 3. 상품리스트파트 -->
+      <section class="part gwrap">
+        <ol class="glist" v-for="(item,idx) in itemData">
+          <li>
+            <div v-html="makeImg(item.img)"></div>
+            <div>item:{{item.name}}</div>
+            <div>price:￦{{addCommas(item.price)}}</div>
+          </li>
+        </ol>
+      </section>
     </div>
     <!-- 
-    기본구성: 3단구성
-    1. 타이틀 로그 파트
-    2. 배너 파트
-    3. 상품리스트 파트
-   -->
+        기본구성 : 3단구성
+        1. 타이틀 로고 파트
+        2. 배너파트
+        3. 상품리스트파트
+     -->
   </body>
 </html>
