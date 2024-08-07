@@ -1,4 +1,4 @@
-//01 컴포넌트연습1 - comp1.js
+//02 컴포넌트연습1 - props down 부모변수를 자식에게 전달!!
 
 //vue js 인스턴스 생성용 함수
 const makeVue = (x) => new Vue({ el: x });
@@ -44,6 +44,22 @@ Vue.component("list-comp", {
     </aside>
 </div>
 `, //텝플릿
+
+  // [상위 컴포넌트 전달변수 설정속성: props]
+  props:["list-num","my-seq","end-let"],
+
+  //배열은 상정한 변수를 문자형으로 나열만 하면 되고 만약 각 변수의 데이터 타입을 트정하고있으면
+
+//   props:{
+//     "list-num":Number,
+//     "my-seq":Number,
+//     "end-let":String
+// },
+  //이 변수를 사용할떄는 케몰케이스 변수로 사용!
+  //"list-num" -> this.listNum
+  //ㄴ> 내부용 변수이므로 this 키워드 반드시 사용!!
+
+
   //2-2 data 옵션: 컴포넌트 내부 변수셋팅
   //실행원리: 컴포넌트가 빌드할 때 data 속성의 함수를 호출한다!
   // 그래서 함수에 retrun 되는 객체 값이 컴포넌트 내부에 전달된다!
@@ -53,9 +69,9 @@ Vue.component("list-comp", {
     //객체리턴 필수!!!!!중요!!!!!!!!!!
     return {
       //이미지 src
-      gsrc: `./images/${this.setNum()}.jpg`,
+      gsrc: `./images/${this.listNum}.jpg`,
       //상품명: gname
-      gname: this.setname(),
+      gname: this.setname()+" "+this.endLet+this.mySeq,
       //상품가격: gprice
       gprice: this.setPrice(),
     };
@@ -93,11 +109,19 @@ Vue.component("ifr-comp",{
     `, //template
 
     //3-2 data옵션
+    props: ["mv-code"],
     data(){
         return{
-            ifrSrc: "https://www.youtube.com/embed/ZH1Y1l1OmTY?autoplay=1&mute=1&loop=1&playlist=ZH1Y1l1OmTY",
+          ifrSrc: this.getItframeSrc(this.mvCode),
         };
     },//data
+    //3-3 methods
+    methods:{
+      //동영상 정보 리턴함수
+      getItframeSrc(code){ //동영상코드
+        return `https://www.youtube.com/embed/${code}?autoplay=1&mute=1&loop=1&playlist=${code}`;
+      },
+    },
 });
 //뷰인스턴스 생성하기 : 유튜브 동영상 컴포넌트
 makeVue(".you-box");

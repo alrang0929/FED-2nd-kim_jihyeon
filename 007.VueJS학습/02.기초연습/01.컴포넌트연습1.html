@@ -24,14 +24,20 @@
     </h1>
         <!-- 유튜브 동영상박스 -->
         <div class="you-box">
+            <ifr-comp></ifr-comp>
+            <ifr-comp></ifr-comp>
     </div>
     
         <!-- 2.그리드 레이아웃 박스 -->
         <div class="grid">
+            <!-- v-for 숫자 늘리기 -->
+        <list-comp v-for="(n,i) in 50"></list-comp>
     </div>
         <!-- 3.하단정보 -->
         <div class="tit2">
             <!-- 하단정보 컴포넌트 -->
+            <footer-comp></footer-comp>
+          
         </div>
 </body>
 </html>
