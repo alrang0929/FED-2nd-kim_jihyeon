@@ -37,13 +37,28 @@ Vue.component("list-comp", {
 
   template: `
 <div>
-    <img v-bind:src="gsrc" alt="gname">
+    <img 
+    v-bind:src="gsrc" 
+    v-on:click="goPapa('나야나!')"
+    v-on:mouseover="goMama({이름:'김고은', 나이:'34'})"
+    alt="gname"
+    >
     <aside>
         <h2 v-text="gname"></h2>
         <h3 v-text="gprice"></h3>
     </aside>
 </div>
-`, //텝플릿
+`, //template: 자식 컴포넌트에서 부모 컴포넌트의 메소드를 바로 호출 할 수 없다!
+/* 
+
+따라서 자신의 메서드를 만들고 그곳에서 호출방식에 따라 부모를 호출한다
+v-on:hull="goMsg" 
+내가 만든 이벤트를 부모 메서드 호출
+이것을 어디서 연결하나?
+내 함수에서 this.$emit("hull",전달값) 
+
+*/
+
 
   // [상위 컴포넌트 전달변수 설정속성: props]
   props:["list-num","my-seq","end-let"],
@@ -96,9 +111,53 @@ Vue.component("list-comp", {
     addCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
+    //5) 부모 컴포넌트 메서드 호출을 위한 함수
+    goPapa(txt){
+      console.log("내꺼니까 호출가능",txt,this);
+      //부모 메서드 바로 호출 불가
+      // goMsg(txt);
+
+      this.$emit('hull',txt);
+      
+
+      //따라서 아래 방법을 쓴다
+      //[[부모 메서드 호출방법]]
+      // this.$emit(생성이벤트명,전달값)
+      // ㄴ> 생성이벤트명: 내가 만든 이벤트명으로 서브 컴포넌트 태그에 이벤트를 등록하여 호출하는 방식!
+      // 아래와 같이 click 이벤트가 아니고
+      //<list-app v-on:click="함수명"></list-app>
+      //  아래와 같이 내가 만든 이벤트 명이다
+      //<list-app v-on:hull="함수명"></list-app>
+      // ㄴ> 이벤트 명을 만든 이유는? 이 이벤트 명으로 특정한 일을 해주기 위함이다!
+      //여기서 특정한 일은?? 부모함수 호출!!
+
+    },
+    // 6) 부모메서드 호출함수 하나 더 
+    goMama(pm){
+      this.$emit('oh-my-gotkimchi',pm);
+      console.log("갓김치 호출함수",pm);
+    }
   },
 }); ///component ///////////////////
-makeVue(".grid");
+// makeVue(".grid");
+
+//list comp라는 자식 컴포넌트의 부모
+new Vue({
+//1. 대상
+el:".grid",
+//2. 메서드
+methods:{
+  //자식 이벤트 전달 후 실행 메서드
+  goMsg(txt){
+    alert("자식이 부모에게 이벤트 전달 성공!"+txt);
+  },
+  //자식 컴포넌트의 오버 이벤트가 전달되어 호출하는 메서드
+  overMsg(pm){
+    //pm = 전달받을 객체값{이름:"어쩌구", 나이:"저쩌구"}
+    console.log("오마이갓김치",pm.이름,pm.나이);
+  },
+},
+});
 
 // 3. 유튜브 동영상 컴포넌트 만들기
 Vue.component("ifr-comp",{

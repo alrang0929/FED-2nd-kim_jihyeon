@@ -124,9 +124,8 @@ export default function Board() {
         return( 
           //숙제: *문자열이 있으면 스플릿으로 잘라서 배열로 만들고 배열값 중 현재 입력된 txt가 배열중에 없으면 새로 등록하고 있으면 등록하지 않는다를 코드로 작성할것
           //힌트1: 등록 않는다라는 gval만 넣으면 됨!
-          //힌트2: 배열값 중 단순 비교는 inculds 사용
-        (gval.indexOf("*")== -1&&)?
-        (gval + (gval != "" ? "*" : "") + txt)
+          //힌트2: 배열값 중 단순 비교는 includs 사용
+          gval.includes(split("*")) == 0 ? "" : (gval + (gval != "" ? "*" : "") + txt)
         );
       }
       // (2) 전체리스트 돌아기기 실행코드
