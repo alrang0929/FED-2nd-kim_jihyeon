@@ -106,7 +106,7 @@
         [5] 라우터 설치여부 : n으로 선택안함(나중쓸때설치)
             ? Install vue-router? (Y/n) => n 선택후 엔터!
 
-        [6] ESLint 설치여부 : n으로 선택안함
+        [6] ESLint(에러필터링) 설치여부 : n으로 선택안함
             ? Use ESLint to lint your code? (Y/n) => n 선택후 엔터!
         
         [7] 자동테스트 도구 설치여부 : n으로 선택안함

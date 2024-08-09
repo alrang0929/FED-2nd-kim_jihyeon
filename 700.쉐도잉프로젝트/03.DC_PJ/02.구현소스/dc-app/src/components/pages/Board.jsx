@@ -124,8 +124,12 @@ export default function Board() {
         return( 
           //숙제: *문자열이 있으면 스플릿으로 잘라서 배열로 만들고 배열값 중 현재 입력된 txt가 배열중에 없으면 새로 등록하고 있으면 등록하지 않는다를 코드로 작성할것
           //힌트1: 등록 않는다라는 gval만 넣으면 됨!
-          //힌트2: 배열값 중 단순 비교는 includs 사용
-          gval.includes(split("*")) == 0 ? "" : (gval + (gval != "" ? "*" : "") + txt)
+          //힌트2: 배열값 중 단순 비교는 incuds 사용
+          gval.indexOf("*")!==-1
+          ? gval.split("*").includes(txt)
+          ? gval
+          : gval + (gval != "" ? "*" : "") + txt
+          : gval + (gval != "" ? "*" : "") + txt
         );
       }
       // (2) 전체리스트 돌아기기 실행코드
@@ -793,9 +797,18 @@ const ListMode = ({
         </select>
         <button style={{ position: "relative" }}>
           History
-          <ol 
-          style={
-            {position:"absolute",lineHeight:"1.7"}}>
+          <ol
+            style={{
+              position: "absolute",
+              lineHeight: "1.7",
+              padding: "5px 15px",
+              border: "1px solid gray",
+              borderRadius: "10px",
+              backgroundColor: "#f8f8ffcc",
+              display: "none",
+            }}
+            onMouseLeave={(e)=>{e.currentTarget.hide()}}
+          >
           {
             memory.indexOf("*")!==-1 &&
             memory.split("*").map(
